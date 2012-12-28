@@ -1,0 +1,30 @@
+<div id="container" class="default7">
+  <div class="container clearfix" ng-app="Dashboard" ng-controller="DashboardCtrl">
+
+    <section class="section">
+      <div class="row">
+        <div class="width width-780 first">
+          <div class="module white-shadow-block">
+
+            <div id="tabs">
+              <ul class="menu" view-tabs>
+                <li title="the_beat" view-tab-link><a href="#the_beat">The Beat</a></li>
+                <li title="game_schedule" view-tab-link><a href="#game_schedule">Game Schedule</a></li>
+                <li title="profile_completion" view-tab-link><a href="#profile_completion">Profile Completion</a></li>
+                <li title="account_info" view-tab-link><a href="#account_info">Account Info</a></li>
+                <li title="profile_info" view-tab-link><a href="#profile_info">Profile Info</a></li>
+                <li title="groups" view-tab-link><a href="#groups">Groups</a></li>
+              </ul>
+
+              <div class="tab">
+                <div ng-view></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

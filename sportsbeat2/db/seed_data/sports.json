@@ -1,0 +1,102 @@
+[
+  {
+    "gender_code": "mw",
+    "id": 1,
+    "name": "Band"
+  },
+  {
+    "gender_code": "m",
+    "id": 2,
+    "name": "Baseball"
+  },
+  {
+    "gender_code": "m,w",
+    "id": 3,
+    "name": "Basketball"
+  },
+  {
+    "gender_code": "mw",
+    "id": 4,
+    "name": "Cheer / Pep Squad"
+  },
+  {
+    "gender_code": "mw",
+    "id": 5,
+    "name": "Cross Country"
+  },
+  {
+    "gender_code": "mw",
+    "id": 6,
+    "name": "Field Hockey"
+  },
+  {
+    "gender_code": "mw",
+    "id": 7,
+    "name": "Football"
+  },
+  {
+    "gender_code": "m,w",
+    "id": 8,
+    "name": "Golf"
+  },
+  {
+    "gender_code": "m,w",
+    "id": 9,
+    "name": "Hockey"
+  },
+  {
+    "gender_code": "m,w",
+    "id": 10,
+    "name": "Lacrosse"
+  },
+  {
+    "gender_code": "mw",
+    "id": 11,
+    "name": "Rugby"
+  },
+  {
+    "gender_code": "m,w",
+    "id": 12,
+    "name": "Soccer"
+  },
+  {
+    "gender_code": "w",
+    "id": 13,
+    "name": "Softball"
+  },
+  {
+    "gender_code": "mw",
+    "id": 14,
+    "name": "Surfing"
+  },
+  {
+    "gender_code": "mw",
+    "id": 15,
+    "name": "Swimming & Diving"
+  },
+  {
+    "gender_code": "mw",
+    "id": 16,
+    "name": "Tennis"
+  },
+  {
+    "gender_code": "mw",
+    "id": 17,
+    "name": "Track & Field"
+  },
+  {
+    "gender_code": "m,w",
+    "id": 18,
+    "name": "Volleyball"
+  },
+  {
+    "gender_code": "m,w",
+    "id": 19,
+    "name": "Water Polo"
+  },
+  {
+    "gender_code": "m",
+    "id": 20,
+    "name": "Wrestling"
+  }
+]

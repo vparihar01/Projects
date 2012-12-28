@@ -1,0 +1,19 @@
+<html>
+ <head>
+ <title>Red5 Demo - Simple Broadcaster</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ <<div id="mediaspace">
+	This will be replaced
+</div>
+<script type="text/javascript">
+	var so = new SWFObject('/simpleBroadcaster.swf', 'mpl', '600', '400', '9');
+	so.addParam('allowfullscreen', 'true');
+	so.addParam('allowscriptaccess', 'always');
+	so.addParam('wmode', 'opaque');
+	so.addVariable('file=red5RecordDemo23616.flv&streamer=rtmp://192.168.1.81/oflaDemo');
+	so.addVariable('streamer', 'rtmp://192.168.1.81/oflaDemo');
+	so.write('mediaspace'); 
+</script>
+ </body>
+</html>
+

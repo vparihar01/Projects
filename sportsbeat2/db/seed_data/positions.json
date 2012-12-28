@@ -1,0 +1,620 @@
+[
+  {
+    "abbrev": "C",
+    "id": 1,
+    "name": "Catcher",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "1B",
+    "id": 2,
+    "name": "First Base",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "2B",
+    "id": 3,
+    "name": "Second Base",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "3B",
+    "id": 4,
+    "name": "Third Base",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "SS",
+    "id": 5,
+    "name": "Short Stop",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "OF",
+    "id": 6,
+    "name": "Outfield",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "RF",
+    "id": 7,
+    "name": "Right Field",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "CF",
+    "id": 8,
+    "name": "Center Field",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "LF",
+    "id": 9,
+    "name": "Left Field",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "SP",
+    "id": 10,
+    "name": "Starting Pitcher",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "RP",
+    "id": 11,
+    "name": "Relief Pitcher",
+    "sport_id": 2
+  },
+  {
+    "abbrev": "PG",
+    "id": 12,
+    "name": "Point Guard",
+    "sport_id": 3
+  },
+  {
+    "abbrev": "SG",
+    "id": 13,
+    "name": "Shooting Guard",
+    "sport_id": 3
+  },
+  {
+    "abbrev": "SF",
+    "id": 14,
+    "name": "Small Forward",
+    "sport_id": 3
+  },
+  {
+    "abbrev": "PF",
+    "id": 15,
+    "name": "Power Forward",
+    "sport_id": 3
+  },
+  {
+    "abbrev": "C",
+    "id": 16,
+    "name": "Center",
+    "sport_id": 3
+  },
+  {
+    "abbrev": null,
+    "id": 17,
+    "name": "Flyer",
+    "sport_id": 4
+  },
+  {
+    "abbrev": null,
+    "id": 18,
+    "name": "Base",
+    "sport_id": 4
+  },
+  {
+    "abbrev": null,
+    "id": 19,
+    "name": "Spotter",
+    "sport_id": 4
+  },
+  {
+    "abbrev": null,
+    "id": 20,
+    "name": "Dance",
+    "sport_id": 4
+  },
+  {
+    "abbrev": null,
+    "id": 21,
+    "name": "Mascot",
+    "sport_id": 4
+  },
+  {
+    "abbrev": "FL",
+    "id": 22,
+    "name": "Front Line",
+    "sport_id": 6
+  },
+  {
+    "abbrev": "HB",
+    "id": 23,
+    "name": "Half Back",
+    "sport_id": 6
+  },
+  {
+    "abbrev": "FB",
+    "id": 24,
+    "name": "Full Back",
+    "sport_id": 6
+  },
+  {
+    "abbrev": "S",
+    "id": 25,
+    "name": "Sweeper",
+    "sport_id": 6
+  },
+  {
+    "abbrev": "G",
+    "id": 26,
+    "name": "Goalie",
+    "sport_id": 6
+  },
+  {
+    "abbrev": "QB",
+    "id": 27,
+    "name": "Quarterback",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "RB",
+    "id": 28,
+    "name": "Running Back",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "FB",
+    "id": 29,
+    "name": "Full Back",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "WR",
+    "id": 30,
+    "name": "Wide Receiver",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "TE",
+    "id": 31,
+    "name": "Tight End",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "OT",
+    "id": 32,
+    "name": "Offensive Tackle",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "OG",
+    "id": 33,
+    "name": "Offensive Guard",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "C",
+    "id": 34,
+    "name": "Center",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "DE",
+    "id": 35,
+    "name": "Defensive End",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "DT",
+    "id": 36,
+    "name": "Defensive Tackle",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "NT",
+    "id": 37,
+    "name": "Nose Tackle",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "LB",
+    "id": 38,
+    "name": "Linebacker",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "CB",
+    "id": 39,
+    "name": "Corner Back",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "SS",
+    "id": 40,
+    "name": "Strong Safety",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "FS",
+    "id": 41,
+    "name": "Free Safety",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "P",
+    "id": 42,
+    "name": "Punter",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "K",
+    "id": 43,
+    "name": "Kicker",
+    "sport_id": 7
+  },
+  {
+    "abbrev": "C",
+    "id": 44,
+    "name": "Center",
+    "sport_id": 9
+  },
+  {
+    "abbrev": "RW",
+    "id": 45,
+    "name": "Right Wing",
+    "sport_id": 9
+  },
+  {
+    "abbrev": "LW",
+    "id": 46,
+    "name": "Left Wing",
+    "sport_id": 9
+  },
+  {
+    "abbrev": "D",
+    "id": 47,
+    "name": "Defense",
+    "sport_id": 9
+  },
+  {
+    "abbrev": "G",
+    "id": 48,
+    "name": "Goalie",
+    "sport_id": 9
+  },
+  {
+    "abbrev": "A",
+    "id": 49,
+    "name": "Attack",
+    "sport_id": 10
+  },
+  {
+    "abbrev": "M",
+    "id": 50,
+    "name": "Midfielder",
+    "sport_id": 10
+  },
+  {
+    "abbrev": "D",
+    "id": 51,
+    "name": "Defense",
+    "sport_id": 10
+  },
+  {
+    "abbrev": "G",
+    "id": 52,
+    "name": "Goalie",
+    "sport_id": 10
+  },
+  {
+    "abbrev": "LP",
+    "id": 53,
+    "name": "Loosehead Prop",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "H",
+    "id": 54,
+    "name": "Hooker",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "TP",
+    "id": 55,
+    "name": "Tighthead Prop",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "2R",
+    "id": 56,
+    "name": "Second Row / Locks",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "BF",
+    "id": 57,
+    "name": "Blindside Flanker",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "OF",
+    "id": 58,
+    "name": "Openside Flanker",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "N8",
+    "id": 59,
+    "name": "Number 8",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "SH",
+    "id": 60,
+    "name": "Scrum-Half",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "FH",
+    "id": 61,
+    "name": "Fly-Half",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "LW",
+    "id": 62,
+    "name": "Left Wing",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "IC",
+    "id": 63,
+    "name": "Inside Center",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "OC",
+    "id": 64,
+    "name": "Outside Center",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "RW",
+    "id": 65,
+    "name": "Right Wing",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "FB",
+    "id": 66,
+    "name": "Full-Back",
+    "sport_id": 11
+  },
+  {
+    "abbrev": "S",
+    "id": 67,
+    "name": "Sweeper",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "CF",
+    "id": 68,
+    "name": "Center Fullback",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "LF",
+    "id": 69,
+    "name": "Left Fullback",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "RF",
+    "id": 70,
+    "name": "Right Fullback",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "WB",
+    "id": 71,
+    "name": "Wingback",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "LM",
+    "id": 72,
+    "name": "Left Midfielder",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "RM",
+    "id": 73,
+    "name": "Right Midfielder",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "DM",
+    "id": 74,
+    "name": "Defensive Midfielder",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "CM",
+    "id": 75,
+    "name": "Central Midfielder",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "G",
+    "id": 76,
+    "name": "Goalie",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "SS",
+    "id": 77,
+    "name": "Second Striker",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "CF",
+    "id": 78,
+    "name": "Center Forward",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "OM",
+    "id": 79,
+    "name": "Offensive Midfielder",
+    "sport_id": 12
+  },
+  {
+    "abbrev": "C",
+    "id": 80,
+    "name": "Catcher",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "1B",
+    "id": 81,
+    "name": "First Base",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "2B",
+    "id": 82,
+    "name": "Second Base",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "3B",
+    "id": 83,
+    "name": "Third Base",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "SS",
+    "id": 84,
+    "name": "Short Stop",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "OF",
+    "id": 85,
+    "name": "Outfield",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "RF",
+    "id": 86,
+    "name": "Right Field",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "CF",
+    "id": 87,
+    "name": "Center Field",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "LF",
+    "id": 88,
+    "name": "Left Field",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "SP",
+    "id": 89,
+    "name": "Starting Pitcher",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "RP",
+    "id": 90,
+    "name": "Relief Pitcher",
+    "sport_id": 13
+  },
+  {
+    "abbrev": "DS",
+    "id": 91,
+    "name": "Defensive Specialist",
+    "sport_id": 18
+  },
+  {
+    "abbrev": "L",
+    "id": 92,
+    "name": "Libero",
+    "sport_id": 18
+  },
+  {
+    "abbrev": "MB",
+    "id": 93,
+    "name": "Middle Blocker",
+    "sport_id": 18
+  },
+  {
+    "abbrev": "S",
+    "id": 94,
+    "name": "Setter",
+    "sport_id": 18
+  },
+  {
+    "abbrev": "Opp H",
+    "id": 95,
+    "name": "Opposite Hitter",
+    "sport_id": 18
+  },
+  {
+    "abbrev": "Right H",
+    "id": 96,
+    "name": "Right Side Hitter",
+    "sport_id": 18
+  },
+  {
+    "abbrev": "Out H",
+    "id": 97,
+    "name": "Outside Hitter",
+    "sport_id": 18
+  },
+  {
+    "abbrev": "C",
+    "id": 98,
+    "name": "Center",
+    "sport_id": 19
+  },
+  {
+    "abbrev": "RW",
+    "id": 99,
+    "name": "Right Wing",
+    "sport_id": 19
+  },
+  {
+    "abbrev": "LW",
+    "id": 100,
+    "name": "Left Wing",
+    "sport_id": 19
+  },
+  {
+    "abbrev": "D",
+    "id": 101,
+    "name": "Driver",
+    "sport_id": 19
+  },
+  {
+    "abbrev": "P",
+    "id": 102,
+    "name": "Point",
+    "sport_id": 19
+  },
+  {
+    "abbrev": "G",
+    "id": 103,
+    "name": "Goalie",
+    "sport_id": 19
+  }
+]

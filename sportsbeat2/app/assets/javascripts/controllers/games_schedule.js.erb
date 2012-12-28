@@ -1,0 +1,41 @@
+function GameScheduleCtrl($scope, $element, $attrs, $transclude, $http) {
+  $scope.nearest_url = null
+  $scope.season_url = null;
+  $scope.modal_template_url = "<%= asset_path 'games/new_game_form.html' %>";
+  $scope.team_id = null;
+
+  $scope.games = [];
+  $scope.schools = {};
+  $scope.teams = {};
+
+  $scope.newGame = {};
+
+  $scope.fetch = function(url) {
+    url = url || $scope.url;
+
+    $http({method: 'GET', url: url}).
+      success(function(data, status, headers, config) {
+        $scope.team_id = data.team_id;
+        $scope.nearest_url = data._links.games_nearest.href;
+        $scope.season_url = data._links.games_latest_season.href;
+
+        $scope.games = data._embedded.games;
+        
+        angular.forEach(data._embedded.schools, function(v) {
+          $scope.schools[v.id] = v;
+        });
+
+        angular.forEach(data._embedded.teams, function(v) {
+          $scope.teams[v.id] = v;
+        });
+      });
+  }
+
+  $scope.show_all_games = function() {
+    $scope.url = $scope.season_url;
+    $scope.fetch();
+  }
+
+  $scope.fetch()
+}
+GameScheduleCtrl.$inject = ["$scope", "$element", "$attrs", "$transclude", "$http"];

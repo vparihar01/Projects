@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Video name:</b>
+  <%= @streaming.video_name %>
+</p>
+
+<p>
+  <b>Duration:</b>
+  <%= @streaming.duration %>
+</p>
+
+<p>
+  <b>Length:</b>
+  <%= @streaming.length %>
+</p>
+
+<p>
+  <b>String:</b>
+  <%= @streaming.string %>
+</p>
+
+
+<%= link_to 'Edit', edit_streaming_path(@streaming) %> |
+<%= link_to 'Back', streamings_path %>

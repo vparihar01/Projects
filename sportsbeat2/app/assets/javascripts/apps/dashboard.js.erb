@@ -1,0 +1,15 @@
+var module = angular.module("Dashboard", ["global", "GamesSchedule", "UserProfile"]);
+
+module.config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when("/the_beat", {templateUrl: "<%= asset_path 'profile/feed.html' %>"});
+  $routeProvider.when("/game_schedule", {templateUrl: "<%= asset_path 'games/schedule.html' %>"});
+  $routeProvider.when("/profile_completion", {template: "profile_completion"});
+  $routeProvider.when("/account_info", {template: "account_info"});
+  $routeProvider.when("/profile_info", {template: "profile_info"});
+  $routeProvider.when("/groups", {template: "groups!!!"});
+  $routeProvider.otherwise({redirectTo: "/the_beat"});
+}]);
+
+module.run(function() {
+
+});

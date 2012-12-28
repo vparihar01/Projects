@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "admin"
+  },
+  {
+    "id": 2,
+    "name": "alumnus"
+  },
+  {
+    "id": 3,
+    "name": "athlete"
+  },
+  {
+    "id": 4,
+    "name": "fan"
+  },
+  {
+    "id": 5,
+    "name": "staff"
+  }
+]

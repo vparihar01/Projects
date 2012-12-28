@@ -1,0 +1,3 @@
+class SignupContest < Contest
+
+end

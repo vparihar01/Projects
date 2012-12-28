@@ -1,0 +1,46 @@
+<div ng-app="global" ng-controller="FileUploadExampleCtrl">
+  <form action="/test/upload_video" csrf-tokenized file-uploader>
+    <input type="hidden" name="param1" value="value1" />
+    <input type="file" name="file" multiple="multiple"/>
+  </form>
+
+  <table class="table table-striped">
+    <tr ng-repeat="file in files">
+      <td><button class="close" ng-click="dequeueFile(file)">&times;</button></td>
+      <td>{{ file.files[0].name }}</td>
+
+      <td style="width: 70px">
+        <span ng-show="file.status.ready()">
+          ready
+        </span>
+
+        <span ng-show="file.status.uploading()">
+          uploading
+        </span>
+
+        <span ng-show="file.status.successful()">
+          successful
+        </span>
+
+        <span ng-show="file.status.failed()">
+          failed
+        </span>
+      </td>
+
+      <td style="width: 100px">
+        <div class="progress progress-striped" ng-class="{active:file.status.uploading(), 'progress-danger':file.status.failed()}">
+          <div class="bar"
+               style="width: {{ file.status.percentCompleted() }}%;"></div>
+        </div>
+      </td>
+
+      <td style="width: 25px">
+        <div style="height: 15px; width: 15px;" ng-show="activeUploads> 0 && (file.status.ready() || file.status.uploading())">
+          <img src="<%= asset_path 'loading.gif' %>" />
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <button ng-click="startUploading()">start uploading</button>
+</div>

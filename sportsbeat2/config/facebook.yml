@@ -1,0 +1,19 @@
+development:
+  app_id: '385531558149128'
+  app_secret: '3cf683aec22a2073448aab4f489c9446'
+  scope: 'email,user_birthday,publish_actions'
+
+testing:
+  app_id: '385531558149128'
+  app_secret: '3cf683aec22a2073448aab4f489c9446'
+  scope: 'email,user_birthday,publish_actions'
+
+dreamhost:
+  app_id: '385531558149128'
+  app_secret: '3cf683aec22a2073448aab4f489c9446'
+  scope: 'email,user_birthday,publish_actions'
+
+production:
+  app_id: '385531558149128'
+  app_secret: '3cf683aec22a2073448aab4f489c9446'
+  scope: 'email,user_birthday,publish_actions'

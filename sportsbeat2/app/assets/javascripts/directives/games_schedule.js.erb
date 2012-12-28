@@ -1,0 +1,14 @@
+var module = angular.module("GamesSchedule.directives", []);
+
+module.directive("gameSchedule", function() {
+  return {
+    restrict: "A",
+    replace: false,
+    scope: {
+      url: "=gameSchedule"
+    },
+    controller: GameScheduleCtrl,
+    link: function(scope, elt, attrs, controller) {
+    }
+  };
+});

@@ -1,0 +1,33 @@
+<%= form_for(@streaming) do |f| %>
+  <% if @streaming.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@streaming.errors.count, "error") %> prohibited this streaming from being saved:</h2>
+
+      <ul>
+      <% @streaming.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :video_name %><br />
+    <%= f.text_field :video_name %>
+  </div>
+  <div class="field">
+    <%= f.label :duration %><br />
+    <%= f.text_field :duration %>
+  </div>
+  <div class="field">
+    <%= f.label :length %><br />
+    <%= f.text_field :length %>
+  </div>
+  <div class="field">
+    <%= f.label :string %><br />
+    <%= f.text_field :string %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

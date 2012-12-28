@@ -1,0 +1,35 @@
+<div game-schedule="gameScheduleUrl">
+  <div>
+
+    <ul class="unstyled">
+      <li class="nav-header">
+        Games
+      </li>
+
+      <li ng-repeat="game in games">
+
+        <a href="{{ game._links.self.href }}">
+          <span ng-show="team_id == game.home_team_id">{{ game.display_name_for_home_team }}</span>
+          <span ng-show="team_id == game.away_team_id">{{ game.display_name_for_away_team }}</span>
+        </a>
+
+        {{ game.date }}
+        
+      </li>
+    </ul>
+
+    <button class="btn" ng-click="show_all_games()"><i class="icon-search"></i> Show the Whole Season</button>
+    <button class="btn" ng-click="modalShown=true"><i class="icon-plus"></i> Add a Game to the Schedule</button>
+    
+  </div>
+
+
+  <div ui-modal ng-model="modalShown" style="width: 760px; margin-left: -380px">
+    <div class="modal-header"><h1>Add a Game to the Schedule</h1></div>
+    <div class="modal-body" ng-include src="modal_template_url"></div>
+    <div class="modal-footer">
+      <a class="btn btn-primary" ng-click="modalShown=false">Submit</a>
+      <a class="btn" ng-click="modalShown=false">Cancel</a>
+    </div>
+  </div>
+</div>

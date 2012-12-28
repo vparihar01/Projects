@@ -1,0 +1,32 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ require bootstrap
+ require bootstrap-responsive
+ *= require_self
+ */
+
+html {
+  overflow-y: scroll;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+/* horizontal alignment */
+.txtC, table .txtC, table tr .txtC{text-align:center;}
+.txtL, table .txtL, table tr .txtL{text-align:left;}
+.txtR, table .txtR, table tr .txtR{text-align:right;}
+
+/* vertical alignment */
+.txtT, table .txtT, table tr .txtT{vertical-align:top;}
+.txtB, table .txtB, table tr .txtB{vertical-align:bottom;}
+.txtM, table .txtM, table tr .txtM{vertical-align:middle;}

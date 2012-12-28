@@ -1,0 +1,28 @@
+<div id="container" class="default7">
+  <div class="container clearfix" ng-app="UserProfile" ng-controller="UserProfileCtrl">
+
+
+    <section class="section">
+      <div class="row">
+        <div class="width width-780 first">
+          <div class="module white-shadow-block">
+            <div id="tabs">
+              <ul view-tabs>
+                <li title="one" view-tab-link><a href="#one">Tab One</a></li>
+                <li title="two" view-tab-link><a href="#two">Tab Two</a></li>
+                <li title="three" view-tab-link><a href="#three">Tab Three</a></li>
+              </ul>
+
+              <div class="tab">
+                <div ng-view></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+  </div>
+</div>

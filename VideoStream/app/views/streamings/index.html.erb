@@ -1,0 +1,49 @@
+<h1>Video Streaming ... </h1>
+<script type="text/javascript" src='swfobject.js'></script>
+<div id="mediaspace">
+	This will be replaced
+</div>
+<script type="text/javascript">
+	var so = new SWFObject('/swf/player.swf', 'mpl', '600', '400', '9');
+	so.addParam('allowfullscreen', 'true');
+	so.addParam('allowscriptaccess', 'always');
+	so.addParam('wmode', 'opaque');
+	so.addVariable('file=red5RecordDemo23616.flv&streamer=rtmp://192.168.1.81/oflaDemo');
+	so.addVariable('streamer', 'rtmp://192.168.1.81/oflaDemo');
+	so.write('mediaspace'); 
+</script>
+<%= javascript_include_tag 'swfobject' %>
+<br />
+<table>
+	<tr>
+		<td><%= jw_player("/red5RecordDemo25954.flv",:width => 400, :height => 300) %></td>
+		<td><%= player({:file => "/red5RecordDemo229257.flv", :skin => 'snel'}, {
+		:player_id         => 'jw_player1',
+		:id                => 'flash_player1',
+		:allowfullscreen   => 'true',
+		:allowscriptaccess => 'true',
+		:play              => 'true',
+		:menu              => 'false',
+		:quality           => 'autohigh',
+		:scale             => 'default',
+		:width             => 400,
+		:height            => 300,
+		} ) %></td>
+	</tr>
+	<tr>
+		<td><%= player({:file => "/Ennamo_Yeadho.hi.bye.flv", :skin => 'snel'}, {
+		:player_id         => 'jw_player',
+		:id                => 'flash_player',
+		:allowfullscreen   => 'true',
+		:allowscriptaccess => 'true',
+		:play              => 'true',
+		:menu              => 'false',
+		:quality           => 'autohigh',
+		:scale             => 'default',
+		:width             => 400,
+		:height            => 300,
+		} ) %></td>
+		<td><%= jw_player("/red5RecordDemo23616.flv",:width => 400, :height => 300) %></td>
+	</tr>
+</table>
+

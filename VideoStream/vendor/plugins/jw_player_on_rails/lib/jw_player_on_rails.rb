@@ -1,0 +1,1 @@
+module JwPlayerOnRails; end

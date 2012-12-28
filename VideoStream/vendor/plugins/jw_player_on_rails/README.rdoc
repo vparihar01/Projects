@@ -1,0 +1,28 @@
+=JwPlayerOnRails
+
+Here is the JW Player 5 wrapper for Ruby on Rails 3
+
+To install:
+
+  rails plugin install git://github.com/sekrett/jw_player_on_rails.git
+
+To setup:
+
+  rails generate jw_player
+
+This adds <i>player.swf</i> and <i>yt.swf</i> to <i>public/jwplayer/</i> and
+<i>jwplayer.js</i> to <i>public/javascripts/</i>.
+
+In your layout add:
+
+  <%= jw_player_headers %>
+
+==Example Usage
+To check player is working simply add:
+
+  <%= jw_player("http://github.com/sekrett/jw_player_on_rails/raw/master/video.mp4",
+    :width => 200, :height => 110) %>
+
+Copyright (c) 2010 LongTail Ad Solutions. All Rights Reserved.
+
+Copyright (c) 2011 Alexander Zubkov, released under the MIT license

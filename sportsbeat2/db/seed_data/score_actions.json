@@ -1,0 +1,155 @@
+[
+  {
+    "description":"Register an account at SportsBeat.com",
+    "name":"register",
+    "value":20
+  },
+  {
+    "description":"Invite a friend",
+    "name":"first_invite",
+    "href":"/invites",
+    "value":20
+  },
+  {
+    "description":"Follow another user",
+    "name":"first_follow",
+    "value":20
+  },
+  {
+    "description":"Upload a picture",
+    "name":"first_picture",
+    "value":20
+  },
+  {
+    "description":"Make a post",
+    "name":"first_post",
+    "value":20
+  },
+  {
+    "description":"Select a profile picture",
+    "name":"first_profile_picture",
+    "value":20
+  },
+  {
+    "description":"Add an Accomplishment",
+    "name":"accomplishment",
+    "value":3
+  },
+  {
+    "description":"Add an Article",
+    "name":"article",
+    "value":5
+  },
+  {
+    "description":"Enter a contest",
+    "name":"enter_contest",
+    "href":"/contests",
+    "value":20
+  },
+  {
+    "description":"Follow another user",
+    "name":"follow",
+    "value":5
+  },
+  {
+    "description":"Be followed by another user",
+    "name":"followed",
+    "value":15
+  },
+  {
+    "description":"Create a picture gallery",
+    "name":"gallery",
+    "value":1
+  },
+  {
+    "description":"Add a game",
+    "name":"game",
+    "value":15
+  },
+  {
+    "description":"Report a game score",
+    "name":"game_score",
+    "value": 10
+  },
+  {
+    "description":"Enter your stats for a game",
+    "name":"game_stats",
+    "value":10
+  },
+  {
+    "description":"Like",
+    "name":"like",
+    "value":1
+  },
+  {
+    "description":"Get Liked",
+    "name":"liked",
+    "value":5
+  },
+  {
+    "description":"Vote in a contest",
+    "name":"like_contest_entry",
+    "href":"/contests",
+    "value":5
+  },
+  {
+    "description":"Send a user a message",
+    "name":"message",
+    "value":5
+  },
+  {
+    "description":"Upload a picture",
+    "name":"picture",
+    "value":1
+  },
+  {
+    "description":"Add a picture to a gallery",
+    "name":"picture_to_gallery",
+    "value": 1
+  },
+  {
+    "description":"Make a post",
+    "name":"post",
+    "value":1
+  },
+  {
+    "description":"Approve a post",
+    "name":"post_approve",
+    "value":3
+  },
+  {
+    "description":"Fill out optional profile information",
+    "name":"profile_optional",
+    "value":1
+  },
+  {
+    "description":"Select a profile picture",
+    "name":"profile_picture",
+    "value":1
+  },
+  {
+    "description":"Update your profile stats",
+    "name":"profile_stats",
+    "value": 3
+  },
+  {
+    "description":"Update scribble",
+    "name":"scribble",
+    "value":3
+  },
+  {
+    "description":"Tweet scribble",
+    "name":"scribble_tweet",
+    "value":10
+  },
+  {
+    "description":"Join a new sport",
+    "name":"sport_add",
+    "value":3
+  },
+  {
+    "description":"Tag someone in a picture",
+    "name":"tag",
+    "value":3
+  }
+]

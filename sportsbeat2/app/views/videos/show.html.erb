@@ -1,0 +1,9 @@
+<% if @video.processed %>
+  <video class="video-js vjs-default-skin" controls
+    preload="auto" width="640" height="264" poster="<%= @video.thumbnail_url %>"
+    data-setup="{}">
+    <source src="<%= @video.file.url %>" type='video/mp4'>
+  </video>
+<% else %>
+  this video has not been processed
+<% end %>

@@ -1,0 +1,30 @@
+var module = angular.module("UserProfile.directives", []);
+
+module.directive("feed", function(){
+  return {
+    restrict: "A",
+    replace: false,
+    scope: {
+      url: "=feed"
+    },
+    controller: FeedCtrl,
+    link: function(scope, elt, attrs, controller) {
+      scope.fetch();
+    }
+  };
+});
+
+
+module.directive("postForm", function() {
+  return {
+    restrict: "A",
+    templateUrl: "<%= asset_path 'profile/post_form.html' %>",
+    replace: false,
+    scope: {
+      url: "=postForm"
+    },
+    controller: PostFormCtrl,
+    link: function(scope, elt, attrs, controller) {
+    }
+  };
+});

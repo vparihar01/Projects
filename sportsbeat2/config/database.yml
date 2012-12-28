@@ -1,0 +1,7 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: sportsbeat2
+  username: root
+  password: swapnil
+  host: localhost
