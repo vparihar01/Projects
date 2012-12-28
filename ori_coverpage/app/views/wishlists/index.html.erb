@@ -1,0 +1,43 @@
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<h1>Your Wishlist</h1>
+
+<% if @line_items.any? %>
+
+  <%= form_tag wishlist_path(@wishlist), :method => :put do %>
+
+		<% if session[:layout].nil? || session[:layout] == 'x' -%>
+			<%= render :partial => 'xitem', :collection => @line_items, :as => :item, :spacer_template => 'shared/spacer' %>
+			<div class="clearleft">&nbsp;</div>
+		<% else -%>
+		  <table id="wishlist_items">
+        <tr>
+          <th class="title first">Title</th>
+          <th class="center">&nbsp;</th>
+          <th><%= format_column_heading(:always_display_price => true) -%></th>
+          <th class="qty last">Qty</th>
+        </tr>
+        <%= render :partial => 'item', :collection => @line_items %>  
+      </table>
+		<% end -%>
+
+    <div class="separator"></div>
+		<div class="pagebuttons clearfix" style="margin:2em 0;">
+      <div class="secondary">
+        <%= link_to image_tag("buttons/l/clear.gif", :alt => ' Delete all items '), wishlist_path(@wishlist), :title => ' Delete all items ', :method => :delete, :confirm => 'Are you sure you wish to delete the items in your wishlist?', :style => 'float:left;' %>
+      </div>
+      <%= image_submit_tag("buttons/l/update.gif", :alt => ' Update all items ', :title => ' Update all items ', :id => 'update', :name => 'update', :style => 'float:right;') %>
+    </div>
+    
+    <%= will_paginate @line_items %>
+  <% end %>
+
+  <%= form_tag load_cart_wishlist_path(@wishlist), :method => :put, :class => 'place' do -%>
+    <%= render :partial => 'shared/place_form', :locals => {:type => 'wishlist', :cart => @cart} %>
+  <% end -%>
+
+<% else %>
+  <p>
+    Your wishlist is empty.
+  </p>
+<% end %>

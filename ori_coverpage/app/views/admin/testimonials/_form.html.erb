@@ -1,0 +1,11 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :testimonial %>
+
+<%= f.inputs do %>
+  <%= f.input :name, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :company, :wrapper_html => { :class => "half" } %>
+  <%= f.input :location, :wrapper_html => { :class => "full" } %>
+  <%= f.input :comment, :wrapper_html => { :class => "full short" } %>
+<% end %>

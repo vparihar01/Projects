@@ -1,0 +1,12 @@
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<% if @sales_reps.nil? %>
+  <p>No records found.</p>
+<% else %>
+
+  <%= render :partial => 'sales_reps/sales_rep', :collection => @sales_reps, :spacer_template => 'shared/spacer' %> 
+  <%= will_paginate @sales_reps %>
+
+<% end %>

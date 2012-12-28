@@ -1,0 +1,37 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @collection, :controller_path => "admin/#{controller.controller_name}"} %>
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<% if @collection.ancestors.any? -%>
+  <div class="meta">
+    <% @collection.ancestors.reverse.each do |collection| -%>
+      <%= link_to collection.name, collection %> &raquo; 
+    <% end -%>
+  </div>
+<% end -%>
+
+<h1><%= @collection.name %></h1>
+
+<p><%= @collection.description %></p>
+
+<% if @titles.any? %>
+  <% if session[:layout] == 'x' -%>
+    <%= render :partial => 'shop/xproduct', :collection => @titles, :as => :product, :spacer_template => 'shared/spacer' %>
+  <% else -%>
+    <%= render :partial => 'shop/products', :locals => { :products => @titles, :assembly => nil } %>
+  <% end -%>
+  <%= will_paginate @titles %>
+<% else %>
+  <% if @collection.children.any? %>
+    <% @collection.children.each do |child_collection| -%>
+      <h2 class="divider spaced"><%= child_collection.name %></h2>
+      <% titles = child_collection.products.where("type = 'Title'").available.order('name ASC') -%>
+      <% if session[:layout] == 'x' -%>
+        <%= render :partial => 'shop/xproduct', :collection => titles, :as => :product, :spacer_template => 'shared/spacer' %>
+      <% else -%>
+        <%= render :partial => 'shop/products', :locals => { :products => titles, :assembly => nil } %>
+      <% end -%>
+    <% end -%>
+  <% else %>
+    No records found.
+  <% end %>
+<% end %>

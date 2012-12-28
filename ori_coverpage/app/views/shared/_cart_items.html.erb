@@ -1,0 +1,28 @@
+<table class="list" id="cart_items">
+  <thead>
+    <tr>
+      <th class="first">Title</th>
+      <th><%= format_column_heading(:always_display_price => false) -%></th>
+      <th class="number">Price</th>
+      <th class="qty">Qty</th>
+      <th class="number last">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% cart.line_items.each do |item| %>
+      <%= content_tag_for(:tr, item, :class => cycle('odd', 'even')) do %>
+        <td><%= link_to(item.product_name, show_path(item.product)) %></td>
+        <td><%= format_column_value(item) %></td>
+        <td class="number"><%= number_to_currency(item.unit_amount) %></td>
+        <td class="qty"><%= item.quantity %></td>
+        <td class="number"><%= number_to_currency(item.total_amount) %></td>
+      <% end %>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr class="totals">
+      <td colspan="4">Total</td>
+      <td class="number"><%= number_to_currency(cart.line_items.collect(&:total_amount).sum) %></td>
+    </tr>
+  </tfoot>
+</table>

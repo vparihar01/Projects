@@ -1,0 +1,10 @@
+<div class="module clearfix">
+  <%= buy_form(product, :context => 'list', :type => 'check_box', :show_inactive_wishlist => true)  %>
+  <%= image_tag("recent-s.gif", :alt => "New for #{Product.recent_season}", :class => 'new') if product.recent? %>
+  <%= image_tag("new-s.gif", :alt => "New for #{Product.new_season}", :class => 'new') if product.new? %>
+  <%= link_to image_tag(product.image, :class => "photo"), show_path(product) %>
+  <h2><%= link_to product.name, show_path(product) %></h2>
+  <%= compact_price_listing(product) -%>
+  <%= byline(product) -%>
+  <p><%= truncate_to_nearest_word(product.description) %> <%= link_to("More &raquo;".html_safe, show_path(product)) %></p>
+</div>

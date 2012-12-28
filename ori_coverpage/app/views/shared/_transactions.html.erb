@@ -1,0 +1,21 @@
+<% if parent.send(type).any? %>
+  <h3>Most Recent <%= type.capitalize %></h3>
+  <table class="list" id="<%= type %>">
+    <thead>
+      <tr>
+        <th class="first">Customer</th>
+        <th>Date</th>
+        <th class="number last">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% parent.send(type)[0..4].each do |transaction| %>
+        <%= content_tag_for(:tr, transaction, :class => cycle('odd', 'even')) do %>
+          <td><%= link_to h(transaction.customer), customer_url(transaction.customer) if transaction.customer %></td>
+          <td><%= transaction.posted_on %></td>
+          <td class="number"><%= number_to_currency(transaction.amount) %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

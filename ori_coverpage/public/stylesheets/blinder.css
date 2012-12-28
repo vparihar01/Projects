@@ -1,0 +1,6 @@
+ul.blinder a.blinder-toggle {
+  background:url(/images/layouts/public/blinder-toggle-bg.gif) no-repeat center right;
+  background-position:85% 25%;
+}
+ul.blinder a.blinder-toggle-active {}
+ul.blinder div.blinder-content { overflow: hidden; }

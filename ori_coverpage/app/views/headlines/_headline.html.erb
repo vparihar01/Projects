@@ -1,0 +1,11 @@
+<div class="module">
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => headline, :controller_path => (defined?(controller_path) ? controller_path : nil)} %>
+  <% end -%>
+  <h3><%= headline.title %></h3>
+  <p>
+    <%= headline.snippet.html_safe %>
+    <%= link_to('Read &raquo;'.html_safe, headline_path(headline)) unless headline.body.blank? %>
+  </p>
+  <p class="byline"><em>Posted on <%= headline.created_at.to_s(:long) %></em></p>
+</div>

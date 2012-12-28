@@ -1,0 +1,25 @@
+<% status = !item.saved_for_later ? 'current' : 'saved' %>
+<% row_class ||= cycle('odd', '', :name => status) %>
+<%= content_tag_for(:tr, item, status, :class => row_class) do %>
+  <td><%= link_to(item.product_name, {:action => 'show', :id => item.product}) %></td>
+  <% if !item.saved_for_later? %>
+    <td><%= alt_product_format_tag(item, false) %></td>
+    <td><%= link_to( 'Save for later', buy_later_path(item), :remote => true, :method => :put, :class => 'highlight' ) %></td>
+  <% else %>
+    <td><%= format_column_value(item) -%></td>
+    <td>
+      <%= link_to( 'Add to cart', buy_now_path(item), :remote=> true, :method => :put, :class => 'highlight' ) %>
+      / 
+      <%= link_to( 'Remove', remove_item_path(item), :remote => true, :method => :put, :class => 'highlight' ) %>
+    </td>
+  <% end %>  
+  <td class="number"><%= number_to_currency(item.unit_amount) %></td>
+  <td class="qty">
+  <% if !item.saved_for_later? %>
+    <%= text_field_tag "items[#{item.id}][quantity]", item.quantity, :size => 2 %>
+  <% else %>
+    <%= item.quantity %>
+  <% end %>
+  </td>
+  <td class="number"><%= number_to_currency(item.total_amount) %></td>
+<% end %>

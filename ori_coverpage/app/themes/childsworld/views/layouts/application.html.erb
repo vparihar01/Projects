@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <% calculate_meta_tags -%>
+    <%= display_meta_tags :title => @page_title, :site => CONFIG[:company_name], :separator => '-', :reverse => true, :description => @page_description, :keywords => @page_keywords %>
+    <%= stylesheet_link_tag 'public', :media => 'screen' %>
+    <%= stylesheet_link_tag 'print', :media => 'print' %>
+    <!--[if lt IE 7]>
+    <%= stylesheet_link_tag 'ie6', :media => 'screen' %>
+    <![endif]-->
+    <!--[if IE 7]>
+    <%= stylesheet_link_tag 'ie7', :media => 'screen' %>
+    <![endif]-->
+    <%= javascript_include_tag :defaults, 'scriptaculous', 'sticky_menu', 'drop_menu' %>
+    <!--[if lt IE 8]>
+      <%= javascript_include_tag 'niftycube' %>
+      <script type="text/javascript">
+      window.onload=function(){
+        Nifty("p.nb,div.nb","medium");
+        Nifty("h2.divider,h2,div.notice,div.error","small");
+        Nifty("th.first","small tl");
+        Nifty("th.last","small tr");
+        Nifty("ul.select-free","medium bl br");
+      }
+      </script>
+    <![endif]-->
+    <%= csrf_meta_tag %>
+    <%= yield :head %>
+  </head>
+  <body id="top">
+    <div class="fluff">
+      <div class="wrapper">
+        <div class="main">
+          <div id="content">
+          <%=raw [:notice, :error].collect {|type| content_tag('div', flash[type], :class => "flash-#{type}") if flash[type] } %>
+          <% unless @navlinks.nil? -%>
+                  <ul class="actions">
+                  <% @navlinks.each do |x| -%>
+                          <%= content_tag :li, x %>
+                  <% end -%>
+                  </ul>
+          <% end -%>
+          
+          <% sidebar = (yield :sidebar) -%>
+          <% unless sidebar.blank? -%>
+            <div class="with-sidebar">
+              <%= yield %>
+            </div>
+            <div class="sidebar">
+              <%= sidebar %>
+            </div>
+            <div class="clearboth">&nbsp;</div>
+            <!-- end sidebar -->
+          <% else -%>
+            <%= yield %>
+          <% end -%>
+          
+          </div>
+        </div>
+        <!-- end main -->
+        <div id="bottombar">
+          <div class="content">
+            <div class="double">
+              <h2><span>A Family-Owned Company</span></h2>
+              <p>The Child's World is an independent, family-owned company that has been publishing books for schools and libraries since 1968. The goal of The Child's World is simple. We want all young children to enjoy reading educational books. To achieve this goal, we've committed ourselves to manufacturing the highest-quality books available and strengthening our relationship with you, our customer. <%= link_to("More &raquo;".html_safe, public_page_path(:about)) %></p>
+            </div>
+            <div class="last">
+              <h2><span>Shortcuts</span></h2>
+              <ul>
+                <li><%= link_to 'Recently viewed products', history_path %></li>
+                <li><%= link_to 'Frequently asked questions', faqs_path %></li>
+                <li><%= link_to 'Find a sales rep', public_page_path(:reps) %></li>
+                <li><%= link_to 'Download product data', tag_downloads_path('data') %></li>
+                <li><%= link_to 'QuickShop', quick_path %></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- end bottombar -->
+        <div id="footer">
+          <div class="content">
+            <ul class="social">
+              <li><%= link_to(image_tag("twitter.gif", :valign => "middle") + "Talk with us on Twitter", "http://twitter.com/thechildsworld") %></li>
+              <li><%= link_to(image_tag("facebook.gif", :valign => "middle") + "Like us on Facebook", "http://www.facebook.com/thechildsworld") %></li>
+              <li><%= link_to(image_tag("envelope.gif", :valign => "middle") + "Get in touch with us", contact_path) %></li>
+            </ul>
+            <div class="clearfix" style="margin-bottom:10px;">&nbsp;</div>
+            <ul>
+              <li class="first"><%= link_to 'About Us', public_page_path(:about) %></li>
+              <li><%= link_to 'Privacy Policy', public_page_path(:privacy) %></li>
+              <li><%= link_to 'Terms of Use', public_page_path(:terms) %></li>
+              <li><%= link_to 'Discounts', public_page_path(:prices) %></li>
+              <li><%= link_to 'Shipping', public_page_path(:shipping) %></li>
+              <li class="last"><%= link_to 'Returns', public_page_path(:returns) %></li>
+            </ul>
+            <p>To order call <%= CONFIG[:phone] %> or fax the <%= link_to "order form", tag_downloads_path('forms') %> to <%= CONFIG[:fax] %>.</p>
+            <p>&copy; <%= Date.today.year %> <%= CONFIG[:company_name] %>. All rights reserved.</p>
+          </div>
+        </div>
+        <!-- end footer -->
+        <div class="header">
+          <div class="content">
+            <div class="menu">
+              <h2 class="logo"><a href="/"><%= CONFIG[:company_name] %></a></h2>
+              <%= render :partial => "shared/shortcuts" %>
+              <%= render :partial => 'products/search' %>
+              <ul class="nav menu-tl">
+                <div id="navigation">
+                  <%= sticky_tab('home') do -%>
+                    <div class="sub">
+                      <ul>
+                        <li><%= link_to 'Home Page', root_path %></li>
+                        <li><%= link_to 'New Arrivals', new_arrivals_path %></li>
+                        <li><%= link_to 'QuickShop', quick_path %></li>
+                        <li><%= link_to 'Advanced Search', advanced_search_path %></li>
+                        <li><%= link_to 'About Us', public_page_path(:about) %></li>
+                      </ul>
+                    </div>
+                  <% end -%>
+
+                  <%= sticky_tab('subjects') do -%>
+                    <div class="sub">
+                      <ul>
+                        <li><%= link_to 'Overview', categories_path %></li>
+                        <%= raw Category.visible.order(:name).all.map {|c| content_tag(:li, link_to(c.abbreviation, category_path(c))) } %>
+                      </ul>
+                    </div>
+                  <% end -%>
+
+                  <%= sticky_tab('grades') do -%>
+                    <div class="sub">
+                      <ul>
+                        <li><%= link_to 'Overview', levels_path %></li>
+                        <%= raw Level.visible.order(:id).all.map {|l| content_tag(:li, link_to(l.name, level_path(l))) } %>
+                      </ul>
+                    </div>
+                  <% end -%>
+
+                  <%= sticky_tab('resources') do -%>
+                    <div class="sub">
+                      <ul>
+                        <li><%= link_to 'Overview', public_page_path(:resources) %></li>
+                        <li><%= link_to 'Product Data', downloads_path %></li>
+                        <li><%= link_to 'Teaching Guides', teaching_guides_path %></li>
+                        <li><%= link_to 'Handouts', handouts_path %></li>
+                        <li><%= link_to 'Research Assistant', links_path %></li>
+                      </ul>
+                    </div>
+                  <% end -%>
+
+                </div>
+              </ul>
+              </div>
+          </div>
+        </div>
+        <!-- end header -->
+      </div>
+      <!-- end wrapper -->
+    </div>
+    <!-- end fluff -->
+
+    <%= render :partial => 'shared/analytics' %>
+  </body>
+</html>

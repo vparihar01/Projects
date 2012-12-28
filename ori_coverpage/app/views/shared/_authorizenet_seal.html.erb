@@ -1,0 +1,9 @@
+<div class="AuthorizeNetSeal">
+  <% if Rails.env.production? && !CONFIG[:authorizenet_id].blank? -%>
+    <%= javascript_tag "var ANS_customer_id=\"#{CONFIG[:authorizenet_id]}\";" %>
+    <%= javascript_include_tag '//verify.authorize.net/anetseal/seal.js' %>
+    <%= link_to "Merchant Services", "http://www.authorize.net/", :id => "AuthorizeNetText" %>
+  <% else -%>
+    <%= image_tag('authorizenet.gif') %>
+  <% end -%>
+</div>

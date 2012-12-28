@@ -1,0 +1,22 @@
+<div class="half first">
+  <%= label_tag :distribution_data_template, "Template" %>
+  <%= select_tag 'distribution[data_template]', options_for_select(ProductsExporter::TEMPLATES.keys.sort, (!params[:distribution].blank? ? params[:distribution][:data_template] : "") ) %>
+</div>
+<div class="unsized" style="width:95%;" id="product_formats">
+  <%= label_tag 'distribution_data_format_ids', "Product Formats" %>
+  <% Format.find_single_units.each do |f| -%>
+    <div class="unsized">
+      <%= check_box_tag 'distribution[data_format_ids][]', f.id, (params[:distribution] && params[:distribution][:data_format_ids] && params[:distribution][:data_format_ids].include?(f.id.to_s)), {:class => 'unsized', :id => "distribution_data_format_ids_#{f.id}"} %> <%= label_tag "distribution_data_format_ids_#{f.id}", f.name, {:class => 'subdue'} %>
+    </div>
+  <% end -%>
+</div>
+<div class="clearboth"></div>
+<div class="unsized" style="width:95%;">
+  <%= label_tag 'distribution_data_class', "Product Type" %>
+  <% [['Product', 'All'], ['Title', 'Title'], ['Assembly', 'Set']].each_with_index do |t,i| -%>
+    <div class="unsized">
+      <%= radio_button_tag 'distribution[data_class]', t[0], params[:distribution][:data_class] == t[0], {:class => 'unsized', :id => t[0]} %> <%= label_tag t[0], t[1], {:class => 'subdue'} %>
+    </div>
+  <% end -%>
+</div>
+<div class="clearboth"></div>

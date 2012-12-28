@@ -1,0 +1,7 @@
+<ul class="footnote">
+<li><%= image_tag("asterix/new.gif", :alt => 'New') + " New title for #{Product.new_season}" %></li>
+<li><%= image_tag("asterix/recent.gif", :alt => 'Recent') + " New title for #{Product.recent_season}" %></li>
+<% # content_tag :li, image_tag("asterix/als.gif", :alt => "ALS") + " Accelerated Reader&reg; title"
+   # content_tag :li, image_tag("asterix/pending_als.gif", :alt => "Pending") + Product.pending_on
+%>
+</ul>

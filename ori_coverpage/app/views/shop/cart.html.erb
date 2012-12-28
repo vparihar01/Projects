@@ -1,0 +1,123 @@
+<h1>Your Shopping Cart</h1>
+
+<% if @cart.line_items.any? || @cart.saved_items.any? %>
+
+  <ul class="page-actions">
+    <%= content_tag(:li, link_to_if(@cart.line_items.any?, 'Export', export_cart_path)) %>
+    <%= content_tag(:li, link_to_if(@cart.line_items.any?, 'Save as Quote', new_quote_path)) %>
+    <%= content_tag(:li, link_to('View Quotes', quotes_path)) %>
+  </ul>
+  
+  <%= form_tag update_cart_path do %>
+    
+    <table class="list" id="cart_items">
+      <thead>
+        <tr>
+          <th class="first">Title</th>
+          <th><%= format_column_heading(:always_display_price => false) -%></th>
+          <th>&nbsp;</th>
+          <th class="number">Price</th>
+          <th class="qty">Qty</th>
+          <th class="number last">Total</th>
+        </tr>
+      </thead>
+      <tbody id="current_item_list">
+        <%= render :partial => 'item', :collection => @cart.line_items %>
+      </tbody>
+      <tfoot>
+        <tr class="totals">
+          <td colspan="5">
+            Subtotal
+          </td>
+          <td class="number" id="cart_amount">
+            <%= number_to_currency(@cart.amount) %>
+          </td>
+        </tr>
+        <% if @cart.discounted? -%>
+        <tr class="totals">
+          <td colspan="5">
+            Discount
+          </td>
+          <td class="number" id="cart_amount">
+            <%= number_to_currency(@cart.discount_amount) %>
+          </td>
+        </tr>
+        <% end -%>
+      </tfoot>
+    </table>
+
+    <%= content_tag(:p, content_tag(:span, "Coupon Code: #{@cart.discount_code}", :class => 'nb')) unless @cart.discount_code.blank? %>
+
+    <div class="pagebuttons clearfix forcebottommargin">
+      <div class="secondary">
+      <%= link_to image_tag("buttons/l/clear.gif"), destroy_cart_path, :method => :delete, :confirm => 'Are you sure you wish to delete the items in your cart?', :class => 'f-left' %>
+      </div>
+      <%= link_to image_tag("buttons/l/checkout.gif", :style => 'float:right;margin-left:7px;'), checkout_path %>
+      <%= image_submit_tag "buttons/l/update.gif", :alt => ' Update Total ', :title => ' Update Total ', :id => 'update', :name => 'update', :class => 'f-right' %> 
+    </div>
+
+  <% end %> 
+
+  <div id="saved_items_div">
+    <h2>Saved Items</h2>
+    <table class="list notopmargin" id="saved_items">
+      <thead>
+        <tr>
+          <th class="first">Title</th>
+          <th><%= format_column_heading(:always_display_price => false) -%></th>
+          <th>&nbsp;</th>
+          <th class="number">Price</th>
+          <th class="qty">Qty</th>
+          <th class="number last">Total</th>
+        </tr>
+      </thead>
+      <tbody id="saved_item_list">
+        <tr id="no_saved_items_row" style="display:<%= @cart.saved_items.empty? ? '' : 'none' %>"><td colspan="6">No items currently saved</td></tr>
+        <%= render :partial => 'item', :collection => @cart.saved_items %>
+      </tbody>
+    </table>
+  </div>
+
+<% else %>
+  <ul class="page-actions">
+    <%= content_tag(:li, 'Export') %>
+    <%= content_tag(:li, 'Save as Quote') %>
+    <%= content_tag(:li, link_to('View Quotes', quotes_path)) %>
+  </ul>
+  <p>Your shopping cart is empty.</p>
+<% end %>
+
+<%= form_tag add_by_isbn_path, :class => 'noprint' do %>
+  <fieldset>
+    <legend>Add to Cart</legend>
+    <div class="group">
+      <div class="formrow">
+        <%= label_tag :isbn, 'Enter ISBNs:', :class => 'inline' %>
+        <%= text_field_tag :isbn, params[:isbn], :class => 'l' %>
+        <%= submit_tag 'Add' %>
+      </div>
+    </div>
+  </fieldset>
+<% end -%>
+
+<%= form_tag apply_coupon_path, :class => 'noprint' do %>
+  <fieldset>
+    <legend>Coupon Code</legend>
+    <div class="group">
+      <div class="formrow">
+        <%= label_tag :discount_code, 'Enter a Coupon Code:', :class => 'inline' %>
+        <%= text_field_tag :discount_code, nil, :class => 'l' %>
+        <%= submit_tag 'Apply' %>
+      </div>
+    </div>
+  </fieldset>
+<% end -%>
+
+<p class="nb">The "Member Prices" specified on this site reflect a 30% discount offered to schools and libraries only. For more information, please refer to our <%= link_to "pricing policy", public_page_path(:prices) %>.</p>
+
+<script type="text/javascript" charset="utf-8">
+  function stripeTables() {
+    $$('tbody tr:nth-child(odd)').invoke('addClassName', 'odd');
+    $$('tbody tr:nth-child(even)').invoke('removeClassName', 'odd');
+  }
+</script>

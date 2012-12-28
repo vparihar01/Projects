@@ -1,0 +1,30 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => request.path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :filename_contains, :label => "File Name", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :title_id_equals, :label => "Title", :as => :select, :collection => Title.to_dropdown, :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @excerpts.any? -%>
+  <table>
+    <tr>
+      <th class="first"><%= sort_link(@search, :title ) %></th>
+      <th>ISBN</th>
+      <th><%= sort_link(@search, :title_copyright, 'Copyright') %></th>
+      <th>Series</th>
+      <th colspan="2" class="icon last">Actions</th>
+    </tr>
+  <%= render :partial => 'excerpts/excerpt', :collection => @excerpts, :locals => {:show_admin => true} %>
+  </table>
+  <%= will_paginate @excerpts %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+dallas:
+  id: 1
+  customer_id: 5
+  sales_team_id: 1
+  posted_on: <%= 1.day.ago.to_s :db %>
+  transaction_amount: 50000
+  type: Invoice
+mobile:
+  id: 2
+  customer_id: 6
+  sales_team_id: 2
+  posted_on: <%= 2.days.ago.to_s :db %>
+  transaction_amount: 60000
+  type: Invoice  

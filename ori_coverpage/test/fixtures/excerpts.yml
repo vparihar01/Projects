@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  title_id: 1
+  filename: old_book_excerpt.pdf
+  content_type: application/pdf
+  size: 100
+  ipaper_id:
+  ipaper_access_key:
+
+two:
+  id: 2
+  title_id: 2
+  filename: recent_book_excerpt.pdf
+  content_type: application/pdf
+  size: 200
+  ipaper_id:
+  ipaper_access_key:

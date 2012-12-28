@@ -1,0 +1,5 @@
+<tr id="<%= dom_id(assignment) %>">
+  <td><%= bisac_subject.literal %></td>
+  <td><%= bisac_subject.code %></td>
+  <td class="center"><%= link_to( image_tag( 'buttons/admin/trash.gif', :alt => 'delete BISAC assignment' ), admin_bisac_assignment_path(assignment), :remote => true, :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :title => 'Delete' ) %></td>
+  </tr>

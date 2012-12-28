@@ -1,0 +1,7 @@
+<div class="clearfix">
+<%= form_tag "", :method => :get, :class => 'filter' do %>
+  <%= label_tag :grade, 'Filter by Subject', :class => 'inline' %>
+  <% category_options = [['All', ''], ['', '']] + Category.visible.order('name ASC').map {|x| [x.name, x.id]} %>
+  <%= select_tag :category_id, options_for_select(category_options, params[:category_id].to_i), :onchange => "this.form.submit()" %>
+<% end %>
+</div>

@@ -1,0 +1,16 @@
+Name: <%= @form.name %>
+Title: <%= @form.title %>
+Email: <%= @form.email %>
+Phone <%= @form.phone %>
+
+Organization: <%= @form.organization %>
+Street: <%= @form.street %>
+Suite: <%= @form.suite %>
+City: <%= @form.city %>
+Country: <%= Country.find(@form.country_id).try(:iso_code_2) rescue nil %>
+Postal code: <%= @form.postal_code %>
+State: <%= Zone.find(@form.zone_id).try(:code) rescue nil %>
+
+Sales representative: <%= @form.rep %>
+
+Subscribe: <%= @form.subscribe == 1 ? "Yes" : "No" %>

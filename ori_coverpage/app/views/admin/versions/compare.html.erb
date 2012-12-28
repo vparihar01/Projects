@@ -1,0 +1,6 @@
+<h1><%= @title || "Version Comparison" %></h1>
+<h2>for <%= link_to "#{@versionable.class}: #{@versionable.name}", edit_versionable_path(@versionable) %></h2>
+
+<%= render :partial => 'admin/versions/compare', :locals => { :version => @version, :versionable => @versionable, :changes => @changes, :before_label => @before_label, :after_label => @after_label } %>
+
+<p class="pagebuttons"><%= link_to "&laquo; History".html_safe, versions_path(@versionable), :class => 'cancel' %></p>

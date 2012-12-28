@@ -1,0 +1,15 @@
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<h1>Search Results</h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to("&laquo; Edit Search".html_safe, advanced_search_path(@form_values))) %>
+</ul>
+
+<div id="results">
+<% if @products.nil? %>
+	<p>No records found.</p>
+<% else %>
+  <%= render :partial => @partial, :layout => 'results', :locals => {:products => @products, :assembly => nil} %>
+<% end -%>
+</div>

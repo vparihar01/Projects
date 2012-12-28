@@ -1,0 +1,35 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_tag export_admin_products_path do -%>
+  <%= render :partial => 'admin/products/select' %>
+  <fieldset>
+    <div class="group clearfix">
+      <div class="half first">
+        <%= label_tag :data_template, "Template" %>
+        <%= select_tag :data_template, options_for_select(ProductsExporter::TEMPLATES.keys.sort, params[:data_template]) %>
+      </div>
+      <div class="clearboth">&nbsp;</div>
+      <div class="unsized" style="width:95%;" id="product_formats">
+        <%= label_tag 'data_format_ids[]', "Product Formats" %>
+        <% @formats.each do |f| -%>
+          <div class="unsized">
+          <%= check_box_tag 'data_format_ids[]', f.id, (params[:data_format_ids] && params[:data_format_ids].include?(f.id.to_s)), {:class => 'unsized', :id => "data_format_ids_#{f.id}"} %> <%= label_tag "data_format_ids_#{f.id}", f.name, {:class => 'subdue'} %>
+          </div>
+        <% end -%>
+      </div>
+      <div style="<%= 'display:none;' if /xml/.match(params[:data_template]) %>" id="product_types">
+      <div class="unsized" style="width:95%;">
+        <%= label_tag 'data_class', "Product Type" %>
+        <% Product::TYPES.sort{|a,b| a[1]<=>b[1]}.each_with_index do |t,i| -%>
+          <div class="unsized">
+          <%= radio_button_tag 'data_class', t[0], params[:data_class] == t[0], {:class => 'unsized', :id => t[0]} %> <%= label_tag t[0], t[1], {:class => 'subdue'} %>
+          </div>
+        <% end -%>
+      </div>
+      </div>
+    </div>
+  </fieldset>
+  <%= submit_or_cancel(admin_products_path, "Export") %>
+<% end -%>

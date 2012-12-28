@@ -1,0 +1,50 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<% @period_start = (@now = Time.now).month >= 8 ? Date.new(@now.year, 8, 1) : Date.new(@now.year, 1, 1) %>
+old:
+  id: 1
+  name: Old Book
+  available_on: <%= (@period_start.to_time - 1.year).to_formatted_s :db %>
+  type: Title
+  interest_level_min_id: 3
+  interest_level_max_id: 4
+  copyright: 1970
+recent:
+  id: 2
+  name: Recent Book
+  available_on: <%= (@period_start.to_time - 2.day).to_formatted_s :db %>
+  type: Title
+  interest_level_min_id: 3
+  interest_level_max_id: 4
+  alsreadlevel: 3.0
+new:
+  id: 3
+  name: New Book
+  available_on: <%= (@period_start.to_time + 1.day).to_formatted_s :db %>
+  type: Title
+  interest_level_min_id: 3
+  interest_level_max_id: 4
+  alsreadlevel: 4.0
+  copyright: 2012
+set:
+  id: 4
+  name: A set of books
+  available_on: <%= (@period_start.to_time + 1.day).to_formatted_s :db %>
+  type: Assembly
+  interest_level_min_id: 3
+  interest_level_max_id: 4
+future_title:
+  id: 6
+  available_on: <%= (@period_start.to_time + 1.year).to_formatted_s :db %>
+  name: A future title
+  type: Title
+  interest_level_min_id: 3
+  interest_level_max_id: 4
+  collection_id: 2
+no_format_record:
+  id: 7
+  available_on: <%= (@period_start.to_time - 1.day).to_formatted_s :db %>
+  name: A title with no format record
+  type: Title
+  interest_level_min_id: 3
+  interest_level_max_id: 7
+  collection_id: 3

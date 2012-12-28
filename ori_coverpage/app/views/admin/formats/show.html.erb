@@ -1,0 +1,18 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @format} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= content_tag(:ul) do -%>
+  <%= display_value_in_list(@format, :name) %>
+  <%= display_value_in_list(@format, :form) %>
+  <%= display_value_in_list(@format, :detail) %>
+  <%= display_value_in_list(@format, :is_pdf) %>
+  <%= display_value_in_list(@format, :is_virtual) %>
+  <%= display_value_in_list(@format, :is_processed) %>
+  <%= display_value_in_list(@format, :units) %>
+<% end -%>
+
+<ul class="meta">
+  <li>Created: <%= @format.created_at %></li>
+  <li>Updated: <%= @format.updated_at %></li>
+</ul>

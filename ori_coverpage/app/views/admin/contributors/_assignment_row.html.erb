@@ -1,0 +1,5 @@
+<tr id="<%= dom_id(assignment) %>">
+  <td><%= assignment.product ? link_to(assignment.product.name, show_path(assignment.product)) : content_tag(:span, "Error: Product not found (#{assignment.product_id})", :class => "other-error") %></td>
+  <td><%= assignment.to_s %></td>
+  <td class="center"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => ''), admin_contributor_assignment_path(assignment), :remote => true, :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :title => 'Delete') %></td>
+</tr>

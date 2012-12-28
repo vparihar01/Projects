@@ -1,0 +1,25 @@
+<%= simple_tab('home') do -%>
+  <div>
+    <%= link_to "Home", root_path %>
+  </div>
+<%- end -%>
+<%= simple_tab('shop') do -%>
+  <div>
+    <%= link_to "Shop", shop_path %>
+  </div>
+<%- end -%>
+<%= simple_tab('account') do -%>
+  <div>
+    <%= link_to "Account", account_path %>
+  </div>
+<%- end -%>
+<%= simple_tab('about') do -%>
+  <div>
+    <%= link_to "About", public_page_path(:about) %>
+  </div>
+<%- end -%>
+<%= simple_tab('help') do -%>
+  <div>
+    <%= link_to "Help", public_page_path(:help) %>
+  </div>
+<%- end -%>

@@ -1,0 +1,10 @@
+<%= render :partial => 'shared/admin_edit_actions', :locals => {:record => @teaching_guide} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for @teaching_guide, :url => admin_teaching_guide_path(@teaching_guide), :html => {:multipart => true} do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_or_cancel %>
+<% end %>
+
+<%= render :partial => 'shared/textile_allowed', :locals => {:fields => %w(rationale lesson)} %>

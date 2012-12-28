@@ -1,0 +1,77 @@
+<h1>Order Details</h1>
+
+<p><%= link_to("&laquo; Back to orders".html_safe, :action => 'orders') %></p>
+
+<%= render :partial => 'orders', :locals => { :orders => [@order] } %>
+
+<fieldset>
+	<legend>Ordered Items</legend>
+	<div class="group">
+    <%= render :partial => 'shared/line_item_collection_final', :locals => {:line_item_collection => @order, :ship_address => @order.ship_address} %>
+	</div>
+</fieldset>
+<br />
+
+<fieldset>
+<legend>Library Processing</legend>
+<div class="group">
+	<% if @order.spec %>
+		<%= render :partial => '/specs/spec_summary', :locals => {:spec => @order.spec} %>
+	<% else %>
+	  <p>No processing options were selected</p>
+	<% end %>
+</div>
+</fieldset>
+<br />
+
+<fieldset>
+	<legend>Shipping Address</legend>
+	<div class="group">
+	  <ul>
+		  <%= raw @order.ship_address.to_html rescue nil %>
+		</ul>
+	</div>
+</fieldset>
+<br />
+
+<fieldset>
+	<legend>Shipping Method</legend>
+	<div class="group">
+		<p><%= UPS::Client::Services[@order.shipping_method] %></p>
+	</div>
+</fieldset>
+<br />
+
+<fieldset>
+	<legend>Billing Address</legend>
+	<div class="group">
+	  <ul>
+		  <%= raw @order.bill_address.to_html rescue nil %>
+		</ul>
+	</div>
+</fieldset>
+<br />
+
+<fieldset>
+	<legend>Payment Method</legend>
+	<div class="group">
+		<p>
+		  <%= @order.payment_method %>
+	  	<% if @order.card_authorization %>
+	  	  <br/>
+	  	  <%= CardAuthorization::CreditCardHash[@order.card_authorization.card_type] %>
+				<%= @order.card_authorization.number %>
+	  	<% end %>
+		</p>
+	</div>
+</fieldset>
+<br />
+
+<fieldset>
+	<legend>Purchase Order # / Order Comments</legend>
+	<div class="group">
+		<%= simple_format @order.comments %>
+	</div>
+</fieldset>
+
+<p><%= link_to("&laquo; Back to orders".html_safe, :action => 'orders') %></p>

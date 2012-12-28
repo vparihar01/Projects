@@ -1,0 +1,26 @@
+The status of your order has been updated.
+
+Order Number: <%= @sale.id %>
+Date Ordered: <%= @sale_date %>
+
+Old Status:   <%= @old_status %>
+New Status:   <%= @new_status %>
+
+You can view your order and its status history in detail by visiting the following links:
+
+<%= order_account_url(@sale) %>
+<%= status_history_account_url(@sale) %>
+
+Again, thank you for shopping with <%= CONFIG[:company_name] %>.
+
+<%= CONFIG[:company_name] %>
+<%= CONFIG[:order_street] %>
+<% ', ' + CONFIG[:order_suite] if CONFIG[:order_suite] -%>
+<%= CONFIG[:order_city] %>, <%= CONFIG[:order_state] %> <%= CONFIG[:order_zip] %>
+Phone: <%= CONFIG[:phone] %>
+Fax: <%= CONFIG[:fax] %>
+
+<%= divider %>
+
+To stop receiving order updates, change your email notification preferences:
+<%= account_url %>

@@ -1,0 +1,36 @@
+<%= error_messages_for :link %>
+
+<fieldset>
+<div class="group">
+  <div class="full">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="full">
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+  </div>
+  <div class="quarter first">
+    <%= f.label :is_highlight, 'Highlight?', :class => 'inline' %>
+    <%= f.check_box :is_highlight, :class => 'unsized' %>
+  </div>
+  <div class="quarter">
+    <%= f.label :is_kids, 'For kids?', :class => 'inline' %>
+    <%= f.check_box :is_kids, :class => 'unsized' %>
+  </div>
+  <div class="quarter">
+    <%= f.label :is_adults, 'For adults?', :class => 'inline' %>
+    <%= f.check_box :is_adults, :class => 'unsized' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => 'short' %>
+  </div>
+  <div class="full">
+    <%= f.label :product_ids, 'Products (can select multiple)' %>
+    <%= f.select :product_ids, Product.to_dropdown, {}, { :multiple => true, :style => 'height:200px;' } %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>

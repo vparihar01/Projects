@@ -1,0 +1,12 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<% if defined?(@product) && @product -%>
+  <%= render :partial => 'shop/product_nested', :locals => {:product => @product, :association => 'contributors'} %>
+<% end -%>
+
+<% if @contributors.any? %>
+  <%= render :partial => 'contributor', :collection => @contributors, :spacer_template => 'shared/spacer', :locals => {:show_admin => admin?} %>
+  <%= will_paginate @contributors %>
+<% end %>

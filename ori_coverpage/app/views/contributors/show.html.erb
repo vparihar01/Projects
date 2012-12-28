@@ -1,0 +1,20 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @contributor, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= @contributor.name %></h1>
+
+<p><%= @contributor.description %></p>
+
+<% if admin? -%>
+<ul>
+<li class="meta">Created: <%= @contributor.created_at.to_s(:long_day) %></li>
+<li class="meta">Updated: <%= @contributor.updated_at.to_s(:long_day) %></li>
+</ul>
+<% end -%>
+
+<h2 id="products">Products</h2>
+
+<% if @contributor.products.available.any? -%>
+  <%= render :partial => 'shop/products', :locals => { :products => @contributor.products.available, :assembly => nil } %>
+<% else -%>
+  <p>No products found.</p>
+<% end -%>

@@ -1,0 +1,13 @@
+<fieldset>
+<div class="group">
+  <div class="formrow">
+    <%= f.hidden_field :ipaper_id %>
+    <%= f.label :uploaded_data, "Excerpt #{"(currently #{@excerpt.filename})" if @excerpt.filename}" %>
+    <%= f.file_field :uploaded_data, {:onchange => "this.form.excerpt_ipaper_id.value = ''; return false;"} %>
+  </div>
+  <div class="formrow">
+    <%= f.label :title_id, "Title" %>
+    <%= f.select(:title_id, Title.order('name ASC').collect {|p| [ p.name, p.id ] }) %>
+  </div>
+</div>
+</fieldset>

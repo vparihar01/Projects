@@ -1,0 +1,30 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  name: one brave
+  description: one brave brave
+  default_role: Author
+two:
+  id: 2
+  name: two braves
+  description: two brave braves
+  default_role: Author
+dr:
+  id: 3
+  name: dr. frank einstein
+  default_role: Author
+mr:
+  id: 4
+  name: Mr. John Smith
+  description: the most common guy
+  default_role: Author
+mrs:
+  id: 5
+  name: Mrs. John Smith
+  description: wife of the most common guy
+  default_role: Author
+prof:
+  id:
+  name: Professor Albert Einstein
+  description: one of the greatest thinkers
+  default_role: Author

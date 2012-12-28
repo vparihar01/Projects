@@ -1,0 +1,12 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+dan:
+  id: 1
+  name: Dan O'Conner and Assocates
+  category: Medium
+  description: public libraries and school libraries within the State of New Jersey
+  managed_by: 1
+bobby:
+  id: 2
+  name: Bobby Richardson Group
+  category: Medium
+  description: public libraries and school libraries within the State of Alabama, except for those in the counties of Baldwind and Mobile

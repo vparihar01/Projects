@@ -1,0 +1,11 @@
+<div class="formrow">
+  <ul class="record-actions">
+    <!-- TODO: Refs #467, removed delete button -->
+    <li><%= link_to(image_tag("buttons/s/edit.gif"), checkout_edit_address_path(:id => address, :address_type => address_type)) %></li>
+  </ul>
+  <%= radio_button_tag :address, address.id, (session[address_type.to_sym].nil? ? address.is_primary? : address.id == session[address_type.to_sym].id), :id => dom_id(address), :onclick => "address_id = this.value" %>
+  <%= label_tag dom_id(address), "Use Address #{address_counter + 1}", :class => 'inline' %>
+  <ul class="sub-option">
+    <%= raw address.to_html %>
+  </ul>
+</div>

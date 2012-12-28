@@ -1,0 +1,317 @@
+GIT
+  remote: git://github.com/adamcooper/vestal_versions
+  revision: 6273df533f85014062e346cb1807b0531a809ee2
+  specs:
+    vestal_versions (1.2.2)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+
+GIT
+  remote: git://github.com/adamico/auto_complete.git
+  revision: 8380ff0bf75ca43bded9042c454db1f5951c10ae
+  specs:
+    repeated_auto_complete (0.1.3)
+
+GIT
+  remote: git://github.com/milkfarm/onix
+  revision: 6f95db5a32e311b8e5cb0257e862bdf0b31e52c6
+  branch: joseph-refactor
+  specs:
+    onix (0.9.1)
+      activesupport (~> 3.0.5)
+      i18n
+      nokogiri (>= 1.4)
+      roxml (~> 3.1.6)
+
+GIT
+  remote: git://github.com/srejbi/exception_notification
+  revision: 47e500c7abd1927417ab7eeace8e445245e15648
+  specs:
+    exception_notification (1.0.0)
+
+GIT
+  remote: git://github.com/srejbi/preferences.git
+  revision: 34a3f02aa8a56a598df352726f9c8645cfb4b106
+  branch: rails3
+  specs:
+    preferences (0.4.2)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    POpen4 (0.1.4)
+      Platform (>= 0.4.0)
+      open4
+    Platform (0.4.0)
+    RedCloth (4.2.9)
+    Saikuro (1.1.0)
+    aaronh-chronic (0.3.9)
+    abstract (1.0.0)
+    actionmailer (3.0.5)
+      actionpack (= 3.0.5)
+      mail (~> 2.2.15)
+    actionpack (3.0.5)
+      activemodel (= 3.0.5)
+      activesupport (= 3.0.5)
+      builder (~> 2.1.2)
+      erubis (~> 2.6.6)
+      i18n (~> 0.4)
+      rack (~> 1.2.1)
+      rack-mount (~> 0.6.13)
+      rack-test (~> 0.5.7)
+      tzinfo (~> 0.3.23)
+    active_utils (1.0.3)
+      activesupport (>= 2.3.11)
+      i18n
+    activemerchant (1.20.4)
+      active_utils (>= 1.0.2)
+      activesupport (>= 2.3.11)
+      braintree (>= 2.0.0)
+      builder (>= 2.0.0)
+      i18n
+      json (>= 1.5.1)
+      money (<= 3.7.1)
+    activemodel (3.0.5)
+      activesupport (= 3.0.5)
+      builder (~> 2.1.2)
+      i18n (~> 0.4)
+    activerecord (3.0.5)
+      activemodel (= 3.0.5)
+      activesupport (= 3.0.5)
+      arel (~> 2.0.2)
+      tzinfo (~> 0.3.23)
+    activeresource (3.0.5)
+      activemodel (= 3.0.5)
+      activesupport (= 3.0.5)
+    activesupport (3.0.5)
+    arel (2.0.10)
+    arrayfields (4.7.4)
+    backup (3.0.23)
+      POpen4 (~> 0.1.4)
+      thor (~> 0.14.6)
+    braintree (2.13.4)
+      builder (>= 2.0.0)
+    builder (2.1.2)
+    capistrano (2.11.2)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
+    carrierwave (0.5.8)
+      activesupport (~> 3.0)
+    chronic (0.2.3)
+      hoe (>= 1.2.1)
+    churn (0.0.15)
+      arrayfields (= 4.7.4)
+      chronic (>= 0.2.3)
+      chronic (>= 0.2.3)
+      fattr (= 2.2.0)
+      hirb (= 0.5.0)
+      hirb
+      jeweler (= 1.6.4)
+      json (= 1.6.1)
+      json_pure
+      main
+      main (>= 4.6.0)
+      map (= 4.3.0)
+      ruby_parser (= 2.3.1)
+      ruby_parser (~> 2.3)
+      sexp_processor (= 3.0.7)
+      sexp_processor (~> 3.0.3)
+    color (1.4.1)
+    colored (1.2)
+    daemons (1.1.8)
+    delayed_job (3.0.1)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.3.2)
+      activerecord (> 2.1.0)
+      delayed_job (~> 3.0.0)
+    diff-lcs (1.1.3)
+    erubis (2.6.6)
+      abstract (>= 1.0.0)
+    fastercsv (1.5.4)
+    fattr (2.2.0)
+    flay (1.4.3)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    flog (2.5.3)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    formtastic (2.1.0)
+      actionpack (~> 3.0)
+    git (1.2.5)
+    highline (1.6.11)
+    hirb (0.5.0)
+    hoe (2.14.0)
+      rake (~> 0.8)
+    hpricot (0.8.6)
+    i18n (0.6.0)
+    isbn_validation (1.1.0)
+      activerecord (>= 3)
+    jeweler (1.6.4)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
+    json (1.6.1)
+    json_pure (1.6.5)
+    libxml-ruby (2.2.2)
+    mail (2.2.19)
+      activesupport (>= 2.3.6)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    main (4.7.1)
+    map (4.3.0)
+    meta-tags (1.2.4)
+      actionpack
+    meta_search (1.0.6)
+      actionpack (~> 3.0.2)
+      activerecord (~> 3.0.2)
+      activesupport (~> 3.0.2)
+      arel (~> 2.0.2)
+    metaclass (0.0.1)
+    metric_fu (2.0.1)
+      Saikuro (>= 1.1.0)
+      activesupport (>= 2.0.0)
+      chronic (~> 0.2.3)
+      churn (>= 0.0.7)
+      flay (>= 1.2.1)
+      flog (>= 2.2.0)
+      rails_best_practices (>= 0.3.16)
+      rcov (>= 0.8.3.3)
+      reek (>= 1.2.6)
+      roodi (>= 2.1.0)
+    mime-types (1.17.2)
+    mocha (0.10.4)
+      metaclass (~> 0.0.1)
+    money (3.7.1)
+      i18n (~> 0.4)
+    mysql (2.8.1)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.3.0)
+    net-ssh-gateway (1.1.0)
+      net-ssh (>= 1.99.1)
+    newrelic_rpm (3.3.2)
+    nokogiri (1.5.2)
+    open4 (1.3.0)
+    parndt-acts_as_tree (1.2.5)
+    pdf-writer (1.1.8)
+      color (>= 1.4.0)
+      transaction-simple (~> 1.3)
+    polyglot (0.3.3)
+    progressbar (0.10.0)
+    rack (1.2.5)
+    rack-mount (0.6.14)
+      rack (>= 1.0.0)
+    rack-test (0.5.7)
+      rack (>= 1.0)
+    rails (3.0.5)
+      actionmailer (= 3.0.5)
+      actionpack (= 3.0.5)
+      activerecord (= 3.0.5)
+      activeresource (= 3.0.5)
+      activesupport (= 3.0.5)
+      bundler (~> 1.0)
+      railties (= 3.0.5)
+    rails_best_practices (1.8.0)
+      activesupport
+      colored
+      erubis
+      i18n
+      progressbar
+      sexp_processor
+    railties (3.0.5)
+      actionpack (= 3.0.5)
+      activesupport (= 3.0.5)
+      rake (>= 0.8.7)
+      thor (~> 0.14.4)
+    rake (0.9.2)
+    rcov (1.0.0)
+    reek (1.2.8)
+      ruby2ruby (~> 1.2)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    rmagick (2.13.1)
+    roodi (2.1.0)
+      ruby_parser
+    roxml (3.1.6)
+      activesupport (>= 2.3.0)
+      nokogiri (>= 1.3.3)
+    rscribd (1.3.0)
+      mime-types
+    rspec (2.8.0)
+      rspec-core (~> 2.8.0)
+      rspec-expectations (~> 2.8.0)
+      rspec-mocks (~> 2.8.0)
+    rspec-core (2.8.0)
+    rspec-expectations (2.8.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.8.0)
+    ruby2ruby (1.3.1)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    ruby_parser (2.3.1)
+      sexp_processor (~> 3.0)
+    scribd_fu (2.0.11)
+      rscribd
+    sexp_processor (3.0.7)
+    thor (0.14.6)
+    transaction-simple (1.4.0)
+      hoe (>= 1.1.7)
+    transitions (0.0.13)
+    treetop (1.4.10)
+      polyglot
+      polyglot (>= 0.3.1)
+    tzinfo (0.3.31)
+    wait_a_minute (0.0.5)
+      rails (>= 3.0.1)
+    whenever (0.6.8)
+      aaronh-chronic (>= 0.3.9)
+      activesupport (>= 2.3.4)
+    will_paginate (3.0.3)
+    xml-simple (1.1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  RedCloth (>= 3.0.4)
+  activemerchant (>= 1.5.1)
+  backup
+  capistrano
+  carrierwave
+  chronic (= 0.2.3)
+  daemons
+  delayed_job_active_record
+  exception_notification!
+  fastercsv (>= 1.2.3)
+  formtastic
+  hpricot
+  isbn_validation
+  libxml-ruby
+  meta-tags
+  meta_search
+  metric_fu
+  mocha
+  mysql
+  newrelic_rpm
+  onix!
+  parndt-acts_as_tree (>= 1.2.5)
+  pdf-writer
+  preferences!
+  rails (= 3.0.5)
+  rake (= 0.9.2)
+  repeated_auto_complete!
+  rmagick (>= 2.7)
+  rspec
+  scribd_fu (>= 2.0.11)
+  transitions
+  vestal_versions!
+  wait_a_minute (>= 0.0.4)
+  whenever
+  will_paginate (>= 3.0.3)
+  xml-simple

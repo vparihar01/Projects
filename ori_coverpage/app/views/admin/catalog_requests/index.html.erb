@@ -1,0 +1,20 @@
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<% if @catalog_requests.nil? %>
+	<p>No records found.</p>
+<% else %>
+
+  <table>
+    <tr>
+      <th class="first">Name</th>
+      <th>Street</th>
+      <th>Date</th>
+      <th class="icon last" colspan="2">Actions</th>
+    </tr>
+    <%= render :partial => 'catalog_request', :collection => @catalog_requests %>
+  </table>
+<%= will_paginate @catalog_requests %>
+
+<% end %>

@@ -1,0 +1,8 @@
+<% content_for :sidebar do %>
+<ul class="submenu">
+  <li><%= link_to "Teams", sales_teams_path %></li>
+  <li><%= link_to "Zones", sales_zones_path %></li>
+  <li><%= link_to "Contracts", contracts_path %></li>
+</ul>
+<% end %>
+<%= render :file => 'layouts/administration' %>

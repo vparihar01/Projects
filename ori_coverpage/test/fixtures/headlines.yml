@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  title: Headline One
+  snippet: Sample of 1st headline
+  body: There should be more of headline one text...
+  created_at: 2007-07-16 09:34:34
+  updated_at: 2007-07-16 09:34:34
+two:
+  id: 2
+  title: Headline Two
+  snippet: Sample of 2nd headline
+  body: There should be more of headline two text...
+  created_at: 2007-07-16 09:34:35
+  updated_at: 2007-07-16 09:34:35

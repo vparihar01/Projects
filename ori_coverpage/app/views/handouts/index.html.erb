@@ -1,0 +1,7 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:record => @handouts, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= render :partial => 'handouts/handout', :collection => @handouts, :spacer_template => 'shared/spacer', :locals => {:show_admin => true} %>
+
+<%= will_paginate @handouts %>

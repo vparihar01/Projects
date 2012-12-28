@@ -1,0 +1,104 @@
+/* Menu */
+div.menu {
+  margin:0;
+  overflow:hidden;
+  background:#A5272C url(../images/layouts/public/menu-bg.gif) repeat-x bottom left;
+  height:59px;
+  margin-left:28px;
+}
+/* .menu-tl { }*/
+/* .menu-tr { }*/
+/* .menu-bl { background:url(../images/layouts/public/menu-bl.gif) no-repeat bottom left; }*/
+.menu-br {
+  background:url(../images/layouts/public/menu-br.gif) no-repeat bottom right;
+  height:59px;
+}
+
+/* Navigation dropdown */
+ul.nav {
+  float:left;
+  overflow:hidden;
+  padding:0 0 0 10px;
+  margin:0;
+  list-style:none;
+}
+ul.nav li a {
+  color:#fff;
+  text-decoration:none;
+  font:1.2em/56px Georgia, "Times New Roman", Times, serif;
+  margin:0 6px 0 20px;
+  padding-right:17px;
+  background:url(../images/layouts/public/menu-arrow.gif) no-repeat center right;
+}
+ul.nav li.none a { padding-right:10px; background:none; }
+ul.nav li.none a:hover { background:none; }
+ul.nav li a:hover { background:url(../images/layouts/public/menu-arrow-hover.gif) no-repeat center right; }
+ul.nav li a:hover { text-decoration:underline; }
+ul.nav img.arrow {
+  margin:0 0 0 3px;
+  padding:0 0 2px 0;
+  cursor: pointer;
+  vertical-align: text-bottom;
+}
+ul.nav li {
+  float: left;
+  text-align:center;
+}
+ul.nav li div {
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  margin-bottom:0px !important; margin-bottom:3px;
+}
+ul.nav li.active {
+  background-color:#9D2426;
+}
+ul.nav li.active a {
+  color:#fff;
+}
+ul.nav li.selected {
+  background-color:#932127;
+}
+ul.nav li ul {
+  position:absolute;
+  z-index:0;
+  text-indent:0;
+  padding:7px 0 7px 0;
+  margin:0;
+  list-style:none;
+  width:200px;
+  background-color:#932127;
+  box-shadow:3px 3px 3px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow:3px 3px 3px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow:3px 3px 3px rgba(0, 0, 0, 0.4);
+  border-bottom-left-radius:0.5em;
+  -moz-border-radius-bottomleft:0.5em;
+  -webkit-border-bottom-left-radius:0.5em;
+  border-bottom-right-radius:0.5em;
+  -moz-border-radius-bottomright:0.5em;
+  -webkit-border-bottom-right-radius:0.5em;
+}
+ul.nav li ul li {
+  height:auto;
+  padding:3px 10px !important; /* IE7, IE8 */
+  margin:0 0 5px 0 !important; margin:0; /* IE7, IE8 */
+  line-height:1.4em !important; line-height:1em; /* IE7, IE8 */
+  float:none;
+  display:block;
+  width:auto;
+  text-align:left;
+}
+ul.nav li ul li:hover {
+  background-color:#7F1C21;
+}
+ul.nav li ul li a {
+  font:0.92em/1.2em "Lucida Grande", Trebuchet, Verdana, Arial, Helvetica, sans-serif;
+  font-weight:normal;
+  display:block;
+  background:none;
+  padding-right:0;
+  margin-left:10px;
+}
+ul.nav li ul li a:hover {
+  background:none;
+}
+ul.nav li ul li a:hover { text-decoration:none; }

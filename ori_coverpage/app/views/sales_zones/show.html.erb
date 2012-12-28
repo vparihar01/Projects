@@ -1,0 +1,33 @@
+<h1><%= @sales_zone.name %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Edit zone', edit_sales_zone_url(@sales_zone))) %>
+  <%= content_tag(:li, link_to('Create a new contract', new_contract_url('contract[sales_zone_id]'  => @sales_zone))) if admin? %>
+</ul>
+
+<h3>Contracts</h3>
+<table class="list" id="<%= controller.controller_name %>">
+  <thead>
+    <tr>
+      <th class="first">Sales Team</th>
+      <th>Category</th>
+      <th class="last center">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @contracts.each do |contract| %>
+    <%= content_tag_for(:tr, contract, :class => cycle('odd', 'even')) do %>
+      <td><%= link_to h(contract.sales_team), sales_team_url(contract.sales_team) %></td>
+      <td><%= contract.category ? contract.category : 'All' %></td>
+      <td class="center"><%= link_to 'View contract', contract_url(contract) %></td>
+    <% end %>
+  <% end %>
+  </tbody>
+  <tfoot>
+  </tfoot>
+</table>
+
+<h3>Postal Codes</h3>
+<p style="height: 20em; overflow: auto">
+  <%= @sales_zone.postal_code_list %>
+</p>

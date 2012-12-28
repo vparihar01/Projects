@@ -1,0 +1,19 @@
+# Logfile created on Tue May 22 11:13:09 +0530 2012 by logger.rb/22285
+[05/22/12 11:13:09 +0530 client76 (6922)] INFO : Dispatcher: webrick
+[05/22/12 11:13:09 +0530 client76 (6922)] INFO : Application: ChildsWorld
+[05/22/12 11:13:09 +0530 client76 (6922)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[05/22/12 11:13:09 +0530 client76 (6922)] INFO : New Relic Ruby Agent 3.3.2 Initialized: pid = 6922
+[05/22/12 11:13:09 +0530 client76 (6922)] INFO : Agent Log at /home/dhamodharan/project/coverpage/log/newrelic_agent.log
+[05/22/12 11:13:09 +0530 client76 (6922)] INFO : NewRelic::Agent::Samplers::DelayedJobLockSampler sampler not available: No DJ worker present
+[05/22/12 11:36:57 +0530 client76 (7651)] INFO : Dispatcher: webrick
+[05/22/12 11:36:57 +0530 client76 (7651)] INFO : Application: ChildsWorld
+[05/22/12 11:36:57 +0530 client76 (7651)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[05/22/12 11:36:57 +0530 client76 (7651)] INFO : New Relic Ruby Agent 3.3.2 Initialized: pid = 7651
+[05/22/12 11:36:57 +0530 client76 (7651)] INFO : Agent Log at /home/dhamodharan/project/coverpage/log/newrelic_agent.log
+[05/22/12 11:36:57 +0530 client76 (7651)] INFO : NewRelic::Agent::Samplers::DelayedJobLockSampler sampler not available: No DJ worker present
+[05/22/12 11:39:52 +0530 client76 (7710)] INFO : Dispatcher: webrick
+[05/22/12 11:39:52 +0530 client76 (7710)] INFO : Application: ChildsWorld
+[05/22/12 11:39:52 +0530 client76 (7710)] WARN : Agent configured not to send data in this environment - edit newrelic.yml to change this
+[05/22/12 11:39:52 +0530 client76 (7710)] INFO : New Relic Ruby Agent 3.3.2 Initialized: pid = 7710
+[05/22/12 11:39:52 +0530 client76 (7710)] INFO : Agent Log at /home/dhamodharan/project/coverpage/log/newrelic_agent.log
+[05/22/12 11:39:52 +0530 client76 (7710)] INFO : NewRelic::Agent::Samplers::DelayedJobLockSampler sampler not available: No DJ worker present

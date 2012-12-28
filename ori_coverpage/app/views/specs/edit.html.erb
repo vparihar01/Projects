@@ -1,0 +1,20 @@
+<h1>Edit Specification</h1>
+<% unless checkout_scope? -%>
+  <ul class="page-actions">
+    <li><%= link_to("Return to list", specs_path) %></li>
+  </ul>
+<% end -%>
+
+<p>Please use the following form to edit this library processing specification.</p>
+
+<%= form_for @spec do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <% if checkout_scope? -%>
+    <% title = " Return to Step 1: processing information " -%>
+    <%= page_buttons(image_submit_tag("buttons/l/continue.gif", :alt => title, :title => title), link_to('Cancel', checkout_processing_path)) %>
+  <% else -%>
+    <%= submit_or_cancel %>
+  <% end -%>
+<% end -%>
+
+<%= render :partial => 'disclaimer' %>

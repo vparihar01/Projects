@@ -1,0 +1,178 @@
+userpref_001:
+  id: 1
+  name: email_sale_status
+  owner_id: 1
+  owner_type: User
+  group_id:
+  group_type:
+  value: 1
+
+userpref_002:
+  id: 2
+  name: email_sale_status
+  owner_id: 2
+  owner_type: User
+  group_id:
+  group_type:
+  value: 1
+
+userpref_003:
+  id: 3
+  name: email_sale_status
+  owner_id: 3
+  owner_type: User
+  value: 1
+
+userpref_004:
+  id: 4
+  name: email_sale_status
+  owner_id: 5
+  owner_type: User
+  value: 1
+
+userpref_005:
+  id: 5
+  name: email_sale_status
+  owner_id: 6
+  owner_type: User
+  value: 1
+
+data_test_template:
+  id: 6
+  name: data_template
+  owner_id: 1
+  owner_type: Recipient
+  value: standard
+
+data_test_format_ids:
+  id: 7
+  name: data_format_ids
+  owner_id: 1
+  owner_type: Recipient
+  value: "--- \n- 1\n - 2\n- 3\n"
+
+data_test_class:
+  id: 8
+  name: data_class
+  owner_id: 1
+  owner_type: Recipient
+  value: Product
+
+data_test_onix_template:
+  id: 9
+  name: data_template
+  owner_id: 2
+  owner_type: Recipient
+  value: onix
+
+data_test_onix_format_ids:
+  id: 10
+  name: data_format_ids
+  owner_id: 2
+  owner_type: Recipient
+  value: "--- \n- 1\n - 3\n"
+
+data_test_onix_class:
+  id: 11
+  name: data_class
+  owner_id: 2
+  owner_type: Recipient
+  value: Title
+
+ebooks_test_covers:
+  id: 12
+  name: ebook_include_covers
+  owner_id: 3
+  owner_type: Recipient
+  value: true
+
+ebooks_test_cover_suffix:
+  id: 13
+  name: ebook_cover_suffix
+  owner_id: 3
+  owner_type: Recipient
+  value: _cover
+
+ebooks_test_ebook_suffix:
+  id: 14
+  name: ebook_suffix
+  owner_id: 3
+  owner_type: Recipient
+  value: _ebook
+
+ebooks_test_eisbn:
+  id: 15
+  name: ebook_use_eisbn
+  owner_id: 3
+  owner_type: Recipient
+  value: true
+
+ebooks_test_data:
+  id: 16
+  name: ebook_include_data
+  owner_id: 3
+  owner_type: Recipient
+  value: true
+
+ebooks_test_manifest:
+  id: 17
+  name: ebook_include_manifest
+  owner_id: 3
+  owner_type: Recipient
+  value: true
+
+ebooks_follett_covers:
+  id: 18
+  name: ebook_include_covers
+  owner_id: 4
+  owner_type: Recipient
+  value: false
+
+ebooks_follett_cover_suffix:
+  id: 19
+  name: ebook_cover_suffix
+  owner_id: 4
+  owner_type: Recipient
+  value:
+
+ebooks_follett_ebook_suffix:
+  id: 20
+  name: ebook_suffix
+  owner_id: 4
+  owner_type: Recipient
+  value:
+
+ebooks_follett_eisbn:
+  id: 21
+  name: ebook_include_eisbn
+  owner_id: 4
+  owner_type: Recipient
+  value: true
+
+ebooks_follett_data:
+  id: 22
+  name: ebook_include_data
+  owner_id: 4
+  owner_type: Recipient
+  value: false
+
+ebooks_follett_manifest:
+  id: 23
+  name: ebook_include_manifest
+  owner_id: 4
+  owner_type: Recipient
+  value: false
+
+images_test_type:
+  id: 24
+  name: image_types
+  owner_id: 5
+  owner_type: Recipient
+  value: "--- \n- covers\n- spreads\n"
+
+images_test_format:
+  id: 25
+  name: image_formats
+  owner_id: 5
+  owner_type: Recipient
+  value: "--- \n- jpg\n"

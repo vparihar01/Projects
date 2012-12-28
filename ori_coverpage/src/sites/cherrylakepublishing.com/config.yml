@@ -1,0 +1,269 @@
+---
+defaults: &defaults
+  theme: cherrylake
+  menu_type: drop_tab  # Either drop_tab or sticky_tab
+  show_panel: true
+  show_sidebar: true
+  # Map controller to layout (app/views/layouts filename less extension)
+  controller_layouts:
+    account_controller: account
+    addresses_controller: account
+    catalog_requests_controller: help
+    categories_controller: shop
+    checkout_controller: checkout
+    collections_controller: shop
+    contracts_controller: sales
+    contributors_controller: about
+    customers_controller: sales
+    downloads_controller: help
+    editorial_reviews_controller: shop
+    errata_controller: shop
+    excerpts_controller: shop
+    faqs_controller: help
+    handouts_controller: help
+    headlines_controller: about
+    levels_controller: shop
+    links_controller: help
+    pages_controller: application
+    products_controller: shop
+    quotes_controller: account
+    sales_reps_controller: sales
+    sales_teams_controller: sales
+    sales_zones_controller: sales
+    shop_controller: shop
+    specs_controller: account
+    teaching_guides_controller: help
+    testimonials_controller: about
+    wishlists_controller: account
+  # Map complex page (see pages controller) to layout
+  page_layouts:
+    home: home
+    geolocation: about
+    contact: help
+    hosted_ebooks_trial: help
+    subscribe: help
+    unsubscribe: help
+    reps: about
+  # Map layout to menu tab (specifying which tab will be active)
+  layout_tabs:
+    about: about
+    account: account
+    admin: 
+    checkout: shop
+    collections: shop
+    grades: shop
+    help: help
+    home: home
+    quick: shop
+    resources: help
+    sales: 
+    search: shop
+    shop: shop
+    subjects: shop
+  glider_frequency: 10
+  glider_duration: 0.7
+  fade_duration: 0.2
+  blind_duration: 0.2
+  cart_startcolor: '#BFC8B5' # can leave blank, defaults to yellow
+  cart_endcolor: '#C7D6BA' # can leave blank, defaults to white
+  fallback_pdf_price: 9.95
+  fallback_trade_price: 8.95
+  #
+  company_name: Cherry Lake Publishing
+  tax_id: 20-5654413
+  app_name: CherryLakePublishing.com
+  app_url: http://cherrylakepublishing.com/
+  phone: '1-866-918-3956'
+  fax: '1-866-489-6490'
+  street: 1750 Northway Drive
+  suite: Suite 101
+  city: North Mankato
+  state: MN
+  zip: 56003
+  order_street: 1750 Northway Drive
+  order_suite: Suite 101
+  order_city: North Mankato
+  order_state: MN
+  order_zip: 56003
+  canada_company: Saunders Book Company
+  canada_street: PO Box 308
+  canada_suite: 
+  canada_city: Collingwood
+  canada_state: Ontario
+  canada_zip: L9Y 3Z7
+  canada_phone: '800-461-9120'
+  canada_fax: '800-561-1763'
+  canada_email: info@saundersbook.ca
+  canada_web: 'http://www.librarybooks.com'
+  webmaster_email: dev@cherrylakepublishing.com
+  webmaster_ftp: ftp://mf-share:milkfarm@milkfarmproductions.com
+  webmaster_sftp: sftp://tv:tv@mini.local
+  exception_email: redmine@milkfarmproductions.com
+  sales_email: sales@cherrylakepublishing.com
+  support_email: customerservice@cherrylakepublishing.com
+  hosted_ebooks_trial_email: [customerservice@bigtimbermedia.com, cmeadows@bigtimbermedia.com]
+  hosted_ebooks_url: 'http://my.bigtimbermedia.com/display/?isbn='
+  onix_contact: Tim Peterson
+  onix_email: tim@cherrylakepublishing.com
+  image_email: tim@cherrylakepublishing.com
+  image_archive_dir: /home/share/images
+  ftp_dir: /home/share
+  export_basename: cherrylake
+  extended_per_page: 20
+  compact_per_page: 100
+  # Authorize.net
+  authorizenet_id: 6700ff72-deb1-409e-8aa6-6fbe71341adb
+  # Google analytics
+  google_analytics_tracker: UA-4760322-1
+  # Campaign monitor
+  subscribe_url: http://milkfarmproductions.createsend.com/t/r/s/ydgud/
+  unsubscribe_url: http://milkfarmproductions.createsend.com/t/r/u/ydgud/
+  email_input_id: cm-ydgud-ydgud
+  # Enable x-sendfile option of send_file
+  use_xsendfile: true
+  # Website image parameters
+  website_images_dir: public/images
+  website_samples_dir: tmp/samples
+  website_image_size_geometries:
+    s: '85x100'
+    m: '170x200'
+    l: '340x400'
+  website_image_scale_s: 0.1
+  website_image_scale_m: 0.15
+  website_image_scale_l: 0.35
+  composite_image_rotation: 5
+  glider_image_rotation: 5
+  # show/hide library processing specifications disclaimer on returns & refunds
+  # true shows, false hides, not defined hides (see app/views/specs/_disclaimer.html.erb)
+  show_processing_disclaimer: true
+  # Library processing
+  free_library_processing: false # true or false (undefined = false)
+  reading_label_cost: 0.15
+  catalog_card_cost: 0.80
+  data_disk_cost: 15.00
+  data_disk_per_book_cost: 0
+  barcode_label_cost: 0.15
+  # Shipping options
+  free_shipping_for_institutions: false # true or false (undefined = false)
+  shipping_costs_method: percentage1   # use 'percentage1' for a cherrylake-like calculation, 'percentage2' for a childsworld-like calculation
+  shipping_cost_factor: 0.075            # put calculation factor
+  shipping_min_cost: 0                   # min amount for shipping in dollars (0 for no limit)
+  shipping_max_cost: 0                   # max amount for shipping in dollars (0 for no limit)
+  shipping_description_ups: '7.5% of net sale'  # any description to be displayed for the 'UPS Ground' shipping
+  default_format_only: false              # Show only default product format
+  # Ebook importing parameters
+  ebook_import_overwrite: false
+  ebook_import_source_dir: tmp/ebooks/in
+  ebook_import_archive_dir: tmp/ebooks/out
+  ebook_import_bad_dir: tmp/ebooks/bad
+  ebook_import_unknown_dir: tmp/ebooks/unknown
+  pdf_archive_dir: /Users/Shared/Projects/cherrylakepublishing/ebooks
+  # Advanced Reader Pricing
+  alsquiz_unit_price: 0
+  alsquiz_min_limit: 0
+  # shell programs used by lib/pdf.rb
+  pdftk: /usr/bin/pdftk
+  exiftool: /usr/local/bin/exiftool
+  convert: /usr/bin/convert
+  identify: /usr/bin/identify
+  gs: /usr/bin/gs
+  awk: /usr/bin/gawk
+  sed: /bin/sed
+  # PdfTool options (watermarking samples, downloads, etc.)
+  pdftool_temp_dir: tmp/pdftool
+  # PdfTool: Product Download options
+  # pdftool_download_watermark_file: protected/watermark_download.pdf
+  pdftool_download_text: This copy has been exclusively prepared for %s.
+  pdftool_download_text_properties:
+    font: Helvetica
+    font_size: 10
+    text_angle: 0
+    justification: center
+    alignment: bottom
+    font_color: '#666666'
+    vmargin: 10
+    hmargin: 0
+  pdftool_download_password: asecretphrase
+  pdftool_download_permissions: # see pdftk --help for more info
+    - ScreenReaders
+  # PdfTool: Sample options
+  # pdftool_sample_watermark_file: protected/watermark_sample.pdf
+  # pdftool_sample_text: PRODUCT SAMPLE
+  pdftool_sample_text_properties: 
+  # pdftool_sample_text_properties:
+  #   font: Helvetica
+  #   font_size: 40
+  #   text_angle: 45
+  #   justification: center
+  #   alignment: center
+  #   font_color: '#666666'
+  #   vmargin: 0
+  #   hmargin: 0
+  pdftool_sample_front_pages: 19  # should be odd number
+  pdftool_sample_back_pages: 10  # should be odd number
+  # Use price calculations: set to true or false
+  calculate_assembly_price: true
+  calculate_list_price: false
+  calculate_ebook_price: true
+  ebook_price_decimal: 1 # used if calculate_ebook_price set to true
+  ebook_fallback_price: 9.95 # used if calculate_ebook_price set to true and default price is null
+  member_price_decimal: 0.7 # used to calculate list price from member price
+  # mailer
+  host: cherrylakepublishing.com
+  parser_archive_dir: tmp/import/archive
+  errata_login_required: false
+  email_sale_status: true
+  # ftp site for images, etc
+  ftp_site: ftp://ftp.cherrylakepublishing.com
+  ftp_user: share
+  ftp_password: cherrylake
+  redmine:
+    project: coverpage
+    tracker: Bug
+    priority: High
+    status: New
+    category: Support
+    api_key: oZXHwxYvRko1sIy3tuBG
+  default_bisac: JNF000000
+  show_error_pages: true
+  calculate_title_and_subtitle: false
+  show_buttons_in_list: false
+  max_extended_rows: 6
+  contention_import_dir: /home/cherrylake/contention/incoming
+  csplus_discount_code: "04"
+  show_facebook_like: false
+  facebook_id: # comma-separated
+  meta_keywords: ["school books", "education", "nonfiction"]
+  meta_description: Cherry Lake Publishing is committed to providing quality, relevant library and classroom resources that better prepare students for the future while exciting their imaginations on every page.
+  show_search_filters: false
+  show_format_ids: [1, 3, 4]  # Array of format ids to show on public site
+  price_change_notice: 120  # Days of advance notice
+development: &development
+  <<: *defaults
+  webmaster_email: tim@milkfarmproductions.com
+  exception_email: tim@milkfarmproductions.com
+  sales_email: tim@milkfarmproductions.com
+  support_email: tim@milkfarmproductions.com
+  hosted_ebooks_trial_email: tim@milkfarmproductions.com
+  onix_contact: John Doe
+  onix_email: tim@milkfarmproductions.com
+  image_email: tim@milkfarmproductions.com
+  image_archive_dir: /Volumes/Groups/cherrylakepublishing/share/images
+  ftp_dir: /Users/tim/Sites/shared/coverpage
+  authorizenet_id: 
+  google_analytics_tracker: 
+  subscribe_url: 
+  unsubscribe_url: 
+  email_input_id: 
+  use_xsendfile: false
+  pdftk: /usr/local/bin/pdftk
+  convert: /usr/local/bin/convert
+  identify: /usr/local/bin/identify
+  gs: /usr/local/bin/gs
+  awk: /usr/local/bin/gawk
+  sed: /usr/local/bin/sed
+  host: coverpage.local
+test:
+  <<: *development
+production:
+  <<: *defaults

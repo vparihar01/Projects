@@ -1,0 +1,22 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @handout, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= @handout.name %></h1>
+<p class="meta">Updated on <%= @handout.updated_at.to_s(:long) %></p>
+
+<p class="forcetopmargin"><%= @handout.description %></p>
+
+<%= render :partial => 'download', :locals => {:handout => @handout} %>
+
+<% if admin? -%>
+  <ul class="meta">
+    <li>Path: <%= @handout.document_path %></li>
+    <li>Downloads: <%= @handout.download_counter %></li>
+    <li>Created: <%= @handout.created_at.to_s(:custom_with_time) %></li>
+    <li>Updated: <%= @handout.updated_at.to_s(:custom_with_time) %></li>
+  </ul>
+<% end -%>
+
+<p class="morebuttons"><%= link_to('&laquo; Handouts'.html_safe, handouts_path, :class => 'more') %></p>
+<% if @teaching_guide -%>
+  <p class="morebuttons"><%= link_to("&laquo; #{@teaching_guide.name}".html_safe, teaching_guide_path(@teaching_guide), :class => 'more') %></p>
+<% end -%>

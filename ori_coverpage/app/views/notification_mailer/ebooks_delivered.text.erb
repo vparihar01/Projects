@@ -1,0 +1,12 @@
+Ebooks for <%= CONFIG[:company_name] %>'s products have 
+been uploaded to your designated server.
+
+<%= server_info(@server) -%>
+
+<% if @has_attachment == true -%>Please refer to attachment for details.<% end -%>
+
+<%= divider %>
+
+You are receiving this message because you have subscribed to the 
+<%= CONFIG[:app_name] %> ebook distribution list. If you prefer 
+not to receive these updates please reply to this message.

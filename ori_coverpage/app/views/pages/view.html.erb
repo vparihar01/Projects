@@ -1,0 +1,10 @@
+<% if admin? -%>
+  <ul class="actions">
+    <li><%= link_to image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_page_path(@page), {:method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin'} %></li>
+    <li><%= link_to image_tag('buttons/admin/edit.gif', :alt => 'Edit'), edit_admin_page_path(@page) %></li>
+    <li><%= link_to image_tag('buttons/admin/new.gif', :alt => 'New'), new_admin_page_path %></li>
+    <li class="last"><%= link_to image_tag('buttons/admin/back.gif', :alt => 'Back'), admin_pages_path %></li>
+  </ul>
+<% end -%>
+
+<%= textilize(@page.body).html_safe %>

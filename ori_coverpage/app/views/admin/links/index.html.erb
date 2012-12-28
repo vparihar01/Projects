@@ -1,0 +1,45 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => request.path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :title_contains, :label => "Title", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :code_equals, :label => "Code", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :is_kids_equals, :label => "Kids", :as => :select, :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :is_adults_equals, :label => "Adults", :as => :select, :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :is_highlight_equals, :label => "Highlight", :as => :select, :required => false, :wrapper_html => { :class => "half" } %>
+    <li class="select required half"><%= label_tag :product_id, 'Product', :id => 'product_id_input' %><%= select_tag :product_id, options_for_select([[]]+Product.to_dropdown, (@product ? @product.id : nil)) %></li>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @links.any? -%>
+  <table cellspacing="0" class="list">
+    <tr>
+      <th class="first"><%= sort_link(@search, :title) %></th>
+      <th class="center"><%= sort_link(@search, :views) %></th>
+      <th class="center"><%= sort_link(@search, :code) %></th>
+      <th colspan="2" class="icon last">Actions</th>
+    </tr>
+    <% @links.each do |link| %>
+      <%= content_tag_for(:tr, link, :class => cycle('odd', 'even')) do -%>
+        <td>
+        <%= link.link_title %><br />
+        <%= link_to link.url, link.url, :class => "meta", :method => :put %>
+        </td>
+        <td class="center"><%= link.views %></td>
+        <td class="center"><%= link.code %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/edit.gif', :alt => 'Edit'), edit_admin_link_path(link), :class => 'admin') %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_link_path(link), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></td>
+      <% end %>
+    <% end -%>
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @links} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

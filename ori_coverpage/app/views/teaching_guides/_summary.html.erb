@@ -1,0 +1,11 @@
+<div class="module">
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => teaching_guide, :controller_path => "admin/#{controller.controller_name}"} %>
+  <% end -%>
+  <% if product = teaching_guide.products.first -%>
+    <%= link_to image_tag(product.image, :class => "photo clearfix"), show_path(product) -%>
+  <% end -%>
+  <h3><%= link_to(teaching_guide.name, teaching_guide_path(teaching_guide)) %></h3>
+  <%=raw RedCloth.new(truncate_to_nearest_word(teaching_guide.rationale, 300) + " " + link_to('Read &raquo;'.html_safe, teaching_guide_path(teaching_guide))).to_html %>
+  <%= render :partial => 'download', :locals => {:teaching_guide => teaching_guide} %>
+</div>

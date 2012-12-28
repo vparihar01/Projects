@@ -1,0 +1,38 @@
+<%= render :partial => 'shared/required' %>
+<fieldset>
+<div class="group">
+  <%= f.hidden_field :user_id %>
+  <div class="half first">
+    <%= f.label :name, 'Your name' %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="half">
+    <%= f.label :email, 'Your email' %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :product_format_id, 'Product format *' %>
+    <%= f.select :product_format_id, @product.product_formats.collect {|x| [x.format.name, x.id]} %>
+  </div>
+  <div class="half">
+    <%= f.label :edition %>
+    <%= f.text_field :edition %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :erratum_type, 'Type *' %>
+    <%= f.select :erratum_type, Erratum::VALID_TYPES, {:disabled => true} %>
+  </div>
+  <div class="half">
+    <%= f.label :page_number, 'Page number *' %>
+    <%= f.text_field :page_number %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :description, 'Description *' %>
+    <%= f.text_area :description, :class => 'short' %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>

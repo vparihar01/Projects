@@ -1,0 +1,19 @@
+two_products:
+  id: 1
+  amount: 0.1
+  percent: true
+  name: 10% off two items
+  type: Bundle
+two_other_products:
+  id: 2
+  amount: 0.2
+  percent: true
+  name: 20% off two items
+  type: Bundle
+coupon:
+  id: 3
+  amount: 0.5
+  percent: true
+  name: half off
+  type: Coupon
+  code: COUPON50

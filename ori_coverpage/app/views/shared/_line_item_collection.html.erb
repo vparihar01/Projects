@@ -1,0 +1,20 @@
+<table class="list" id="line_items">
+  <thead>
+    <tr>
+      <th class="first">Title</th>
+      <th><%= format_column_heading(:always_display_price => false) -%></th>
+      <th class="number">Price</th>
+      <th class="qty">Qty</th>
+      <th class="number last">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= render :partial => 'shared/line_item', :collection => line_item_collection.line_items %>
+  </tbody>
+  <tfoot>
+    <tr class="totals">
+      <td colspan="4">Total</td>
+      <td class="number"><%= number_to_currency(line_item_collection.line_items.collect(&:total_amount).sum) %></td>
+    </tr>
+  </tfoot>
+</table>

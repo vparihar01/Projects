@@ -1,0 +1,8 @@
+<%= div_for handout, :class => 'module' do -%>
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => handout, :controller_path => "admin/#{controller.controller_name}"} %>
+  <% end -%>
+  <h3><%= handout.name %></h3>
+  <p><%= handout.description %></p>
+  <%= render :partial => 'handouts/download', :locals => {:handout => handout} %>
+<% end -%>

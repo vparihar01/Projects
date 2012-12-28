@@ -1,0 +1,7 @@
+<% set_tab(__FILE__) %>
+<% unless content_for?(:sidebar) -%>
+  <% content_for :sidebar do -%>
+    <%= render :partial => 'shared/sidebar_account' %>
+  <% end -%>
+<% end -%>
+<%= render :file => 'layouts/application' %>

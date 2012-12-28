@@ -1,0 +1,14 @@
+<%= error_messages_for :sales_zone %>
+
+<fieldset>
+  <div class="group">
+    <div class="full">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="full">
+      <%= f.label :postal_code_list, 'Postal Codes' %>
+      <%= f.text_area :postal_code_list, :class => 'medium' %>
+    </div>
+  </div>
+</fieldset>

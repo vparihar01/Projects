@@ -1,0 +1,36 @@
+<%= render :partial => 'shared/admin_edit_actions', :locals => {:record => @contributor} %>
+
+<h1>Edit Contributor</h1>
+
+<%= form_for @contributor, :url => admin_contributor_path(@contributor) do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_or_cancel(admin_contributor_path(@contributor)) %>
+<% end -%>
+
+<h2 id="products">Assignments</h2>
+
+<%= form_for( @contributor.contributor_assignments.new, :as => :contributor_assignment,
+              :url => admin_contributor_assignments_path, :remote => true,
+              :html => {:id => 'contributor_assignment_form'}) do |f| -%>
+  <%= hidden_field_tag :context, 'contributors'  %>
+  <%= f.hidden_field :contributor_id %>
+  <table class="list" id="contributor_assignments">
+    <tr>
+      <th class="title first">Product</th>
+      <th>Role</th>
+      <th class="last">Action</th>
+    </tr>
+    <tr>
+      <td class="summary">
+        <%= f.select :product_id, Product.to_dropdown, {:include_blank => true}, {:class => 'l'} %>
+      </td>
+      <td class="summary">
+        <%= f.select :role, app_select_options(:role), {:include_blank => true}, {:class => 'l'} %>
+      </td>
+      <td class="summary"><%= f.submit('Add') %></td>
+    </tr>
+    <% @contributor.contributor_assignments.each do |role| -%>
+      <%= render :partial => 'assignment_row', :locals => {:assignment => role} %>
+    <% end -%>
+  </table>
+<% end -%>

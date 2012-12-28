@@ -1,0 +1,18 @@
+---
+email_nightly: true
+consolidate_directories: true
+scan_directories: true
+clear_sessions: true
+clean_tmp: false
+source_directory: /home
+sub_directories: [amnet, cg, designlab, redline, edi]
+target_directory: /home/cherrylake/ftp
+backup_mysql_local: true
+mysql_local_command: "/usr/bin/mysqldump -u cherrylake -pbeg8te cherrylake | /bin/gzip -9 > /var/www/cherrylakepublishing.com/shared/tmp/cherrylake.sql.gz"
+backup_mysql: true
+mysql_command: "cd /var/www/cherrylakepublishing.com/current && RAILS_ENV=production /usr/local/bin/backup perform --trigger cherrylake --config_file /var/www/cherrylakepublishing.com/current/config/backup.rb --data-path /var/www/cherrylakepublishing.com/shared/backup --log-path /var/www/cherrylakepublishing.com/shared/log --tmp-path /var/www/cherrylakepublishing.com/shared/tmp"
+rotate_logs: true
+rotate_logs_command: "/var/www/cherrylakepublishing.com/current/script/logrotate x /var/www/cherrylakepublishing.com/current"
+clear_wait_a_minute_request_logs: true
+implement_price_changes: true
+distribute_price_changes: true

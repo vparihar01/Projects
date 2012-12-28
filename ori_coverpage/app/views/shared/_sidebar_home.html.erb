@@ -1,0 +1,7 @@
+<%= render :partial => 'products/search' %>
+<%= render "shared/testimonials" %>
+<% if editorial_reviews = EditorialReview.find_latest(1, :written_on) -%>
+  <h2>Recent Reviews</h2>
+  <%= render :partial => 'editorial_reviews/summary', :collection => editorial_reviews, :as => :editorial_review, :spacer_template => 'shared/spacer', :locals => {:hide_image => true} %>
+  <p class="morebuttons"><%= link_to('More reviews &raquo;'.html_safe, editorial_reviews_path, :class => 'more') %></p>
+<% end -%>

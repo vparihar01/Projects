@@ -1,0 +1,7 @@
+<% set_tab(__FILE__) %>
+<% content_for :sidebar do %>
+  <h2>Help Center</h2>
+  <p>Don't know where to look for answers? Look no further (use the 'help' search).</p>
+  <%= render :partial => 'faqs/search' %>
+<% end %>
+<%= render :file => 'layouts/application' %>

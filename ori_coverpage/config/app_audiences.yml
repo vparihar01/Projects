@@ -1,0 +1,56 @@
+---
+General/trade:
+  value: General/trade
+  onix: 1
+  ingram: '01'
+  bakertaylor: General/trade
+  buyboard: 
+Children/juvenile:
+  value: Children/juvenile
+  onix: 2
+  ingram: '02'
+  bakertaylor: Children/juvenile
+  buyboard: Elementary
+Young adult:
+  value: Young adult
+  onix: 3
+  ingram: '03'
+  bakertaylor: Young adult
+  buyboard: Middle School
+Primary school:
+  value: Primary school
+  onix: 4
+  ingram: '02'
+  bakertaylor: Primary school
+  buyboard: Elementary
+Secondary school:
+  value: Secondary school
+  onix: 4
+  ingram: '02'
+  bakertaylor: Secondary school
+  buyboard: High School
+College:
+  value: College
+  onix: 5
+  ingram: '03'
+  bakertaylor: College
+  buyboard: 
+Professional:
+  value: Professional
+  onix: 6
+  ingram: '03'
+  bakertaylor: Professional
+  buyboard: 
+ELT/ESL:
+  value: ELT/ESL
+  onix: 7
+  ingram: '01'
+  bakertaylor: ELT/ESL
+  buyboard: 
+Adult:
+  value: Adult
+  onix: 8
+  ingram: '03'
+  bakertaylor: Adult
+  buyboard: 
+  

@@ -1,0 +1,26 @@
+---
+Hardcover: 
+  value: Hardcover
+  onix: BB
+  ingram: B
+  bakertaylor: Hardcover
+Paperback: 
+  value: Paperback
+  onix: BC
+  ingram: B
+  bakertaylor: Paperback
+Ebook: 
+  value: Ebook
+  onix: DG
+  ingram: D
+  bakertaylor: Ebook
+Digital: 
+  value: Digital
+  onix: DA
+  ingram: D
+  bakertaylor: Digital
+Online resource: 
+  value: Online resource
+  onix: DH
+  ingram: D
+  bakertaylor: Online resource

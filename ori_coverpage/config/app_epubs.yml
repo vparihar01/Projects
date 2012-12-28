@@ -1,0 +1,41 @@
+---
+Adobe PDF: 
+  value: Adobe PDF
+  onix: 2
+  ingram: Adobe PDF
+  bakertaylor: Adobe PDF
+FlippingBook: 
+  value: FlippingBook
+  onix: 1
+  ingram: FlippingBook
+  bakertaylor: FlippingBook
+ePub: 
+  value: ePub
+  onix: 29
+  ingram: ePub
+  bakertaylor: ePub
+HTML: 
+  value: HTML
+  onix: 1
+  ingram: HTML
+  bakertaylor: HTML
+Kindle: 
+  value: Kindle
+  onix: 31
+  ingram: Kindle
+  bakertaylor: Kindle
+iOS app:
+  value: iOS app
+  onix: 40
+  ingram: iOS app
+  bakertaylor: iOS app
+Blio: 
+  value: Blio
+  onix: 43
+  ingram: Blio
+  bakertaylor: Blio
+MyiLibrary: 
+  value: MyiLibrary
+  onix: 30
+  ingram: MyiLibrary
+  bakertaylor: MyiLibrary

@@ -1,0 +1,91 @@
+---
+Library binding: 
+  value: Library binding
+  onix: B307
+  ingram: LB
+  bakertaylor: Library binding
+  buyboard: Print Primarily
+Reinforced binding: 
+  value: Reinforced binding
+  onix: B307
+  ingram: TC
+  bakertaylor: Reinforced binding
+  buyboard: Print Primarily
+Saddle-sewn: 
+  value: Saddle-sewn
+  onix: B310
+  ingram: TC
+  bakertaylor: Saddle-sewn
+  buyboard: Print Primarily
+Unsewn / adhesive bound: 
+  value: Unsewn / adhesive bound
+  onix: B305
+  ingram: TC
+  bakertaylor: Unsewn / adhesive bound
+  buyboard: Print Primarily
+Mass market paperback: 
+  value: Mass market paperback
+  onix: B101
+  ingram: MM
+  bakertaylor: Mass market paperback
+  buyboard: Print Primarily
+Trade paperback: 
+  value: Trade paperback
+  onix: B102
+  ingram: TP
+  bakertaylor: Trade paperback
+  buyboard: Print Primarily
+Adobe PDF: 
+  value: Adobe PDF
+  onix: 
+  ingram: Adobe PDF
+  bakertaylor: Adobe PDF
+  buyboard: Electronic Non-Interactive Online
+FlippingBook: 
+  value: FlippingBook
+  onix: 
+  ingram: FlippingBook
+  bakertaylor: FlippingBook
+  buyboard: Electronic Non-Interactive Online
+ePub: 
+  value: ePub
+  onix: 
+  ingram: ePub
+  bakertaylor: ePub
+  buyboard: Electronic Non-Interactive Online
+DocBook: 
+  value: DocBook
+  onix: 
+  ingram: DocBook
+  bakertaylor: DocBook
+  buyboard: Electronic Non-Interactive Online
+HTML: 
+  value: HTML
+  onix: 
+  ingram: HTML
+  bakertaylor: HTML
+  buyboard: Electronic Non-Interactive Online
+Kindle: 
+  value: Kindle
+  onix: 
+  ingram: Kindle
+  bakertaylor: Kindle
+  buyboard: Electronic Non-Interactive Online
+iOS app:
+  value: iOS app
+  onix: D205
+  ingram: iOS app
+  bakertaylor: iOS app
+  buyboard: Electronic Interactive Online
+Blio: 
+  value: Blio
+  onix: 
+  ingram: Blio
+  bakertaylor: Blio
+  buyboard: Electronic Non-Interactive Online
+MyiLibrary: 
+  value: MyiLibrary
+  onix: 
+  ingram: MyiLibrary
+  bakertaylor: MyiLibrary
+  buyboard: Electronic Non-Interactive Online

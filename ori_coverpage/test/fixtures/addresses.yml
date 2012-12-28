@@ -1,0 +1,69 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  name: admin
+  street: 6800 Bayboro Ct.
+  city: Mobile
+  postal_code_id: 1
+  country_id: 1
+  addressable_id: 3
+  addressable_type: User
+  is_primary: true
+quentin:
+  id: 2
+  name: Quentin
+  street: 6800 Bayboro Ct.
+  city: Mobile
+  postal_code_id: 1
+  country_id: 1
+  addressable_id: 1
+  addressable_type: User
+  is_primary: true
+three:
+  id: 3
+  name: Quentin
+  street: 570 Kirkland Way
+  city: Kirkland
+  postal_code_id: 1
+  country_id: 1
+  addressable_id: 1
+  addressable_type: User
+  is_primary: false
+another_address:
+  id: 4
+  name: Another Customer
+  city: Dallas
+  postal_code_id: 2
+  country_id: 1
+  addressable_id: 7
+  addressable_type: User
+  is_primary: false
+another_primary:
+  id: 5
+  name: Another Customer
+  city: Dallas
+  postal_code_id: 2
+  country_id: 1
+  addressable_id: 7
+  addressable_type: User
+  is_primary: true
+catalog_request:
+  id: 6
+  name: Potential Customer
+  street: 6800 Bayboro Ct.
+  city: Mobile
+  postal_code_id: 1
+  country_id: 1
+  addressable_id: 1
+  addressable_type: CatalogRequest
+  is_primary: false
+another_catalog_request:
+  id: 7
+  name: Interested School
+  street: 112 Kirkland Way
+  city: Kirkland
+  postal_code_id: 1
+  country_id: 1
+  addressable_id: 2
+  addressable_type: CatalogRequest
+  is_primary: false

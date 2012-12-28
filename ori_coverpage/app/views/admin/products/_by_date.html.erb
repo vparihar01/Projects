@@ -1,0 +1,8 @@
+<div class="half first">
+  <%= label_tag :start_date, "Start Date <span class='meta'>(yyyy-mm-dd)</span>".html_safe %>
+  <%= text_field_tag :start_date, params[:start_date] %>
+</div>
+<div class="half">
+  <%= label_tag :end_date, "End Date <span class='meta'>(yyyy-mm-dd)</span>".html_safe %>
+  <%= text_field_tag :end_date, params[:end_date] %>
+</div>

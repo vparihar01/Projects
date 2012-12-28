@@ -1,0 +1,209 @@
+---
+  specs_001: 
+    reference: R
+    nonfiction: Abridged Dewey
+    name: My Specificashun
+    recordformat: ""
+    customization: do stuff.
+    updated_at: 2005-08-22 22:29:07
+    symbology: ""
+    include_disk: "0"
+    include_kits: "0"
+    fiction: F
+    cards: ""
+    story: "808.83"
+    startnumber: "1343"
+    include_labels: "0"
+    collectivebio: "920"
+    orientation: ""
+    mediaformat: ""
+    arlabels: ""
+    callnumbers: "3"
+    contact_telephone: 530 546 5691
+    id: "1"
+    easy: E
+    capitalization: 1st Letter Only
+    pockets: ""
+    subjectheadings: Sears
+    contact_email: tim@digitalsmile.com
+    endnumber: "13098034"
+    disksoftware: ""
+    mediatype: ""
+    individualbio: "92"
+    include_readinglabels: "0"
+    position: ""
+    rclabels: 
+    labels: ""
+    include_tests: "0"
+    libraryname: Mankato West
+    location: ""
+    contact_name: Peterson
+    created_at: 2005-08-01 00:00:00
+    specable_id: 3
+    specable_type: User
+  specs_002: 
+    reference: R
+    nonfiction: Abridged Dewey
+    name: Second Attempt
+    recordformat: ""
+    customization: ""
+    updated_at: 2006-03-31 17:38:42
+    symbology: ""
+    include_disk: "0"
+    include_kits: "1"
+    fiction: F
+    cards: complete
+    story: "808.83"
+    startnumber: "1343"
+    include_labels: "0"
+    collectivebio: "920"
+    orientation: ""
+    mediaformat: ""
+    arlabels: attached
+    callnumbers: "3"
+    contact_telephone: 530 546 5691
+    id: "2"
+    easy: E
+    capitalization: 1st Letter Only
+    pockets: backflyleaf
+    subjectheadings: Sears
+    contact_email: tim@digitalsmile.net
+    endnumber: "13098034"
+    disksoftware: ""
+    mediatype: ""
+    individualbio: "92"
+    include_readinglabels: "1"
+    position: ""
+    rclabels: 
+    labels: attached
+    include_tests: "1"
+    libraryname: Mankato West
+    location: ""
+    contact_name: Peterson
+    created_at: 2005-08-22 17:28:29 
+    specable_id: 1
+    specable_type: User
+  specs_003: 
+    reference: R
+    nonfiction: Abridged Dewey
+    name: Mankato West
+    recordformat: microlif.001
+    customization: ""
+    updated_at: 2006-03-31 17:51:38
+    symbology: code39
+    include_disk: "1"
+    include_kits: "1"
+    fiction: F
+    cards: complete
+    story: "808.83"
+    startnumber: "1343"
+    include_labels: "1"
+    collectivebio: "920"
+    orientation: horizontal
+    mediaformat: ibm
+    arlabels: attached
+    callnumbers: "3"
+    contact_telephone: 530 546 5691
+    id: "3"
+    easy: E
+    capitalization: 1st Letter Only
+    pockets: backflyleaf
+    subjectheadings: Sears
+    contact_email: tim@digitalsmile.mac
+    endnumber: "13098034"
+    disksoftware: alexandria
+    mediatype: cdrom
+    individualbio: "92"
+    include_readinglabels: "1"
+    position: upperleft
+    rclabels: 
+    labels: attached
+    include_tests: "1"
+    libraryname: Mankato West
+    location: outsidefront
+    contact_name: Peterson
+    created_at: 2005-08-22 17:49:27     
+  dallas_specs_001:
+    reference: R
+    nonfiction: Abridged Dewey
+    name: Bobby's Specificashun
+    recordformat: ""
+    customization: do stuff.same stuff as before...
+    updated_at: 2005-08-22 22:29:07
+    symbology: ""
+    include_disk: "0"
+    include_kits: "0"
+    fiction: F
+    cards: ""
+    story: "808.83"
+    startnumber: "1343"
+    include_labels: "0"
+    collectivebio: "920"
+    orientation: ""
+    mediaformat: ""
+    arlabels: ""
+    callnumbers: "3"
+    contact_telephone: 530 546 5691
+    id: "4"
+    easy: E
+    capitalization: 1st Letter Only
+    pockets: ""
+    subjectheadings: Sears
+    contact_email: bobby.ewing@dallas.schools.com
+    endnumber: "13098034"
+    disksoftware: ""
+    mediatype: ""
+    individualbio: "92"
+    include_readinglabels: "0"
+    position: ""
+    rclabels:
+    labels: ""
+    include_tests: "0"
+    libraryname: Dallas Schools
+    location: ""
+    contact_name: Bobby Ewing
+    created_at: 2005-08-01 00:00:00
+    specable_id: 5
+    specable_type: User
+  spectrum_specs:
+    reference: R
+    nonfiction: Abridged Dewey
+    name: Test Specs
+    recordformat: ""
+    customization: ""
+    updated_at: 2006-03-31 17:38:42
+    symbology: ""
+    include_disk: "1"
+    include_kits: "1"
+    fiction: F
+    cards: complete
+    story: "808.83"
+    startnumber: "2345"
+    include_labels: "1"
+    collectivebio: "920"
+    orientation: ""
+    mediaformat: ""
+    arlabels: attached
+    callnumbers: "3"
+    contact_telephone: 530 123 1234
+    id: "5"
+    easy: E
+    capitalization: 1st Letter Only
+    pockets: backflyleaf
+    subjectheadings: Sears
+    contact_email: spectrum@anothertest.us
+    endnumber: "13098034"
+    disksoftware: ""
+    mediatype: ""
+    individualbio: "92"
+    include_readinglabels: "1"
+    position: ""
+    rclabels:
+    labels: attached
+    include_tests: "1"
+    libraryname: Sinclair's Books
+    location: ""
+    contact_name: Mr.Sinclair
+    created_at: 2005-08-22 17:28:29
+    specable_id: 8
+    specable_type: User

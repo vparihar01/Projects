@@ -1,0 +1,20 @@
+<%= error_messages_for :contributor %>
+
+<fieldset>
+<div class="group">
+  <div class="half first">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="half">
+    <%= f.label :default_role, 'Default Role' %>
+    <%= f.select :default_role, app_select_options(:default_role) %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => 'medium' %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>

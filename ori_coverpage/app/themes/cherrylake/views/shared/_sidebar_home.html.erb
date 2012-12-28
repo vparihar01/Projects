@@ -1,0 +1,7 @@
+<%= render :partial => 'products/search' %>
+<%= render :partial => 'shared/testimonials' %>
+<% if headlines = Headline.find_latest(1) -%>
+  <h2>Recent Headlines</h2>
+  <%= render :partial => 'headlines/headline', :collection => headlines, :spacer_template => 'shared/spacer' %>
+  <p class="morebuttons"><%= link_to('More headlines &raquo;'.html_safe, headlines_url, :class => 'more') %></p>
+<% end -%>

@@ -1,0 +1,10 @@
+<h3><%= toggle_filter_link_to("Filter by #{name}", field) -%></h3>
+<div id="<%= field %>_filter" class="filter">
+  <% for key in values_hash.keys.sort -%>
+    <div>
+      <%= check_box_tag("#{field}[#{values_hash[key]}]", values_hash[key], values.include?(values_hash[key].to_s), {:class => "#{field}_field", :disabled => disabled}) %>
+      <%= label_tag("#{field}[#{values_hash[key]}]", key, :class => "normal inline") %>
+      <%= javascript_tag("#{"$('#{field}_filter').hide()" if disabled}") %>
+    </div>
+  <% end -%>
+</div>

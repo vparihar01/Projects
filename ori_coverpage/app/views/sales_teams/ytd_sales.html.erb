@@ -1,0 +1,98 @@
+<h1>YTD Sales for <%= @sales_team.name %></h1>
+
+<p>
+  Report Date: <%= Time.now.to_s(:us_with_time) %>
+</p>
+
+<table>
+  <tr>
+    <th class="plain">Sales Goal</th>
+    <td class="number" id="sales_goal"><%= number_to_currency @sales_goal %></td>
+  </tr>
+  <tr>
+    <th class="plain">Current YTD Sales</th>
+    <td class="number" id="current_ytd_sales"><%= number_to_currency @sales_total %></td>
+  </tr>
+  <tr>
+    <th class="plain">Sales to Reach Goal</th>
+    <td class="number" id="sales_to_goal"><%= @sales_total.to_f >= @sales_goal.to_f ? 'Goal met' : number_to_currency(@sales_goal.to_f - @sales_total.to_f) %></td>
+  </tr>
+  <tr>
+    <th class="plain">Minimum Potential Bonus</th>
+    <td class="number" id="minimum_potential_bonus"><%= number_to_currency @sales_team.minimum_bonus %></td>
+  </tr>
+</table>
+
+<table class="list" id="ytd_sales">
+  <thead>
+    <tr>
+      <th class="first">Zone</th>
+      <th class="number">Previous YTD</th>
+      <th class="number">Current YTD</th>
+      <th class="number">$ Change</th>
+      <th class="number last">% Change</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% curr_total = prev_total = 0 %>
+    <% @current_sales.each do |zone, types| %>
+      <% 
+        curr_total += (current = types.sum {|t| t['amount'] }).to_f
+        prev_total += (prev = @previous_sales[zone] ? @previous_sales[zone].sum {|t| t['amount'] } : 0).to_f
+      %>
+      <tr>
+        <td class="zone_name">
+          <%= h(zone) %>
+        </td>
+        <td class="number">
+          <%= number_to_currency(prev) %>
+        </td>
+        <td class="number">
+          <%= number_to_currency(current) %>
+        </td>
+        <td class="number">
+          <%= number_to_currency(current.to_f - prev.to_f) %>
+        </td>
+        <td class="number">
+          <%= delta_to_percentage(current, prev) %>
+        </td>
+      </tr>
+      <% types.each do |type| %>
+        <tr>
+          <td class="type_name">
+            <%= h(type['type']) %>
+          </td>
+          <td class="number">
+            <%= number_to_currency(prev = @previous_sales[zone] && @previous_sales[zone][type] ? @previous_sales[zone][type]['amount'] : 0) %>
+          </td>
+          <td class="number">
+            <%= number_to_currency(current = type['amount']) %>
+          </td>
+          <td class="number">
+            <%= number_to_currency(current.to_f - prev.to_f) %>
+          </td>
+          <td class="number">
+            <%= delta_to_percentage(current, prev) %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr class="totals">
+      <th class="plain">Overall</th>
+      <td class="number">
+        <%= number_to_currency(prev_total) %>
+      </td>
+      <td class="number">
+        <%= number_to_currency(curr_total) %>
+      </td>
+      <td class="number">
+        <%= number_to_currency(curr_total - prev_total) %>
+      </td>
+      <td class="number">
+        <%= delta_to_percentage(curr_total, prev_total) %>
+      </td>
+    </tr>
+  </tfoot>
+</table>

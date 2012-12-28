@@ -1,0 +1,252 @@
+<%= error_messages_for :spec %>
+
+<%= render :partial => 'shared/required' %>
+
+<fieldset>
+<legend>General</legend>
+<div class="group">
+  <% if checkout_scope? -%>
+    <%= hidden_field_tag :context, params[:context] %>
+  <% end -%>
+  <div class="full">
+    <%= f.label :name, 'Description *' %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Contact</legend>
+<div class="group">
+  <div class="half first">
+    <%= f.label :contact_name, 'Name *' %>
+    <%= f.text_field :contact_name %>
+  </div>
+  <div class="half">
+    <%= f.label :contact_telephone, 'Telephone' %>
+    <%= f.text_field :contact_telephone %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :contact_email, 'Email address *' %>
+    <%= f.text_field :contact_email %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Accelerated Reader&reg; Quizzes</legend>
+<div class="group">
+  <div class="unsized">
+    <% price = CONFIG[:alsquiz_unit_price] > 0 ? "#{number_to_currency(CONFIG[:alsquiz_unit_price])} per book" : "Free" %>
+    <%= f.check_box :include_tests, :class => 'unsized' %>
+    <%= f.label :include_tests, "Include (#{price})", :class => 'inline' %>
+  </div>
+  <div class="unsized">
+    A quiz will be supplied for every Accelerated Reader&reg; title you've ordered <%= CONFIG[:alsquiz_min_limit] > 0 ? "<em>(#{CONFIG[:alsquiz_unit_price]}-title minimum)</em>" : "" %> <%= CONFIG[:alsquiz_unit_price] > 0 ? "for a charge of #{number_to_currency(CONFIG[:alsquiz_unit_price])} per quiz" : "for free (one quiz per book only)" %>. Accelerated Reader&reg; will notify you via e-mail how to download your quizzes. If you have ordered any title quiz identified as 'AR Pending', please allow 8 weeks for notification.
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Reading Program Labels</legend>
+<div class="group">
+  <div class="unsized">
+    <% price = CONFIG[:reading_label_cost] > 0 ? "#{number_to_currency(CONFIG[:reading_label_cost])} per book" : "Free" %>
+    <%= f.check_box :include_readinglabels, :class => 'unsized' %>
+    <%= f.label :include_readinglabels, "Include (#{price})", :class => 'inline' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :arlabels, 'Accelerated Reader&reg; Labels'.html_safe %>
+    <%= f.select :arlabels, {''=>''}.merge(Spec::ARLABELS_VALUES).sort %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Catalog Card Kits</legend>
+<div class="group">
+  <div class="unsized">
+    <% price = CONFIG[:catalog_card_cost] > 0 ? "#{number_to_currency(CONFIG[:catalog_card_cost])} per book" : "Free" %>
+    <%= f.check_box :include_kits, :class => 'unsized' %>
+    <%= f.label :include_kits, "Include (#{price})", :class => 'inline' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :cards, 'Catalog Card Set (Author/Main Entry, Shelflist, Title and Subject Cards)' %>
+    <%= f.select :cards, {''=>''}.merge(Spec::CARDS_VALUES).sort %>
+  </div>
+  <div class="half">
+    <%= f.label :pockets, 'Book Pocket (including label, date due imprint, and borrower\'s card)' %>
+    <%= f.select :pockets, {''=>''}.merge(Spec::POCKETS_VALUES).sort %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :labels, 'Spine Labels' %>
+    <%= f.select :labels, {''=>''}.merge(Spec::LABELS_VALUES).sort %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Cataloging Options</legend>
+<div class="group">
+  <div class="unsized">
+    Standard options will be used unless alternative is specified.
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :subjectheadings, 'Subject Headings (Standard: Sears)' %>
+    <%= f.text_field :subjectheadings %>
+  </div>
+  <div class="half">
+    <%= f.label :callnumbers, 'Call Numbers (Standard: 3)' %>
+    <%= f.text_field :callnumbers %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :capitalization, 'Capitalization (Standard: 1st Letter Only)' %>
+    <%= f.text_field :capitalization %>
+  </div>
+  <div class="half">
+    <%= f.label :nonfiction, 'Nonfiction (Standard: Abridged Dewey)' %>
+    <%= f.text_field :nonfiction %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :individualbio, 'Individual Bio (Standard: 92)' %>
+    <%= f.text_field :individualbio %>
+  </div>
+  <div class="half">
+    <%= f.label :collectivebio, 'Collective Bio (Standard: 920)' %>
+    <%= f.text_field :collectivebio %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :fiction, 'Fiction (Standard: F)' %>
+    <%= f.text_field :fiction %>
+  </div>
+  <div class="half">
+    <%= f.label :story, 'Story (Standard: 808.83)' %>
+    <%= f.text_field :story %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :easy, 'Easy (Standard: E)' %>
+    <%= f.text_field :easy %>
+  </div>
+  <div class="half">
+    <%= f.label :reference, 'Reference (Standard: R)' %>
+    <%= f.text_field :reference %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Automation Options</legend>
+<div class="group">
+  <div class="unsized">
+    <% 
+      tmp = []
+      tmp << "#{number_to_currency(CONFIG[:data_disk_cost])} per disk" if CONFIG[:data_disk_cost] > 0
+      tmp << "#{number_to_currency(CONFIG[:data_disk_per_book_cost])} per book" if CONFIG[:data_disk_per_book_cost] > 0
+      price = tmp.any? ? tmp.join(' + ') : "Free"
+    -%>
+    <%= f.check_box :include_disk, :class => 'unsized' %>
+    <%= f.label :include_disk, "Include (#{price})", :class => 'inline' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :disksoftware, 'Software' %>
+    <%= f.select :disksoftware, {''=>''}.merge(Spec::DISKSOFTWARE_VALUES).sort %>
+  </div>
+  <div class="half">
+    <%= f.label :recordformat, 'MARC Format' %>
+    <%= f.select :recordformat, {''=>''}.merge(Spec::RECORDFORMAT_VALUES).sort %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :mediaformat, 'Media Format' %>
+    <%= f.select :mediaformat, {''=>''}.merge(Spec::MEDIAFORMAT_VALUES).sort %>
+  </div>
+  <div class="half">
+    <%= f.label :mediatype, 'Media Type' %>
+    <%= f.select :mediatype, {''=>''}.merge(Spec::MEDIATYPE_VALUES).sort %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Barcode Labels</legend>
+<div class="group">
+  <div class="unsized">
+    NB: May only be ordered with the order of a data disk.
+  </div>
+  <div class="clearboth"></div>
+  <div class="unsized">
+    <% price = CONFIG[:barcode_label_cost] > 0 ? "#{number_to_currency(CONFIG[:barcode_label_cost])} per book" : "Free" %>
+    <%= f.check_box :include_labels, :class => 'unsized' %>
+    <%= f.label :include_labels, "Include (#{price})", :class => 'inline' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :symbology, 'Symbology' %>
+    <%= f.select :symbology, {''=>''}.merge(Spec::SYMBOLOGY_VALUES).sort %>
+  </div>
+  <div class="half">
+    <%= f.label :location, 'Label Location' %>
+    <%= f.select :location, {''=>''}.merge(Spec::LOCATION_VALUES).sort %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :position, 'Label Position (on location specified above)' %>
+    <%= f.select :position, {''=>''}.merge(Spec::POSITION_VALUES).sort %>
+  </div>
+  <div class="half">
+    <%= f.label :orientation, 'Label Orientation (on location specified above)' %>
+    <%= f.select :orientation, {''=>''}.merge(Spec::ORIENTATION_VALUES).sort %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :libraryname, 'School or Library Name (as it should appear on labels)' %>
+    <%= f.text_field :libraryname %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :startnumber, 'Starting Barcode Number' %>
+    <%= f.text_field :startnumber %>
+  </div>
+  <div class="half">
+    <%= f.label :endnumber, 'Ending Barcode Number' %>
+    <%= f.text_field :endnumber %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="formrow">
+  To simplify future ordering, we recommend setting aside a large group of
+  barcode numbers to be used by <%= CONFIG[:company_name] %>. Once this block is established, we will record the ending number of each shipment and begin your next order with the next sequential number. When specifying barcode numbers, please include your school code, place holders, and check digit (if required by your software). <strong>If you would rather not set aside a barcode block, simply leave the ending barcode number blank.</strong>
+  </div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Special Processing Request</legend>
+<div class="group">
+  <div class="unsized">
+    If your processing requirements are not listed, please include a detailed description of your needs; we provide a wide range of custom processing options at competitive rates.
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :customization, 'Detailed Description' %>
+    <%= f.text_area :customization, :class => 'short' %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>

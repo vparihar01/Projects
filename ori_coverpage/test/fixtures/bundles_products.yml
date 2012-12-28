@@ -1,0 +1,12 @@
+one:
+  bundle_id: 1
+  product_id: 2
+two:
+  bundle_id: 1
+  product_id: 2
+three:
+  bundle_id: 2
+  product_id: 2
+four:
+  bundle_id: 2
+  product_id: 3

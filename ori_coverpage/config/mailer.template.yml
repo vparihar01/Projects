@@ -1,0 +1,19 @@
+development:
+  :tls: false
+  :address: mail.yourdomain.com
+  :port: 25
+  :authentication: plain
+  :domain: yourdomain.com
+  :user_name: login
+  :password: password
+  :enable_starttls_auto: false
+
+production:
+  :tls: false
+  :address: mail.yourdomain.com
+  :port: 25
+  :authentication: plain
+  :domain: yourdomain.com
+  :user_name: login
+  :password: password
+  :enable_starttls_auto: false

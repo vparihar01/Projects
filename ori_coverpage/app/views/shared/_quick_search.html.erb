@@ -1,0 +1,8 @@
+<%= form_tag search_url(:protocol => 'http://'), :class => 'quick-search', :id => 'search' do -%>
+  <fieldset>
+    <% value = 'product search' -%>
+    <%= hidden_field_tag(:product_formats_format_id_equals, Format::DEFAULT_ID) if CONFIG[:default_format_only] %>
+    <%= text_field_tag 'q', (params[:q] || value), :onfocus => "clear_value(this, '#{value}')", :onblur => "reset_value(this, '#{value}')", :class => 'text' %>
+    <%= image_submit_tag 'search.gif', :alt => '', :class => 'button' %>
+  </fieldset>
+<% end -%>

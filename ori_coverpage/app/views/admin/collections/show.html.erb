@@ -1,0 +1,15 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @collection} %>
+
+<h1><%= @collection.name %></h1>
+
+<%= content_tag(:ul) do %>
+  <%= display_value_in_list(@collection, :name) %>
+  <%= display_value_in_list(@collection, :released_on, 'Release Date') %>
+  <%= display_value_in_list(@collection, :description) %>
+  <%= display_value_in_list(@collection, :created_at, 'Created') %>
+  <%= display_value_in_list(@collection, :updated_at, 'Updated') %>
+<% end -%>
+
+<div class="module-category">
+  <%= render :partial => 'admin/shared/product_assignments', :locals => { :assignable => @collection }  %>
+</div>

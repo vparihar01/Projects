@@ -1,0 +1,56 @@
+<h1>Commissions for <%= @sales_team.name %></h1>
+
+<% if @transactions.any? %>
+  <% total_amount, total_due = 0, 0 %>
+  <%= form_tag "", :method => "GET" do %>
+    <h3>Transactions for 
+      <span class="noscreen"><%= @month.strftime('%B %Y') %></span>
+      <select name="month" onchange="this.form.submit()" class="noprint">
+        <%= options_for_select(@months.map {|month| month.strftime('%B %Y') }.uniq, @month.strftime('%B %Y')) %>
+      </select>
+    </h3>
+  <% end %>
+  <table class="list" id="commissions">
+    <thead>
+      <tr>
+        <th class="first">Customer</th>
+        <th>Date</th>
+        <th>PO</th>
+        <th class="number">Base</th>
+        <th class="number">Rate</th>
+        <th class="number last">Due</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @transactions.each do |transaction| %>
+        <%= content_tag_for(:tr, transaction, :class => cycle('odd', 'even')) do %>
+          <td><%= h(transaction.customer) if transaction.customer %></td>
+          <td><%= transaction.posted_on %></td>
+          <td><%= transaction.purchase_order %></td>
+          <td class="number"><%= number_to_currency(transaction.amount) %></td>
+          <td class="number"><%= number_to_percentage(transaction.commission_rate * 100, :precision => 0) %></td>
+          <td class="number"><%= number_to_currency(transaction.commission) %></td>
+          <% total_amount += transaction.amount; total_due += transaction.commission %>
+        <% end %>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr class="totals">
+        <td colspan="3">Totals</td>
+        <td class="number"><%= number_to_currency(total_amount) %></td>
+        <td>&nbsp;</td>
+        <td class="number"><%= number_to_currency(total_due) %></td>
+      </tr>
+    </tfoot>
+  </table>
+<% else %>
+  <p>
+    No data found for this report
+  </p>
+<% end %>
+
+<p class="noprint"><%= link_to "Back to #{h(@sales_team.name)}", sales_team_path(@sales_team) %></p>
+
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'single_column' %>
+<% end %>

@@ -1,0 +1,23 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => { :record => @link, :controller_path => "admin/#{controller.controller_name}" }  %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= render :partial => 'links/link', :locals => {:link => @link} %>
+
+<% if admin? -%>
+<ul>
+<li class="meta">Code: <%= @link.code %></li>
+<li class="meta">Redirect: <%= @link.redirect %></li>
+<li class="meta">Meta Title: <%= @link.meta_title %></li>
+<li class="meta">Meta Description: <%= @link.meta_description %></li>
+<li class="meta">Created: <%= @link.created_at %></li>
+<li class="meta">Updated: <%= @link.updated_at %></li>
+</ul>
+<% end -%>
+
+<h2 id="products">Assigned Products</h2>
+<% if @link.products.available.any? -%>
+	<%= render :partial => 'shop/products', :locals => { :products => @link.products, :assembly => nil } %>
+<% else -%>
+	<p>No products found.</p>
+<% end -%>

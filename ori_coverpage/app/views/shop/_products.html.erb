@@ -1,0 +1,28 @@
+<%= form_tag add_cart_path, :id => 'products_form', :remote => (defined?(remote) ? remote : false) do %>
+  <table class="list <%= 'assembly' if assembly %>">
+    <thead>
+    <tr>
+      <% quick = defined?(quick) ? quick : false -%>
+      <% if quick == true && !assembly -%>
+      <th class="first">&nbsp;</th>
+      <th class="title">Title</th>
+      <% else -%>
+      <th class="title first">Title</th>
+      <% end -%>
+      <th>&nbsp;</th>
+      <th><%= CONFIG[:default_format_only] ? "ISBN" : "&copy;".html_safe -%></th>
+      <th><%= format_column_heading(:always_display_price => true) -%></th>
+      <th class="qty last">Qty</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% if assembly %>
+      <%= render :partial => 'shop/product', :locals => { :product => assembly } %>
+    <% end %>
+    <%= render :partial => 'shop/product', :collection => products, :locals => { :quick => (quick == true && assembly ? false : quick)} %>
+    </tbody>
+  </table>
+  <%= page_buttons(submit_tag('Add to Cart')) %>
+<% end %>
+
+<%= render :partial => "shared/footnote" %>

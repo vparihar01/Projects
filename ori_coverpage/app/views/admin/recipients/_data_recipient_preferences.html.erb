@@ -1,0 +1,56 @@
+<div class="half first">
+  <%= label_tag :preferred_data_basename_include_template, "Include template in basename?" %>
+  <%= hidden_field_tag 'recipient[preferred_data_basename_include_template]', false %>
+  <%= check_box_tag 'recipient[preferred_data_basename_include_template]', true, @recipient.preferred_data_basename_include_template, :class => 'unsized' %>
+</div>
+<div class="half">
+  <%= label_tag :preferred_data_basename_include_date, "Include date in basename?" %>
+  <%= hidden_field_tag 'recipient[preferred_data_basename_include_date]', false %>
+  <%= check_box_tag 'recipient[preferred_data_basename_include_date]', true, @recipient.preferred_data_basename_include_date, :class => 'unsized' %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <%= label_tag :preferred_data_basename_prefix, "Basename prefix" %>
+  <%= text_field_tag 'recipient[preferred_data_basename_prefix]', @recipient.preferred_data_basename_prefix %>
+</div>
+<div class="half">
+  <%= label_tag :preferred_data_basename_join_with, "Basename join character" %>
+  <%= text_field_tag 'recipient[preferred_data_basename_join_with]', @recipient.preferred_data_basename_join_with %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <%= label_tag :preferred_data_template, "Template" %>
+  <%= select_tag "recipient[preferred_data_template]", options_for_select(ProductsExporter::TEMPLATES.keys.sort, @recipient.preferred_data_template) %>
+</div>
+<div class="half">
+  <%= label_tag :preferred_data_class, "Product type" %>
+  <%= select_tag "recipient[preferred_data_class]", options_for_select(Product::TYPES.invert.sort, @recipient.preferred_data_class) %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <%= label_tag :preferred_data_include_sl_price, "Include ONIX sl price?" %>
+  <%= hidden_field_tag 'recipient[preferred_data_include_sl_price]', false %>
+  <%= check_box_tag 'recipient[preferred_data_include_sl_price]', true, @recipient.preferred_data_include_sl_price, :class => 'unsized' %>
+</div>
+<div class="half">
+  <%= label_tag :preferred_data_include_agency_price, "Include ONIX agency price?" %>
+  <%= hidden_field_tag 'recipient[preferred_data_include_agency_price]', false %>
+  <%= check_box_tag 'recipient[preferred_data_include_agency_price]', true, @recipient.preferred_data_include_agency_price, :class => 'unsized' %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <%= label_tag :preferred_data_include_price_change, "Include ONIX price change?" %>
+  <%= hidden_field_tag 'recipient[preferred_data_include_price_change]', false %>
+  <%= check_box_tag 'recipient[preferred_data_include_price_change]', true, @recipient.preferred_data_include_price_change, :class => 'unsized' %>
+</div>
+<div class="half">
+  <%= label_tag :preferred_data_deactivate_sets, "Present sets as inactive?" %>
+  <%= hidden_field_tag 'recipient[preferred_data_deactivate_sets]', false %>
+  <%= check_box_tag 'recipient[preferred_data_deactivate_sets]', true, @recipient.preferred_data_deactivate_sets, :class => 'unsized' %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <% formats = Format.find_single_units.map{|f| [f.name, f.id]} %>
+  <%= label_tag :preferred_data_format_ids, "Product formats" %>
+  <%= select_tag "recipient[preferred_data_format_ids]", options_for_select(formats, @recipient.data_format_id_array), :multiple => true %>
+</div>

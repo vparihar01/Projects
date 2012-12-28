@@ -1,0 +1,184 @@
+<%= error_messages_for :product %>
+
+<fieldset>
+<div class="group">
+  <% if @product.is_a?(Title) -%>
+  <div class="full">
+    <%= f.label :uploaded_data, "Ebook " + (@product.download ? "(currently #{@product.download.filename})" : "") %>
+    <%= f.file_field :uploaded_data %>
+  </div>
+  <% end -%>
+  <div class="full">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <% if CONFIG[:calculate_title_and_subtitle] != true -%>
+    <div class="full">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="full">
+      <%= f.label :subtitle %>
+      <%= f.text_field :subtitle %>
+    </div>
+  <% end -%>
+  <div class="full">
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => 'medium' %>
+  </div>
+  <div class="half first">
+    <%= f.label :type %>
+    <%= f.select :type, Product::SUBTYPES.sort{|a,b| a[1]<=>b[1]} %>
+  </div>
+  <div class="half">
+    <%= f.label :author, 'Author' %>
+    <%= f.select :author, Contributor.order("name ASC").collect(&:name), :include_blank => true %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :collection_id, "Series" %>
+    <%= f.select :collection_id, Collection.to_dropdown, :include_blank => true %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+  <%= f.label :is_book, 'Book?' %>
+  <%= f.select :is_book, [["Yes",true],["No",false]] %>
+  </div>
+  <div class="half">
+  <%= f.label :is_wholesale, 'Wholesale?' %>
+  <%= f.select :is_wholesale, [["Yes",true],["No",false]] %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :copyright, 'Copyright' %>
+    <%= f.text_field :copyright %>
+  </div>
+  <div class="half">
+    <%= f.label :available_on, 'Date Available' %>
+    <%= f.text_field :available_on %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :pages, 'Pages' %>
+    <%= f.text_field :pages %>
+  </div>
+  <div class="half">
+    <%= f.label :graphics, 'Graphics' %>
+    <%= f.text_field :graphics %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+  <%= f.label :dewey, 'Dewey' %>
+  <%= f.text_field :dewey %>
+  </div>
+  <div class="half">
+    <%= f.label :guided_level %>
+    <%= f.text_field :guided_level %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :publisher %>
+    <%= f.text_field :publisher %>
+  </div>
+  <div class="half">
+    <%= f.label :imprint %>
+    <%= f.text_field :imprint %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :reading_level_id %>
+    <%= f.select :reading_level_id, level_options(:include_blank=>true) %>
+  </div>
+  <div class="half">
+    <%= f.label :interest_level_min_id, 'Interest Level (Min - Max)' %>
+    <%= f.select :interest_level_min_id, level_options(:include_blank=>true, :as=>:integer), {}, :style => 'width:45%;' %> - 
+    <%= f.select :interest_level_max_id, level_options(:include_blank=>true, :as=>:integer), {}, :style => 'width:45%;' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+  <%= f.label :alsquiznr, 'ALS Quiz Number' %>
+  <%= f.text_field :alsquiznr %>
+  </div>
+  <div class="half">
+  <%= f.label :alspoints, 'ALS Points' %>
+  <%= f.text_field :alspoints %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :alsreadlevel, 'ALS Reading Level' %>
+    <%= f.text_field :alsreadlevel %>
+  </div>
+  <div class="half">
+    <%= f.label :alsinterestlevel, 'ALS Interest Level' %>
+    <%= f.text_field :alsinterestlevel %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :catalog_page, 'Catalog Page' %>
+    <%= f.text_field :catalog_page %>
+  </div>
+  <div class="half">
+    <%= f.label :proprietary_id, 'Proprietary ID' %>
+    <%= f.text_field :proprietary_id %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :spotlight_description, 'Spotlight Description' %>
+    <%= f.text_area :spotlight_description, :class => 'short' %>
+  </div>
+  <div class="full">
+    <%= f.label :annotation %>
+    <%= f.text_area :annotation, :class => 'short' %>
+  </div>
+</div>
+<div class="group">
+  <div class="half first">
+    <%= f.check_box :has_bibliography, :class => 'unsized' %>
+    <%= f.label :has_bibliography, 'Bibliography?', :class => 'inline' %>
+  </div>
+  <div class="half">
+    <%= f.check_box :has_glossary, :class => 'unsized' %>
+    <%= f.label :has_glossary, 'Glossary?', :class => 'inline' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.check_box :has_sidebar, :class => 'unsized' %>
+    <%= f.label :has_sidebar, 'Sidebars?', :class => 'inline' %>
+  </div>
+  <div class="half">
+    <%= f.check_box :has_table_of_contents, :class => 'unsized' %>
+    <%= f.label :has_table_of_contents, 'Table of Contents?', :class => 'inline' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.check_box :has_index, :class => 'unsized' %>
+    <%= f.label :has_index, 'Index?', :class => 'inline' %>
+  </div>
+  <div class="half">
+    <%= f.check_box :has_author_biography, :class => 'unsized' %>
+    <%= f.label :has_author_biography, 'Author biography?', :class => 'inline' %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.check_box :has_map, :class => 'unsized' %>
+    <%= f.label :has_map, 'Maps?', :class => 'inline' %>
+  </div>
+  <div class="half">
+    <%= f.check_box :has_timeline, :class => 'unsized' %>
+    <%= f.label :has_timeline, 'Timelines?', :class => 'inline' %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+<% if @product.is_a?(Assembly) -%>
+<div class="group">
+  <div class="full">
+  <%= hidden_field_tag 'product[category_ids][]', '' %>
+  <%= f.label :category_ids, 'Subjects' %>
+  </div>
+  <% Category.order('name ASC').each do |c| %>
+  <div class="half<%= cycle(' first','') %>"><%= check_box_tag 'product[category_ids][]', c.id, @product.categories.include?(c), {:class => 'unsized'} %> <%= c.name %></div>
+  <% end %>
+  <div class="clearboth"></div>
+</div>
+<% end -%>
+</fieldset>

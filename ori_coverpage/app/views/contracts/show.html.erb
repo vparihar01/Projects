@@ -1,0 +1,20 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Edit contract', edit_contract_url(@contract))) if admin? %>
+  <li><%= link_to('View sales team', sales_team_url(@contract.sales_team)) %></li>
+  <li><%= link_to('View sales zone', sales_zone_url(@contract.sales_zone)) %></li>
+</ul>
+
+<ul>
+	<li>Start On: <%= @contract.start_on %></li>
+	<li>End On: <%= @contract.end_on %></li>
+	<li>Rate: <%= number_to_percentage @contract.rate * 100, :precision => 0 %></li>
+	<li>Category: <%= @contract.category ? @contract.category : 'All' %></li>  
+</ul>
+
+<%= render :partial => 'shared/transactions', :locals => { :parent => @contract, :type => 'invoices' } %>
+
+<%= render :partial => 'shared/transactions', :locals => { :parent => @contract, :type => 'credits' } %>

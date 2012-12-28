@@ -1,0 +1,33 @@
+<%= error_messages_for :coupon %>
+
+<fieldset>
+  <div class="group">
+    <div class="half first">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="half">
+      <%= f.label :code %>
+      <%= f.text_field :code %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :amount, 'Amount <span class="help">(in dollars or as decimal)</span>'.html_safe %>
+      <%= f.text_field :amount %>
+    </div>
+    <div class="half">
+      <%= f.label :percent %>
+      <%= f.check_box :percent, :class => 'unsized' %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :start_on %>
+      <%= f.text_field :start_on %>
+    </div>
+    <div class="half">
+      <%= f.label :end_on %>
+      <%= f.text_field :end_on %>
+    </div>
+    <div class="clearboth"></div>
+</div>
+</fieldset>

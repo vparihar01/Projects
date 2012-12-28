@@ -1,0 +1,30 @@
+<h1><%= calculate_checkout_page_heading("Processing Information") %></h1>
+
+<p>Please select the preferred library processing specification for this order. If the specification is not already defined, click the New button to create a new entry.</p>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('New Specification', checkout_new_spec_path)) %>
+</ul>
+
+<%= form_tag checkout_processing_path do %>
+  <fieldset>
+    <legend>Saved Specifications</legend>
+    <div class="group">
+    <div class="formrow forcebottommargin">
+      <%= radio_button_tag :specification, "do_not_process", session[:spec].nil?, :id => 'spec_null' %>
+      <%= label_tag 'spec_null', "Do NOT process my order", :class => 'inline' %>
+    </div>
+    <%= render :partial => 'shared/spacer' %>
+    <% if current_user.specs.any? %>
+      <%= render :partial => 'spec', :collection => current_user.specs, :spacer_template => 'shared/spacer' %>
+    <% else %>
+      <div class="formrow">
+        <p>To request processing, please <%= link_to 'create a new specification', checkout_new_spec_path %> to use with this order.</p>
+      </div>
+    <% end %>
+    </div>
+  </fieldset>
+  <%= submit_or_cancel(cart_path, 'Continue') %>
+<% end %>
+
+<%= render :partial => 'specs/disclaimer' %>

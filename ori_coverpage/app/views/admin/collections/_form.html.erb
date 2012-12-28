@@ -1,0 +1,11 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :collection %>
+
+<% f.inputs do %>
+  <%= f.input :name, :wrapper_html => { :class => "full" } %>
+  <%= f.input :released_on, :as => :string, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :parent_id, :as => :select, :collection => Collection.all, :wrapper_html => { :class => "half" } %>
+  <%= f.input :description, :wrapper_html => { :class => "full" } %>
+<% end %>

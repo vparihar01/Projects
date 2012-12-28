@@ -1,0 +1,12 @@
+<h1>Location</h1>
+
+<h2>Headquarters</h2>
+<ul>
+<li><%= CONFIG[:company_name] %></li>
+<li><%= CONFIG[:street] %></li>
+<% if CONFIG[:suite] %><li><%= CONFIG[:suite] %></li><% end %>
+<li><%= CONFIG[:city] %>, <%= CONFIG[:state] %> <%= CONFIG[:zip] %></li>
+<li>Phone: <%= CONFIG[:phone] %></li>
+<li>Fax: <%= CONFIG[:fax] %></li>
+<li>E-mail: <%= CONFIG[:sales_email] %></li>
+</ul>

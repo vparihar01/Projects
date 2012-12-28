@@ -1,0 +1,4 @@
+<div class="half first">
+  <%= label_tag :season, 'Season' %>
+  <%= select_tag :season, options_for_select(Product.seasons_dropdown(:include_blank => false), params[:season]) %>
+</div>

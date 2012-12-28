@@ -1,0 +1,35 @@
+<h1><%= @sales_team.name %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Edit team', edit_sales_team_url(@sales_team))) if admin? %>
+  <%= content_tag(:li, link_to('Create a new sales rep', new_sales_team_sales_rep_url(@sales_team))) if admin? %>
+  <%= content_tag(:li, link_to('Commissions Report', commissions_sales_team_url(@sales_team))) if @sales_team.invoices.any? || @sales_team.credits.any? %>
+  <%= content_tag(:li, link_to('YTD Sales Report', ytd_sales_sales_team_url(@sales_team))) %>
+</ul>
+
+<strong>Category:</strong> <%= @sales_team.category %><br />
+<strong>Description:</strong>
+<%= simple_format(@sales_team.description) rescue nil %>
+
+<h3>Head Sales Rep</h3>
+<%= link_to h(@sales_team.head_sales_rep), sales_team_sales_rep_path(@sales_team, @sales_team.head_sales_rep) if @sales_team.head_sales_rep %>
+
+<% if @sales_team.sales_reps.any? %>
+  <h3>Sales Reps</h3>
+  <ul id="sales_rep_list">
+    <% @sales_team.sales_reps.reject {|sr| sr == @sales_team.head_sales_rep }.each do |sales_rep| %>
+      <li><%= link_to h(sales_rep.name), sales_team_sales_rep_path(@sales_team, sales_rep) if admin? %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h3>Sales Zones</h3>
+<ul id="zone_list">
+  <% @sales_team.sales_zones.each do |zone| %>
+    <li><%= link_to h(zone.name), sales_zone_url(zone) %></li>
+  <% end %>
+</ul>
+
+<%= render :partial => 'shared/transactions', :locals => { :parent => @sales_team, :type => 'invoices' } %>
+
+<%= render :partial => 'shared/transactions', :locals => { :parent => @sales_team, :type => 'credits' } %>

@@ -1,0 +1,13 @@
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<h1>New Titles</h1>
+
+<%= render :partial => 'shared/filter_by_level' %>
+
+<% if session[:layout] == 'x' -%>
+  <%= render :partial => 'xproduct', :collection => @products, :as => :product, :spacer_template => 'shared/spacer' %>
+<% else -%>
+  <%= render :partial => 'products', :locals => { :products => @products, :assembly => nil } %>
+<% end -%>
+
+<%= will_paginate @products %>

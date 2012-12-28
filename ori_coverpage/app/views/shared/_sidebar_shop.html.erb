@@ -1,0 +1,27 @@
+<%= render :partial => 'products/search' %>
+
+<% if defined?(@cart) -%>
+  <h2>Cart Summary</h2>
+  <%= render :partial => 'shop/cart_summary' %>
+  <%= render :partial => 'shop/cart_links' %>
+<% end -%>
+
+<% if defined?(product) && product -%>
+  <% if product.features.any? -%>
+    <h2>Features</h2>
+    <%= content_tag(:ul, :class => "") do %>
+      <% product.features.each do |feature| -%>
+        <%= display(feature, nil, :wrap => true) -%>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+
+  <% if CONFIG[:show_sidebar] -%>
+    <%= render :partial => 'shop/related_products', :locals => {:product => @product} %>
+    <%= render :partial => 'shop/related_info', :locals => {:product => @product} %>
+    <% if CONFIG[:show_facebook_like] == true -%>
+      <div class="fb-like" data-send="true" data-layout="button_count" data-width="300" data-show-faces="false" data-font="segoe ui"></div>
+    <% end -%>
+  <% end -%>
+<% end -%>
+

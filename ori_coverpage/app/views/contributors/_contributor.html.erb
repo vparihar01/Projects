@@ -1,0 +1,7 @@
+<%= div_for contributor, :class => 'module' do -%>
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => contributor, :controller_path => "admin/#{controller.controller_name}"} %>
+  <% end -%>
+  <h4><%= link_to contributor.name, contributor_path(contributor) %></h4>
+  <p><%= contributor.description %> <%= link_to("Related titles &raquo;".html_safe, contributor_path(contributor), :class => 'subdue') %></p>
+<% end -%>

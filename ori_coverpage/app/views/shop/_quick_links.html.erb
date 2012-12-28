@@ -1,0 +1,17 @@
+<ul id="quick_links" class="quick">
+  <%- if logged_in? -%>
+    <%- if @cart.line_items.any? -%>
+      <li><%= link_to("View Cart", cart_path) %></li>
+      <%- if logged_in? -%>
+          <li><%= link_to("Checkout", checkout_path) %></li>
+          <li><%= link_to("Export", export_cart_path) %></li>
+          <li><%= link_to("Save as Quote", new_quote_path) %></li>
+      <%- end -%>
+      <li><%= link_to("Empty Cart", destroy_cart_path, :remote => true, :method => :delete, :confirm => 'Are you sure you wish to delete the items in your cart?') %></li>
+    <%- else -%>
+      <li>Quickly add items to your cart<br /> using the <%= link_to("QuickShop form", quick_path) %>.</li>
+    <%- end -%>
+  <%- else -%>
+    <li><%= link_to("Login to create quotes<br /> and export data.".html_safe, login_path) %></li>
+  <%- end -%>
+</ul>

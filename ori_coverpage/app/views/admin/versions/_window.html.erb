@@ -1,0 +1,14 @@
+<div class="window-header" id="drag">
+  <div class="window-close"><%= link_to_function('&nbsp;'.html_safe, "$('modal').hide();$('screen').hide();", {:class => "close", :title => 'Close this window'}) %></div>
+  <div class="window-title">Comparison</div>
+</div>
+<div class="window-contents text">
+
+<%= yield %>
+
+<p class="pagebuttons">
+<%= link_to_function('Close', "$('modal').hide();$('screen').hide();", {:class => "cancel"}) %>
+<%= link_to('Restore', revert_path(versionable, version), :method => :post, :class => 'default') %>
+</p>
+
+</div>

@@ -1,0 +1,6 @@
+<% if teaching_guide.document_exist? -%>
+  <ul>
+    <li><strong><%= link_to('Download Now', download_teaching_guide_path(teaching_guide), :method => :put, :class => "downlink") %></strong></li>
+    <li class="meta"><%= "#{teaching_guide.document_ext.upcase}: #{number_to_human_size(teaching_guide.document.file.size)}" %></li>
+  </ul>
+<% end -%>

@@ -1,0 +1,8 @@
+<% if handout.document_exist? -%>
+  <ul>
+    <li><strong><%= link_to('Download Now', download_handout_path(handout), :method => :put, :class => "downlink") %></strong></li>
+    <li class="meta"><%= "#{handout.document_ext.upcase}: #{number_to_human_size(handout.document.file.size)}" %></li>
+  </ul>
+<% else -%>
+  <p class="other-error">File missing: Please notify webmaster</p>
+<% end -%>

@@ -1,0 +1,11 @@
+<%= content_tag_for(:tr, order, :class => cycle('odd', 'even')) do -%>
+	<td>
+	  <%= controller.action_name == 'order' ? order.id : link_to(order.id, order_account_path(order), :class => 'highlight') %>
+	</td>
+	<td><%= order.completed_at.to_s(:us) rescue nil %></td>
+	<td>
+	  <%= controller.action_name == 'status_history' ? order.status : link_to(order.status, status_history_account_path(order), :class => 'highlight') %>
+	</td>
+	<td class="qty"><%= order.line_items.count %></td>
+	<td class="number"><%= number_to_currency(order.total_amount) %></td>
+<% end %>

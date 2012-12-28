@@ -1,0 +1,25 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag 'effects' %>
+<% end -%>
+
+<h1>QuickShop</h1>
+
+<p>
+  <% if @assembly -%>
+    Currently viewing titles within the Set <em><%= @assembly.name %></em>.
+  <% else -%>
+    Click the red arrow (<%= image_tag('quick.gif', :alt => '', :style => 'vertical-align:middle;') %>) next to a Set name to view the titles within that respective Set.
+  <% end -%>
+</p>
+
+<p>
+  <% if params[:q] || params[:assembly] -%>
+    <%= link_to_if params[:q] || params[:assembly], "Show all Sets", quick_path %>
+  <% else -%>
+    <span class="subdue">Show all Sets</span>
+  <% end -%>
+</p>
+
+<%= render :partial => 'products/search_quick' %>
+
+<%= render :partial => 'products', :locals => { :products => @products, :assembly => @assembly, :remote => true, :quick => true } %>

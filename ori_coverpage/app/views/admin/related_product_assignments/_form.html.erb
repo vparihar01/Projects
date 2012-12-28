@@ -1,0 +1,21 @@
+<%= error_messages_for :related_product_assignment %>
+
+<fieldset>
+<div class="group">
+  <div class="full">
+    <%= f.label :product_id %>
+    <%= f.select :product_id, Product.to_dropdown, {:include_blank => true}, {:class => 'l'} %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :relation %>
+    <%= f.select :relation, app_select_options(:relation), {:include_blank => true}, {:class => 'l'} %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :related_product_id %>
+    <%= f.select :related_product_id, Product.to_dropdown, {:include_blank => true}, {:class => 'l'} %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>

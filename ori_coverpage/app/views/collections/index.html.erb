@@ -1,0 +1,14 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:record => @collections, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1>Series</h1>
+
+<% unless CONFIG[:show_sidebar] -%>
+  <%= render :partial => 'collections/search' %>
+<% end -%>
+
+<% if @collections.any? %>
+  <%= render @collections, :show_admin => true %>
+  <%= will_paginate @collections, :params => params.delete_if {|k,v| %w(commit authenticity_token l x y).include?(k)} %>
+<% else %>
+  <p>No records found.</p>
+<% end %>

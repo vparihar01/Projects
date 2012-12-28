@@ -1,0 +1,37 @@
+<h1>Change Profile</h1>
+
+<p>Edit your profile in the fields below and click 'Submit'.</p>
+
+<%= render :partial => 'shared/required' %>
+
+<%= error_messages_for :user %>
+
+<%= form_for(@user, :as => :user, :url => change_profile_path, :html => { :method => :put }) do |f| %>
+  <fieldset>
+    <div class="group">
+      <div class="half first">
+        <%= f.label :name, 'Name *' %>
+        <%= f.text_field :name %>
+      </div>
+      <div class="half">
+        <%= f.label :email, 'Email *' %>
+        <%= f.text_field :email %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="half first">
+        <%= f.label :category, 'Customer Type *' %>
+        <% if @user.is_a?(Customer) -%>
+          <%= f.select :category, Customer::CATEGORIES, {:disabled => true} %>
+        <% else -%>
+          <%= select_tag 'user[category]', options_for_select([@user.type]), {:disabled => true} %>
+        <% end -%>
+      </div>
+      <div class="half">
+        <%= f.label :phone %>
+        <%= f.text_field :phone %>
+      </div>
+      <div class="clearboth"></div>
+	  </div>
+	</fieldset>
+	<%= submit_or_cancel %>
+<% end %>

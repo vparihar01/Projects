@@ -1,0 +1,51 @@
+---
+Animals:
+  buyboard: Other
+"Arts and Activities":
+  buyboard: Fine Arts
+"Arts, Crafts, and Activities":
+  buyboard: Fine Arts
+Biographies:
+  buyboard: Social Studies
+"Character Education":
+  buyboard: Social Studies
+"Children's Illustrated Classics":
+  buyboard: Other
+Economics:
+  buyboard: Social Studies
+Geography:
+  buyboard: Other
+"Geography and History":
+  buyboard: Social Studies
+"Health and Human Sciences":
+  buyboard: Social Studies
+"Health & Human Science":
+  buyboard: Social Studies
+"High Interest":
+  buyboard: Social Studies
+History:
+  buyboard: Social Studies
+"Language Arts":
+  buyboard: English
+Math:
+  buyboard: Mathematics
+"Math and Science":
+  buyboard: Science
+"Math, Science, and Technology":
+  buyboard: Science
+Phonics:
+  buyboard: English
+"Phonics and Language Arts":
+  buyboard: English
+"Reference Materials":
+  buyboard: Other
+Science:
+  buyboard: Science
+"Social Studies":
+  buyboard: Social Studies
+Sports:
+  buyboard: Other
+"Sports and High Interest":
+  buyboard: Other
+Technology:
+  buyboard: Science

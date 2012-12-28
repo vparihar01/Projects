@@ -1,0 +1,59 @@
+<h1>Sales Representatives</h1>
+
+<% if SalesTeam.all.any? && Contract.all.any? %>
+  <%= form_tag public_page_path(:reps), :method => :get do -%>
+    <fieldset>
+      <div class="group">
+        <%= label_tag :postal_code, 'Search by ZIP:', :class => 'inline' %>
+        <%= text_field_tag :postal_code, params[:postal_code], :class => "l" %>
+        <%= submit_tag 'Search' %>
+      </div>
+    </fieldset>
+  <% end %>
+<% end %>
+
+<% if @contracts && @contracts.any? %>
+  <% @contracts.each do |contract| %>
+    <% sales_team = contract.sales_team -%>
+    <h2>Customer Type: <%= contract.category %></h2>
+    <ul>
+      <% if sales_team.address -%>
+        <%= raw sales_team.try(:address).try(:to_html) %>
+      <% else -%>
+        <li><strong><%= sales_team.name %></strong></li>
+      <% end -%>
+      <%= display_value_in_list(sales_team, :phone) %>
+      <%= display_value_in_list(sales_team, :fax) %>
+    </ul>
+  <% end %>
+<% else %>
+  
+  <% unless params[:postal_code].blank? %>
+    <p class="nb">No Sales Representatives were found in your area. Please contact us at one of the locations listed below.</p>
+  <% end %>
+  
+  <h2>In The United States, contact:</h2>
+  <ul class="styled">
+    <li><%= CONFIG[:company_name] %></li>
+    <li><%= CONFIG[:order_street] %></li>
+    <%= content_tag(:li, CONFIG[:order_suite]) if CONFIG[:order_suite] %>
+    <li><%= CONFIG[:order_city] %>, <%= CONFIG[:order_state] %> <%= CONFIG[:order_zip] %></li>
+    <li>Phone: <%= CONFIG[:phone] %></li>
+    <li>Fax: <%= CONFIG[:fax] %></li>
+    <li>E-mail: <%= CONFIG[:sales_email] %></li>
+  </ul>
+  
+  <% unless CONFIG[:canada_company].blank? -%>
+    <h2>In Canada, contact:</h2>
+    <ul class="styled">
+      <li><%= CONFIG[:canada_company] %></li>
+      <li><%= CONFIG[:canada_street] %></li>
+      <%= content_tag(:li, CONFIG[:canada_suite]) if CONFIG[:canada_suite] %>
+      <li><%= CONFIG[:canada_city] %>, <%= CONFIG[:canada_state] %> <%= CONFIG[:canada_zip] %></li>
+      <li>Phone: <%= CONFIG[:canada_phone] %></li>
+      <li>Fax: <%= CONFIG[:canada_fax] %></li>
+      <li>E-mail: <%= CONFIG[:canada_email] %></li>
+      <li>Web: <%= CONFIG[:canada_web] %></li>
+    </ul>
+  <% end %>
+<% end %>

@@ -1,0 +1,8 @@
+<%= render :partial => 'shared/admin_edit_actions', :locals => {:record => @user} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :user, :url => admin_user_path(@user), :html => {:method => :put, :id => "edit_user_#{@user.id}"} do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render :partial => 'admin/shared/edit_buttons', :locals => {:f => f} %>
+<% end -%>

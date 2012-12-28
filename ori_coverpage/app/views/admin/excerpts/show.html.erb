@@ -1,0 +1,18 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @excerpt} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= render :partial => 'excerpts/show', :locals => {:excerpt => @excerpt} %>
+
+<div class="meta" style="clear: both">
+<ul class="clear left">
+<li class="meta">Created: <%= @excerpt.created_at.to_s(:long_day) %></li>
+<li class="meta">Updated: <%= @excerpt.updated_at.to_s(:long_day) %></li>
+<li class="meta">File Name: <%= @excerpt.filename %></li>
+<% if @excerpt.exist? -%>
+  <li class="meta">File Date: <%= @excerpt.mtime.to_s(:custom_with_time) %></li>
+  <li class="meta">File Size: <%= @excerpt.size %></li>
+<% end -%>
+<li class="meta">Content Type: <%= @excerpt.content_type %></li>
+</ul>
+</div>

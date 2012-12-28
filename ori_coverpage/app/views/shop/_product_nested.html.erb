@@ -1,0 +1,13 @@
+<%= link_to image_tag(product.image('covers', 's'), :class => "photo"), show_path(product) %>
+<h2 class="nobottommargin"><%= product.name %></h2>
+<% unless product.collection.nil? -%>
+  <p> From the Series: <%= product.collection.name %> </p>
+<% end -%>
+<p><%= link_to( "Visit Store &raquo;".html_safe, show_path(product) ) %></p>
+<div class="clearboth forcetopmargin forcebottommargin">&nbsp;</div>
+<% nested_records = product.send(association) -%>
+<% if nested_records.any? -%>
+  <h3><%= association.titlecase %></h3>
+<% else -%>
+  <h3>No <%= association %> found.</h3>
+<% end -%>

@@ -1,0 +1,2 @@
+module Admin::ExcerptsHelper
+end

@@ -1,0 +1,13 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :link %>
+
+<%= f.inputs do %>
+  <%= f.input :title, :wrapper_html => { :class => "full" } %>
+  <%= f.input :url, :wrapper_html => { :class => "full" } %>
+  <%= f.input :is_highlight, :wrapper_html => { :class => "quarter first" } %>
+  <%= f.input :is_kids, :wrapper_html => { :class => "quarter" } %>
+  <%= f.input :is_adults, :wrapper_html => { :class => "quarter" } %>
+  <%= f.input :description, :wrapper_html => { :class => "full" }, :input_html => { :class => "medium" } %>
+<% end %>

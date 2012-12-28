@@ -1,0 +1,16 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @faq} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<div class="module-faq">
+  <dl>
+    <dt><%= @faq.question.html_safe %></dt>
+    <dd><%= @faq.answer.html_safe %></dd>
+  </dl>
+</div>
+
+<ul class="meta">
+  <li>Created: <%= @faq.created_at.to_s(:long_day) %></li>
+  <li>Updated: <%= @faq.updated_at.to_s(:long_day) %></li>
+  <li>Tags: <%= @faq.tag_list %></li>
+</ul>

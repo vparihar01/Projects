@@ -1,0 +1,6 @@
+<h1>New Sales Rep for <%= @sales_team.name %></h1>
+
+<%= form_for @sales_rep, :url => sales_team_sales_reps_path(@sales_team), :html => { :method => :post } do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= submit_or_cancel sales_team_url(@sales_team) %>
+<% end %>

@@ -1,0 +1,11 @@
+<% remote = defined?(remote) ? remote : false -%>
+<ul id="view" class="view">
+  <% view_params = params.reject {|k,v| %w(authenticity_token x y page).include?(k)} # hide token etc. page param causes error when switching from extended to compact because page number will not exist in results -%>
+  <% if session[:layout] == 's' -%>
+    <li><%= image_tag("buttons/xs/compact-off.gif", :alt => 'Compact view') %></li>
+    <li class="last"><%= link_to image_tag("buttons/xs/extended.gif", :alt => 'Extended view'), url_for(view_params.merge(:l => 'x')), :title => 'Extended view', :remote => remote %></li>
+  <% else -%>
+    <li><%= link_to image_tag("buttons/xs/compact.gif", :alt => 'Compact view'), url_for(view_params.merge(:l => 's')), :title => 'Compact view', :remote => remote %></li>
+    <li class="last"><%= image_tag("buttons/xs/extended-off.gif", :alt => 'Extended view') %></li>
+  <% end -%>
+</ul>

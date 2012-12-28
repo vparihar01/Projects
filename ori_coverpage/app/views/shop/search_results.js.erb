@@ -1,0 +1,2 @@
+$('results').update("<%= escape_javascript(render(:partial => @partial, :layout => 'results', :locals => {:products => @products, :assembly => nil})) %>");
+$('export').update("<%= escape_javascript(render(:partial => 'export_search_results', :locals => {:form_values => @form_values})) %>");

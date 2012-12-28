@@ -1,0 +1,60 @@
+<%= error_messages_for :address %>
+<%= error_messages_for :postal_code %>
+
+<fieldset>
+  <div class="group">
+    <% if checkout_scope? -%>
+      <%= hidden_field_tag :context, params[:context] %>
+      <%= hidden_field_tag :address_type, params[:address_type] %>
+    <% end -%>
+    <div class="half first">
+      <%= f.label :name, 'Name *' %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="half">
+      <%= f.label :attention %>
+      <%= f.text_field :attention %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :street, 'Street *' %>
+      <%= f.text_field :street %>
+    </div>
+    <div class="half">
+      <%= f.label :suite %>
+      <%= f.text_field :suite %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :city, 'City *' %>
+      <%= f.text_field :city %>
+    </div>
+    <div class="half">
+      <%= f.label :country_id, 'Country *' %>
+      <%= f.select :country_id, Country.to_dropdown %>
+    </div>
+    <div class="clearboth"></div>
+    <%= fields_for @postal_code do |postal_code| %>
+      <div class="half first">
+        <%= postal_code.label :name, 'Postal Code *' %>
+        <%= postal_code.text_field :name %>
+      </div>
+      <div class="half">
+        <%= postal_code.label :zone_id, 'State / Province *' %>
+        <%= postal_code.select :zone_id, [""] + Zone.all.collect {|x| [x.name, x.id]} %>
+      </div>
+      <div class="clearboth"></div>
+    <% end -%>
+  </div>
+</fieldset>
+<% unless @address.is_primary? -%>
+<fieldset>
+  <div class="group">
+    <div class="unsized">
+      <%= f.check_box :is_primary, :class => 'unsized' %>
+      <%= f.label :is_primary, 'Set as Primary Address', :class => 'inline' %>
+    </div>
+    <div class="clearboth"></div>
+  </div>
+</fieldset>
+<% end -%>

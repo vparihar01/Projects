@@ -1,0 +1,12 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @catalog_request} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= div_for @catalog_request, :class => 'module' do -%>
+  <ul>
+    <%= raw @catalog_request.address.to_html rescue nil %>
+    <li class="meta">ID: <%=@catalog_request.id %></li>
+    <li class="meta">Created: <%=@catalog_request.created_at.to_s(:custom_with_time) %></li>
+    <li class="meta">Processed: <%=@catalog_request.is_processed %></li>
+  </ul>
+<% end -%>

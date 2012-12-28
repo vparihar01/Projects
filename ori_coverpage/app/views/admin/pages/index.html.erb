@@ -1,0 +1,43 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => admin_pages_path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :title_contains, :label => "Title", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :body_contains, :label => "Body", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :layout_contains, :label => "Layout", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :path_contains, :label => "Path", :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<%= render :partial => 'admin/shared/search_sort', :locals => {:options => [{:by => :title}, {:by => :path}, {:by => :layout}]} %>
+
+<% if @pages.any? -%>
+    <table cellspacing="0" class="list">
+    <tr>
+      <th class="first">Title</th>
+      <th>Path</th>
+      <th>Layout</th>
+      <th>Protected</th>
+      <th class="icon last">Delete</th>
+    </tr>
+    <% @pages.each do |page| %>
+      <%= content_tag_for(:tr, page, :class => cycle('odd', 'even') ) do -%>
+        <td><%= link_to(page.title, edit_admin_page_path(page), :class => 'highlight') %></td>
+        <td><%= link_to(page.path, public_page_path(page.path)) %></td>
+        <td><%= page.layout %></td>
+        <td><%= page.is_protected %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_page_path(page), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></td>
+      <% end %>
+    <% end -%>
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @pages} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

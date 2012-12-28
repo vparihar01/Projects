@@ -1,0 +1,15 @@
+<h1><%= calculate_page_heading %></h1>
+
+<ul class="page-actions">
+  <li><%= link_to("Return to list", addresses_path) %></li>
+  <li><%= link_to("Edit", edit_address_path(@address)) %></li>
+</ul>
+
+<table>
+<% for column in Address.content_columns %>
+  <tr>
+    <td style="width:100px;text-align:right;"><span class="meta"><%= column.human_name %></span></td>
+    <td><strong><%= @address.send(column.name) %></strong></td>
+  </tr>
+<% end %>
+</table>

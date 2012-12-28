@@ -1,0 +1,11 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:record => @categories, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1>Subjects</h1>
+
+<%= render :partial => 'shared/filter_by_level' %>
+
+<% if @categories.any? %>
+  <%= render @categories, :show_admin => true %>
+<% else %>
+  <p>No records found.</p>
+<% end %>

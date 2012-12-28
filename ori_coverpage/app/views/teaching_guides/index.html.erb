@@ -1,0 +1,14 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1>Teaching Guides</h1>
+
+<div class="group forcebottommargin">
+  <span class="inline label">Tags: </span> &nbsp; 
+  <%=raw tag_list_to_links(@tags, :show_all => true) %>
+</div>
+
+<% if @teaching_guides.any? -%>
+  <%= render :partial => 'teaching_guides/summary', :collection => @teaching_guides, :as => :teaching_guide, :spacer_template => 'shared/spacer', :locals => {:show_admin => admin?} %>
+<% else -%>
+  <p><strong>No teaching guides found.</strong></p>
+<% end -%>

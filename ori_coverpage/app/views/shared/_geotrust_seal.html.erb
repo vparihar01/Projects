@@ -1,0 +1,9 @@
+<div class="GeoTrustSeal">
+  <% if Rails.env.production? && request.ssl? -%>
+    <% if request.ssl? -%>
+      <%= javascript_include_tag "//smarticon.geotrust.com/si.js" %>
+    <% end -%>
+  <% else -%>
+    <%= image_tag('geotrust.gif') %>
+  <% end -%>
+</div>

@@ -1,0 +1,5 @@
+<h2><span>New Arrivals</span></h2>
+<ul>
+  <%=raw Title.find_random_new(3).map {|p| content_tag(:li, link_to(p.name, show_url(p))) } %>
+</ul>
+<p class="morebuttons"><%= link_to('More new arrivals &raquo;'.html_safe, new_arrivals_url, :class => 'more') %></p>

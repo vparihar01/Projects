@@ -1,0 +1,12 @@
+<% per = glider_per(product); rows = CONFIG[:max_extended_rows]; max = per*rows - 1 -%>
+<% product.titles.available[0..(max-1)].in_groups_of(per, false).each_with_index do |group, n| -%>
+  <div id="row_<%= n %>" class="clearfix">
+    <% group.each_with_index do |product, k| %>
+      <%= content_tag(:span, link_to(image_tag(product.image, :class => "photo"), show_path(product)), :id => dom_id(product), :class => "f-left tipper") %>
+    <% end %>
+    <% if (n + 1) == rows -%>
+      <%= cover_image_sized_link(product, "List all titles &raquo;".html_safe, url_for(params.merge(:l2 => 's')), :remote => true) %>
+    <% end -%>
+  </div>
+<% end -%>
+<div class="forcetopmargin">&nbsp;</div>

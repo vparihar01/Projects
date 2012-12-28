@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  product_format_id: 1
+  edition:
+  erratum_type: Typo
+  user_id: 1
+  name: John Doe
+  email: johdoe@email.com
+  page_number: 1
+  description: MyText
+  status: Submitted
+
+two:
+  id: 2
+  product_format_id: 1
+  edition:
+  erratum_type: Typo
+  user_id: 1
+  name: John Doe
+  email: email@email.com
+  page_number: 1
+  description: MyText
+  status: Submitted

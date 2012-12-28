@@ -1,0 +1,19 @@
+<% if CONFIG[:show_facebook_like] == true -%>
+  <% content_for :head do %>
+    <meta property="og:site_name" content="<%= CONFIG[:company_name] %>" />
+    <meta property="fb:admins" content="<%= CONFIG[:facebook_id] %>" />
+    <meta property="fb:page_id" content="252034458175063" />
+    <meta property="og:image" content="<%= File.join(CONFIG[:app_url], 'images/logo-facebook.jpg') %>" />
+    <meta property="og:type" content="website" />
+  <% end -%>
+<% end -%>
+
+<div class="forcebottommargin">
+<%= link_to(image_tag('splash.jpg', :alt => 'Amazon Gift Card Giveaway'), public_page_path('promotion-freestuff'), :title => 'Amazon Gift Card Giveaway') %>
+</div>
+
+<% if editorial_reviews = EditorialReview.find_latest(2, :written_on) -%>
+  <h1>Recent Reviews</h1>
+  <%= render :partial => 'editorial_reviews/summary', :collection => editorial_reviews, :as => :editorial_review, :spacer_template => 'shared/spacer' %>
+  <p class="morebuttons"><%= link_to('More reviews &raquo;'.html_safe, editorial_reviews_path, :class => 'more') %></p>
+<% end -%>

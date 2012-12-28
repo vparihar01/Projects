@@ -1,0 +1,8 @@
+<% content_for :sidebar do %>
+<ul class="submenu">
+  <%= content_tag(:li, distribution_link("Distribution", @recipient)) if defined?(@recipient) %>
+  <%= content_tag(:li, link_to("Distribution", admin_distribution_path)) unless defined?(@recipient) %>
+  <li><%= link_to "Export Products", export_admin_products_path %></li>
+</ul>
+<% end %>
+<%= render :file => 'layouts/administration' %>

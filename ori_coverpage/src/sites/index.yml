@@ -1,0 +1,35 @@
+---
+childsworld.com: 
+  group: childsworld
+  role_web: 205.186.157.248
+  repository: gitosis@git.milkfarmproductions.com:coverpage.git
+  theme: childsworld
+  role_app: 205.186.157.248
+  remote_rake: /usr/local/bin/rake
+  branch: master
+  scm_username: git
+  application: childsworld
+  runner: childsworld
+  keep_releases: 5
+  scm_password: 
+  role_db: 205.186.157.248
+  rails_env: production
+  user: childsworld
+  deploy_to: /var/www/childsworld.com
+cherrylakepublishing.com: 
+  group: cherrylake
+  role_web: 72.10.37.98
+  repository: gitosis@git.milkfarmproductions.com:coverpage.git
+  theme: cherrylake
+  role_app: 72.10.37.98
+  remote_rake: /usr/local/bin/rake
+  branch: master
+  scm_username: git
+  application: cherrylakepublishing
+  runner: cherrylake
+  keep_releases: 5
+  scm_password: 
+  role_db: 72.10.37.98
+  rails_env: production
+  user: cherrylake
+  deploy_to: /var/www/cherrylakepublishing.com

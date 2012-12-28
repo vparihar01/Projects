@@ -1,0 +1,2 @@
+module CatalogRequestsHelper
+end

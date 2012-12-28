@@ -1,0 +1,83 @@
+<h1>Hosted Ebooks: Free 30-Day Trial</h1>
+
+<p>Try a FREE 30-day trial of our Web-Hosted eBooks! During your free trial, you’ll have access to 25 of our full-length eBooks, with features including searching, bookmarking, printing, and more.</p>
+
+<p>Please fill out the form below and submit. We will set up your trial account and contact you with your log-in information.</p>
+
+<%= render :partial => 'shared/required' %>
+
+<%= error_messages_for :form %>
+
+<%= form_for :form, :url => public_page_path(:hosted_ebooks_trial), :method => :post do |f| -%>
+  <fieldset>
+    <div class="group clearfix">
+      <div class="half first">
+        <%= f.label :name, 'Name *' %>
+        <%= f.text_field :name %>
+      </div>
+      <div class="half">
+        <%= f.label :title, 'Title' %>
+        <%= f.text_field :title %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="half first">
+        <%= f.label :email, 'Email *' %>
+        <%= f.text_field :email %>
+      </div>
+      <div class="half">
+        <%= f.label :phone %>
+        <%= f.text_field :phone %>
+      </div>
+    </div>
+    <% if defined?(CONFIG[:subscribe_url]) && !CONFIG[:subscribe_url].blank? -%>
+      <div class="group clearfix">
+        <div class="unsized">
+          <%= f.check_box :subscribe, :class => 'unsized' %>
+          <%= f.label :subscribe, 'Add my email address to the corporate mailing list.', :class => 'inline' %>
+        </div>
+      </div>
+    <% end -%>
+    <div class="group clearfix">
+      <div class="full">
+        <%= f.label :organization, 'Organization / Institution *' %>
+        <%= f.text_field :organization %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="half first">
+        <%= f.label :street, 'Street *' %>
+        <%= f.text_field :street %>
+      </div>
+      <div class="half">
+        <%= f.label :suite %>
+        <%= f.text_field :suite %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="half first">
+        <%= f.label :city, 'City *' %>
+        <%= f.text_field :city %>
+      </div>
+      <div class="half">
+        <%= f.label :country_id, 'Country *' %>
+        <%= f.select :country_id, Country.to_dropdown %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="half first">
+        <%= f.label :postal_code, 'Postal Code *' %>
+        <%= f.text_field :postal_code %>
+      </div>
+      <div class="half">
+        <%= f.label :zone_id, 'State / Province *' %>
+        <%= f.select :zone_id, [""] + Zone.all.collect {|x| [x.name, x.id]} %>
+      </div>
+      <div class="clearboth"></div>
+    </div>
+    <div class="group clearfix">
+      <div class="full">
+        <%= f.label :rep, "Sales Representative (if applicable)" %>
+        <%= f.text_field :rep %>
+      </div>
+      <div class="clearboth"></div>
+    </div>
+  </fieldset>
+  <%= page_buttons(submit_tag('Submit')) %>
+<% end -%>

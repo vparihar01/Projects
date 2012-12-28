@@ -1,0 +1,3 @@
+# this directory should host the theme sources (for direct edit of installed themes and git integration support)
+
+

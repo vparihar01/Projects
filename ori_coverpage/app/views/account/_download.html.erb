@@ -1,0 +1,11 @@
+<div class="module clearfix">
+  <%= link_to(image_tag(download.title.image, :class => "photo"), show_path(download.title)) %>
+    <h4><%= link_to download.title.name, show_path(download.title) %></h4>
+    <ul>
+      <%= content_tag(:li, content_tag(:em, "from the series #{link_to(download.title.collection.name, collection_path(download.title.collection), :class => 'normal')}".html_safe)) unless download.title.collection.nil? %>
+    </ul>
+  <ul>
+    <li><strong><%= link_to 'Download Now', download_account_path(download), :method => :put, :class => 'downlink' %></strong></li>
+    <li class="meta"><%= "PDF: #{number_to_human_size(download.size)}" %></li>
+  </ul>
+</div>

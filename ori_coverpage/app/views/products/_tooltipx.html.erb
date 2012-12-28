@@ -1,0 +1,8 @@
+<div id="product-<%= product.id %>">
+  <div class="contentx">
+    <h3><%= product.name %></h3>
+    <%= image_tag(product.image('covers', 's'), :class => 'photo') %>
+    <p><%= truncate_to_nearest_word(product.description) %></p>
+    <%= compact_price_listing(product) -%>
+  </div>
+</div>

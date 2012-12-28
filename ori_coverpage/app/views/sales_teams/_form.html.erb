@@ -1,0 +1,28 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :sales_team %>
+
+<%= f.inputs do %>
+  <%= f.input :name, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :description, :wrapper_html => { :class => "half" } %>
+  <%= f.input :managed_by, :label => 'Head Rep', :as => :select, :collection => SalesRep.to_dropdown, :include_blank => true, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :category, :label => 'Category', :as => :select, :collection => SalesTeam::CATEGORIES, :include_blank => true, :wrapper_html => { :class => "half" } %>
+<% end %>
+<%= f.inputs do %>
+  <%= f.input :email, :wrapper_html => { :class => "full" } %>
+  <%= f.input :phone, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :fax, :wrapper_html => { :class => "half" } %>
+<% end %>
+<%= f.semantic_fields_for :address do |address| %>
+  <%= address.inputs do %>
+    <%= address.input :street, :wrapper_html => { :class => "half first" } %>
+    <%= address.input :suite, :wrapper_html => { :class => "half" } %>
+    <%= address.input :city, :wrapper_html => { :class => "half first" } %>
+    <%= semantic_fields_for :postal_code do |postal_code| %>
+      <%= postal_code.input :name, :label => 'Postal Code', :wrapper_html => { :class => "half" }, :input_html => {:value => @sales_team.address.postal_code.name, :onchange => remote_function(:url => update_province_addresses_path, :with => "'postal_code='+document.getElementById('postal_code_name').value")}, :required => false %>
+      <%= postal_code.input :zone_id, :label => 'State / Province', :as => :select, :collection => Zone.to_dropdown, :wrapper_html => { :class => "half first" }, :selected => @sales_team.address.postal_code.zone_id, :required => false %>
+    <% end -%>
+    <%= address.input :country_id, :as => :select, :collection => Country.to_dropdown, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+<% end %>

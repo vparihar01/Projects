@@ -1,0 +1,35 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag 'scriptaculous' %>
+  <%= stylesheet_link_tag 'window', :media => 'screen' %>
+<% end -%>
+
+<h1>Version History</h1>
+<h2>for <%= link_to "#{@versionable.class}: #{@versionable.name}", edit_versionable_path(@versionable) %></h2>
+
+<div id="screen" style="display: none;"></div>
+<div id="modal" class="window" style="display: none;"></div>
+
+<table class="list">
+  <thead>
+    <tr>
+      <th class="first icon">Version</th>
+      <th>Date</th>
+      <th>User</th>
+      <th class="icon">Compare</th>
+      <th class="icon last">Restore</th>
+    </tr>
+  </thead>
+  <tbody id="versions">
+    <%= render :partial => 'admin/versions/version', :collection => @versionable.versions.reverse, :locals => { :versionable => @versionable } %>
+
+    <%= content_tag_for(:tr, @versionable, :class => cycle('odd', 'even')) do -%>
+      <td class="icon">1</td>
+      <td><%= @versionable.created_at.to_s(:custom_with_time) %></td>
+      <td>&nbsp;</td>
+      <td class="icon"><%= compare_link(@versionable) %></td>
+      <td class="icon"><%= revert_link(@versionable) %></td>
+    <% end -%>
+  </tbody>
+  <tfoot>
+  </tfoot>
+</table>

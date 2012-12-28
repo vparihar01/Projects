@@ -1,0 +1,6 @@
+<div class="module clearfix" id="<%= dom_id(excerpt) %>">
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => excerpt, :controller_path => "admin/#{controller.controller_name}"} %>
+  <% end -%>
+  <%= render :partial => 'show', :locals => {:excerpt => excerpt} %>
+</div>

@@ -1,0 +1,84 @@
+/* Thanks to: http://www.teddy-o-ted.com/tutorials/compacting-contents-using-glider-script/ */
+
+.glider-module {margin-bottom:3em;}
+.glider {
+  padding:5px 0;
+  margin: 0;
+  border-top: 3px solid #C8C8C2;
+  border-bottom: 3px solid #C8C8C2;
+}
+.glider .info {
+  width:250px;
+  margin:20px 40px 0 40px;
+}
+.glider img.button {
+  margin-right:3px;
+}
+.glider img.cover {
+  margin:20px 40px 0 10px;
+  float:right;
+}
+.glider p {
+  margin-bottom:10px;
+}
+.scroller {
+  float: left;
+  overflow: hidden;
+  width: 590px;
+  height: 300px;
+}
+.scroller .content {
+  width: 10000px;
+}
+.section {
+  float: left; /* Will vertical scroll without this float */
+  overflow: hidden;
+  padding: 0;
+  width: 590px;
+  height: 300px;
+  background:#7fa0bc url(/images/glider-bg.png) no-repeat top left;
+}
+.controls {
+  border:1px solid #fff;
+}
+.controls ul {
+  list-style: none;
+}
+.controls ul li {
+  float: left;
+}
+.controls ul li a {
+  display: block;
+  padding: 0 7px;
+  text-align: center;
+  border-right: 1px solid #fff;
+  font-size:0.83em;
+  color:#633;
+}
+.controls ul li a.active {
+  background-color: #C8C8C2;
+}
+.side-nav-prev, .side-nav-next {
+  float: left;
+  width: 20px;
+  height: 300px;
+}
+.side-nav-prev a, .side-nav-next a {
+  display: block;
+  text-indent: -9999px;
+  width: 20px;
+  height: 300px;
+  color:#838a90;
+}
+.side-nav-prev a {
+  background: url(/images/previous-off.gif) no-repeat center center;
+}
+.side-nav-prev a:hover {
+  background: url(/images/previous.gif) no-repeat center center;
+}
+.side-nav-next a {
+  background: url(/images/next-off.gif) no-repeat center center;
+}
+.side-nav-next a:hover {
+  background: url(/images/next.gif) no-repeat center center;
+}

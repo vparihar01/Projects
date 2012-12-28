@@ -1,0 +1,49 @@
+<%= error_messages_for :quote %>
+
+<fieldset>
+  <div class="group">
+    <div class="half first">
+      <%= f.label :name, 'Description' %>
+      <%= f.text_field :name %>
+    </div>
+    <%= f.hidden_field :user_id %>
+    <% unless current_user.customer? %>
+      <div class="half">
+        <%= f.label :customer_id, 'Customer' %>
+        <%= f.select :customer_id, customer_list %>
+      </div>
+    <% end %>
+    <div class="clearboth"></div>
+  </div>
+</fieldset>
+
+<fieldset>
+<table class="list" id="cart_items">
+  <thead>
+    <tr>
+      <th class="first">Title</th>
+      <th><%= format_column_heading(:always_display_price => false) -%></th>
+      <th class="number">Price</th>
+      <th class="qty">Qty</th>
+      <th class="number last">Total</th>
+    </tr>
+  </thead>
+  <tbody id="item_list">
+  <%= f.fields_for(:line_items) do |lf| %>
+  
+  <% item = lf.object %>
+  <% row_class ||= cycle('odd', '') %>
+  <%= content_tag_for(:tr, item, :class => row_class) do %>
+    <td><%= link_to(item.product_name, show_path(item.product)) %></td>
+    <td><%= format_field(lf, :always_display_price => false){|pf| "#{pf.to_s} (#{number_to_currency(pf.price)})"} %></td>
+    <td class="number"><%= number_to_currency(item.unit_amount) %></td>
+    <td class="qty"><%= lf.text_field :quantity, :size => 2 %></td>
+    <td class="number"><%= number_to_currency(item.total_amount) %></td>
+  <% end %>
+
+  <% end %>
+  </tbody>
+  <tfoot>
+  </tfoot>
+</table>
+</fieldset>

@@ -1,0 +1,9 @@
+<div class="window-header" id="drag">
+  <div class="window-close"><%= link_to_function('&nbsp;'.html_safe, "$('modal').hide();$('screen').hide();", {:style => "display:block", :title => 'Close this window'}) %></div>
+  <div class="window-title"><%= product.name %></div>  
+</div>
+<div class="window-contents">
+
+<%= link_to_function(image_tag(product.image(params[:type],"l"), :alt => 'Close this window'), "$('modal').hide();$('screen').hide();", {:title => 'Close this window'}) %> 
+
+</div>

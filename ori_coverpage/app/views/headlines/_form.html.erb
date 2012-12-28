@@ -1,0 +1,21 @@
+<%= error_messages_for :headline %>
+
+<fieldset>
+  <div class="group">
+    <div class="full">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :snippet %>
+      <%= f.text_area :snippet, :class => 'short' %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :body %>
+      <%= f.text_area :body, :class => 'tall' %>
+    </div>
+    <div class="clearboth"></div>
+  </div>
+</fieldset>

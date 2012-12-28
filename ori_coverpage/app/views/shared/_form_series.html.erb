@@ -1,0 +1,3 @@
+<%= form_tag collections_path, :class => 'set', :method => :get do -%>
+  <%= select_tag :id, options_for_select([['View a Series:',''], ['','']] + Collection.roots.sort_by(&:name_less_article).collect {|s| [s.name_for_dropdown, s.id]}, params[:id].to_i), :onchange => "if (this.form.id.value != '') { window.location = '#{collections_path}/' + this.form.id.value; }", :style => "width:150px;" %>
+<% end -%>

@@ -1,0 +1,24 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @recipient} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= content_tag(:ul) do %>
+  <%= display_value_in_list(@recipient, :name) %>
+  <%= display_value_in_list(@recipient, :type) %>
+  <%= display_value_in_list(@recipient, :emails) %>
+  <%= display_value_in_list(@recipient, :ftp) %>
+<% end -%>
+
+<% if @recipient.respond_to?(:preferences) && !@recipient.preferences.nil? && @recipient.preferences.any? %>
+  <h2>Preferences</h2>
+  <ul>
+    <% @recipient.preferences.each do |pref, value| -%>
+      <%= display(value, pref, :wrap => true, :allow_nil => true) %>
+    <% end -%>
+  </ul>
+<% end %>
+
+<ul class="meta">
+  <%= display(@recipient.created_at.to_s(:long_day), 'Created', :wrap => true, :allow_nil => true) if @recipient.created_at %>
+  <%= display(@recipient.updated_at.to_s(:long_day), 'Updated', :wrap => true, :allow_nil => true) if @recipient.created_at %>
+</ul>

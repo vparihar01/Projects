@@ -1,0 +1,17 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @category, :controller_path => "admin/#{controller.controller_name}"} %>
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<h1><%= @category.name %></h1>
+
+<%= render :partial => 'shared/filter_by_level' %>
+
+<% if @products.any? %>
+  <% if session[:layout] == 'x' -%>
+    <%= render :partial => 'shop/xproduct', :collection => @products, :as => :product, :spacer_template => 'shared/spacer' %>
+  <% else -%>
+    <%= render :partial => 'shop/products', :locals => { :products => @products, :assembly => nil } %>
+  <% end -%>
+  <%= will_paginate @products %>
+<% else %>
+  No records found.
+<% end %>

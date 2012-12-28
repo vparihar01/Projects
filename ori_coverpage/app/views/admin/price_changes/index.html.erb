@@ -1,0 +1,50 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+  <%= javascript_tag do -%>
+    document.observe('dom:loaded', function(){
+      new Form.Element.EventObserver('product_id', function(element, value) {
+        new Ajax.Request('<%= format_options_admin_price_changes_path %>', {asynchronous:true, evalScripts:true, parameters:'product_id='+encodeURIComponent(value)+'&field_id=search_product_format_id_equals'});
+      });
+    });
+  <% end -%>
+<% end %>
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => request.path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <li class="select required half first"><%= label_tag :product_id, 'Product', :id => 'product_id_input' %><%= select_tag :product_id, options_for_select([[]]+Product.to_dropdown, (@product ? @product.id : nil)) %></li>
+    <%= f.input :product_format_id_equals, :label => "Format", :required => false, :as => :select, :collection => (@product ? @product.product_formats.collect { |pf| [pf.format.name, pf.id] } : []), :wrapper_html => { :class => "half" } %>
+    <%= f.input :state_equals, :label => "State", :required => false, :as => :select, :collection => PriceChange::VALID_STATES, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :implement_on_equals, :label => "Date Effective", :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @price_changes.any? -%>
+  <table cellspacing="0" class="list">
+    <tr>
+      <th class="first"><%= sort_link(@search, :name) %></th>
+      <th>Format</th>
+      <th class="number">List Price</th>
+      <th class="number">S/L Price</th>
+      <th><%= sort_link(@search, :state) %></th>
+      <th colspan="2" class="icon last">Actions</th>
+    </tr>
+    <% @price_changes.each do |price_change| %>
+      <%= content_tag_for(:tr, price_change, :class => cycle('odd', 'even') + (price_change.state.nil? ? '' : ' ' + price_change.state.downcase)) do -%>
+        <td><%= link_to price_change.product_format.product.name, show_path(price_change.product_format.product) %></td>
+        <td><%= price_change.product_format %></td>
+        <td class="number"><%= price_change.price_list %></td>
+        <td class="number"><%= price_change.price %></td>
+        <td><%= price_change.state %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/edit.gif', :alt => 'Edit'), edit_admin_price_change_path(price_change), :class => 'admin') %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_price_change_path(price_change), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></td>
+      <% end %>
+    <% end -%>
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @price_changes} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

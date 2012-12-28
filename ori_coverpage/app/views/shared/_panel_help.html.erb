@@ -1,0 +1,13 @@
+<ul class="submenu">
+  <li class="<%= submenu_class_by_path('/contact') %>"><%= link_to 'Contact Us', public_page_path(:contact) %></li>
+  <li class="<%= submenu_class('faqs') %>"><%= link_to 'FAQ', faqs_path %></li>
+  <li class="<%= submenu_class('catalog_requests') %>"><%= link_to 'Free Catalog', new_catalog_request_path %></li>
+  <%= subscribe_link('Subscribe', :wrap => true) %>
+  <%= unsubscribe_link('Unsubscribe', :wrap => true) %>
+  <li class="<%= submenu_class_by_path('/shipping') %>"><%= link_to 'Shipping Rates', public_page_path(:shipping) %></li>
+  <li class="<%= submenu_class_by_path('/returns') %>"><%= link_to 'Returns Policy', public_page_path(:returns) %></li>
+  <li class="<%= submenu_class_by_path('/prices') %>"><%= link_to 'Prices and Discounts', public_page_path(:prices) %></li>
+  <li class="<%= submenu_class_by_path('/downloads/tag/data') %>"><%= link_to "Product Data", tag_downloads_path('data') %></li>
+  <li class="<%= submenu_class_by_path('/downloads/tag/forms') %>"><%= link_to "Order Forms", tag_downloads_path('forms') %></li>
+  <li class="<%= submenu_class('links') %>"><%= link_to "Research Assistant", links_path %></li>
+</ul>

@@ -1,0 +1,9 @@
+<h1>Your Addresses</h1>
+
+<ul class="page-actions">
+  <li><%= link_to("New address", new_address_path) %></li>
+</ul>
+
+<% if @addresses.any? -%>
+  <%= render :partial => 'address', :collection => @addresses, :spacer_template => 'shared/spacer', :locals => {:show_actions => true} %>
+<% end -%>

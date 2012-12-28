@@ -1,0 +1,27 @@
+<ul class="actions">
+  <li><%= link_to image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_job_path(@job), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin' %></li>
+  <li class="last"><%= link_to image_tag('buttons/admin/back.gif', :alt => 'Back'), admin_jobs_path, :class => 'admin' %></li>
+</ul>
+
+<h1>Job #<%= @job.id %></h1>
+
+<div class="module-link">
+  <p><code><%= @job.handler %></code></p>
+  <ul class="meta">
+    <%= display(@job.priority, 'Priority', :wrap => true, :label_class => 'test', :value_id => 'price') %>
+    <%= display(@job.attempts, 'Attempts', :wrap => true) %>
+    <%= display(@job.run_at.to_s(:custom_with_time), 'Run', :wrap => true) if @job.run_at %>
+    <%= display(@job.failed_at.to_s(:custom_with_time), 'Failed', :wrap => true) if @job.failed_at %>
+    <%= display(@job.locked_at.to_s(:custom_with_time), 'Locked', :wrap => true) if @job.locked_at %>
+    <%= display(@job.locked_by, 'Locked by', :wrap => true) %>
+    <%= display(@job.created_at.to_s(:custom_with_time), 'Created', :wrap => true) if @job.created_at %>
+    <%= display(@job.updated_at.to_s(:custom_with_time), 'Updated', :wrap => true) if @job.updated_at %>
+  </ul>
+  <% unless @job.last_error.blank? -%>
+    <h2>Error</h2>
+    <p><code>
+    <%= @job.last_error.gsub(/\\n/,'<br/>').html_safe %>
+    </code></p>
+  <% end -%>
+</div>
+

@@ -1,0 +1,4 @@
+Quantity,Product Name,ISBN,Format,Unit Price,Subtotal
+<% @cart.line_items.each do |item| -%>
+"<%= [item.quantity, item.product.name, item.product_format.isbn13str, item.product_format, item.unit_amount, item.total_amount].join('","').html_safe %>"
+<% end -%>

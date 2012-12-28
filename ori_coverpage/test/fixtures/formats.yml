@@ -1,0 +1,48 @@
+hardcover:
+  id: 1
+  name: Hardcover
+  form: Hardcover
+  detail: Library binding
+  is_default: true
+  is_pdf: false
+  is_virtual: false
+  is_processed: true
+  units: 1
+  requires_valid_isbn: true
+  
+pdf:
+  id: 2
+  name: PDF
+  form: Hardcover
+  detail: Electronic
+  is_default: false
+  is_pdf: true
+  is_virtual: true
+  is_processed: false
+  units: 1
+  requires_valid_isbn: true
+  
+paperback:
+  id: 3
+  name: Paperback
+  form: Paperback
+  detail: Trade paperback
+  is_default: false
+  is_pdf: false
+  is_virtual: false
+  is_processed: false
+  units: 1
+  requires_valid_isbn: true
+  
+combo:
+  id: 4
+  name: 'Hardcover + PDF'
+  form: 
+  detail: 
+  is_default: false
+  is_pdf: false
+  is_virtual: false
+  is_processed: false
+  units: 2
+  requires_valid_isbn: false
+  

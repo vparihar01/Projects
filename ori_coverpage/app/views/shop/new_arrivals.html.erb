@@ -1,0 +1,18 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag 'glider', 'tooltip' %>
+  <%= stylesheet_link_tag 'glider-titles', 'tooltip', :media => 'screen' %>
+<% end -%>
+
+<div><%= image_tag('new.gif', :alt => "New for #{Product.new_season}", :class => 'f-right') %></div>
+<h1>New Arrivals</h1>
+
+<%= render :partial => 'shared/filter_by_level' %>
+<ul class="tabs">
+  <%= content_tag(:li, content_tag(:strong, Product.new_season), :class => 'active') %>
+  <%= content_tag(:li, link_to(Product.recent_season, recent_arrivals_path)) %>
+</ul>
+<div class="clearboth forcebottommargin">&nbsp;</div>
+
+<% @assemblies.each_with_index do |assembly, i| -%>
+  <%= render :partial => 'shared/glider_for_assembly', :locals => {:assembly => assembly, :titles => assembly.titles.newly_available, :i => i} %>
+<% end -%>

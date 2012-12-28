@@ -1,0 +1,9 @@
+<ul class="submenu">
+  <li class="<%= submenu_class('account', 'index') %>"><%= link_to 'Overview', account_path %></li>
+  <li class="<%= submenu_class('account', 'change_profile') %>"><%= link_to 'Profile', change_profile_path %></li>
+  <li class="<%= submenu_class('account', 'change_password') %>"><%= link_to 'Password', change_password_path %></li>
+  <li class="<%= submenu_class('addresses') %>"><%= link_to 'Address book', addresses_path %></li>
+  <li class="<%= submenu_class('specs') %>"><%= link_to 'Library processing', specs_path %></li>
+  <li class="<%= submenu_class('account', ['orders', 'order', 'status_history']) %>"><%= link_to 'Orders', orders_account_path %></li>
+  <li class="<%= submenu_class('quotes') %>"><%= link_to 'Quotes', quotes_path %></li>
+</ul>

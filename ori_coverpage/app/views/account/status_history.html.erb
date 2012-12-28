@@ -1,0 +1,20 @@
+<h1>Order Status</h1>
+
+<p><%= link_to("&laquo; Back to orders".html_safe, :action => 'orders')%></p>
+
+<%= render :partial => 'orders', :locals => {:orders => [@order]} %>
+
+<table cellspacing="0" class="list">
+  <thead>
+  	<tr>
+  		<th class="first">Status</th>
+  		<th class="last">Time Changed</th>
+  	</tr>
+	</thead>
+	<tbody>
+	<%= render :partial => 'status_change', :collection => @status_changes %>
+	</tbody>
+	<tfoot></tfoot>
+</table>
+
+<p><%= link_to("&laquo; Back to orders".html_safe, :action => 'orders')%></p>

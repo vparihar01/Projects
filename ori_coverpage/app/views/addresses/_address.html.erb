@@ -1,0 +1,25 @@
+<%= div_for(address) do -%>
+  <% if defined?(show_actions) && show_actions -%>
+    <ul class="record-actions">
+      <% if address.is_primary == true %>
+        <%= content_tag(:li, image_tag("buttons/s/default-off.gif", :alt => 'Current Default Address')) %>
+      <% else -%>
+        <%= content_tag(:li, link_to(image_tag("buttons/s/default.gif", :alt => 'Set as Default Address'), toggle_primary_address_path(address), :method => :put, :title => 'Set as Default Address')) %>
+      <% end -%>
+      <li><%= link_to(image_tag("buttons/s/delete.gif", :alt => 'Delete'), address_path(address), :method => :delete, :confirm => 'Are you sure you wish to delete this record?') %></li>
+      <li><%= link_to(image_tag("buttons/s/edit.gif", :alt => 'Edit'), edit_address_path(address)) %></li>
+    </ul>
+  <% end -%>
+  <ul>
+    <%= content_tag :li, address.name unless address.name.blank? %>
+    <%= content_tag :li, address.attention unless address.attention.blank? %>
+    <%= content_tag :li, address.street unless address.street.blank? %>
+    <%= content_tag :li, address.suite unless address.suite.blank? %>
+    <%= content_tag_for :li, address do %>
+      <%= address.city %>
+      <%= ',' unless address.zone_name.blank? && address.postal_code_name.blank? %>
+      <%= ' ' + address.zone_name unless address.zone_name.blank? %>
+      <%= ' ' + address.postal_code_name unless address.postal_code_name.blank? %>
+    <% end %>
+  </ul>
+<% end -%>

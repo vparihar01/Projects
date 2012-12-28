@@ -1,0 +1,22 @@
+<%= form_tag( eval("assign_product_admin_#{assignable.class.to_s.downcase}_path(assignable)"), :remote=> true, :id => 'assignment_form', :method => :post) do -%>
+  <table class="list">
+    <thead>
+      <tr>
+        <th class="title first" colspan="2">Product</th>
+        <th class="last center">Action</th>
+      </tr>
+    </thead>
+    <tbody id="assignments">
+      <tr>
+        <td class="summary" colspan="2">
+          <% set_options = [""] + (defined?(klass) ? klass.classify.constantize.to_dropdown : Product.to_dropdown) %>
+          <%= select_tag :product_id, options_for_select(set_options, params[:product_id].to_i), :style => "width:95%;" %>
+        </td>
+        <td class="summary center"><%= submit_tag('Add') %></td>
+      </tr>
+      <%= render :partial => 'admin/shared/product', :collection => (defined?(klass) && assignable.respond_to?(klass.tableize) ? assignable.send(klass.tableize) : assignable.products), :locals => { :assignable => assignable } %>
+    </tbody>
+    <tfoot>
+    </tfoot>
+  </table>
+<% end -%>

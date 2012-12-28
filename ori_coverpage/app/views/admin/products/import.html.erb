@@ -1,0 +1,26 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for :import, :url => import_admin_products_path, :html => { :multipart => true } do |f| -%>
+  <fieldset>
+    <div class="group">
+      <div class="full">
+        <%= f.label :uploaded_data, "CSV File" %>
+        <%= f.file_field :uploaded_data %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="half">
+        <%= f.check_box :synchronous, :class => 'unsized' %>
+        <%= f.label :synchronous, "Synchronous execution", :class => 'inline' %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="half">
+        <%= f.check_box :mac, :class => 'unsized' %>
+        <%= f.label :mac, "Macintosh line-endings", :class => 'inline' %>
+      </div>
+      <div class="clearboth"></div>
+    </div>
+  </fieldset>
+  <%= submit_or_cancel(admin_products_path, "Upload") %>
+<% end -%>

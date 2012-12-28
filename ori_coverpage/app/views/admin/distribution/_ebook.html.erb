@@ -1,0 +1,31 @@
+<div class="half first">
+  <%= label_tag :distribution_ebook_suffix, "Ebook File Suffix" %>
+  <%= text_field_tag 'distribution[ebook_suffix]', (!params[:distribution].blank? ? params[:distribution][:ebook_suffix] : "") %>
+</div>
+<div class="half">
+  <%= label_tag :distribution_ebook_cover_suffix, "Cover File Suffix" %>
+  <%= text_field_tag 'distribution[ebook_cover_suffix]', (!params[:distribution].blank? ? params[:distribution][:ebook_cover_suffix] : "") %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <%= label_tag :distribution_ebook_use_eisbn, "Use eISBN?" %>
+  <%= hidden_field_tag 'distribution[ebook_use_eisbn]', false %>
+  <%= check_box_tag 'distribution[ebook_use_eisbn]', true, (!params[:distribution].blank? ? params[:distribution][:ebook_use_eisbn] == 'true' : false), :class => 'unsized' %>
+</div>
+<div class="half">
+  <%= label_tag :distribution_ebook_include_covers, "Include Covers?" %>
+  <%= hidden_field_tag 'distribution[ebook_include_covers]', false %>
+  <%= check_box_tag 'distribution[ebook_include_covers]', true, (!params[:distribution].blank? ? params[:distribution][:ebook_include_covers] == 'true' : false), :class => 'unsized' %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <%= label_tag :distribution_ebook_include_data, "Include Data?" %>
+  <%= hidden_field_tag 'distribution[ebook_include_data]', false %>
+  <%= check_box_tag 'distribution[ebook_include_data]', true, (!params[:distribution].blank? ? params[:distribution][:ebook_include_data] == 'true' : false), :class => 'unsized' %>
+</div>
+<div class="half">
+  <%= label_tag :distribution_ebook_include_manifest, "Include Email Manifest?" %>
+  <%= hidden_field_tag 'distribution[ebook_include_manifest]', false %>
+  <%= check_box_tag 'distribution[ebook_include_manifest]', true, (!params[:distribution].blank? ? params[:distribution][:ebook_include_manifest] == 'true' : false), :class => 'unsized' %>
+</div>
+<div class="clearboth"></div>

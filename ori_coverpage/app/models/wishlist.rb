@@ -1,0 +1,4 @@
+class Wishlist < LineItemCollection
+  
+  
+end

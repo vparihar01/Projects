@@ -1,0 +1,28 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+first:
+  id: 1
+  title: First Page
+  body: <h1>Home Page</h1><br>Welcome!
+  path: first
+
+about:
+  id: 2
+  title: About Us
+  body: <h1>About Us</h1><br>N/A
+  path: about
+
+admin:
+  id: 3
+  title: Admin Page
+  body: <h1>Admin</h1><br>You must be admin
+  path: administration
+  layout: admin
+  is_protected: 1
+
+protected:
+  id: 4
+  title: Protected Page
+  body: <h1>Protected Page</h1><br>Test my protection...
+  path: protected
+  is_protected: 1

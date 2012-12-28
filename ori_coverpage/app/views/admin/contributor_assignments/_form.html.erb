@@ -1,0 +1,21 @@
+<%= error_messages_for :contributor_assignment %>
+
+<fieldset>
+<div class="group">
+  <div class="full">
+    <%= f.label :contributor_id %>
+    <%= f.select :contributor_id, Contributor.to_dropdown, {:include_blank => true}, {:class => 'l'} %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :role %>
+    <%= f.select :role, app_select_options(:role), {:include_blank => true}, {:class => 'l'} %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :product_id %>
+    <%= f.select :product_id, Product.to_dropdown, {:include_blank => true}, {:class => 'l'} %>
+  </div>
+  <div class="clearboth"></div>
+</div>
+</fieldset>

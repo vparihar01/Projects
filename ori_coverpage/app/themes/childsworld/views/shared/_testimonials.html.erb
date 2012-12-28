@@ -1,0 +1,6 @@
+<% Testimonial.find_random(1).each do |t| -%>
+  <div class="testimonial">
+    <% unless t.comment.nil? -%><blockquote>&quot;<%= t.comment.html_safe %>&quot;</blockquote><% end -%>
+    <cite>&mdash;<%= t.name.html_safe %></cite>
+  </div>
+<% end -%>

@@ -1,0 +1,46 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+# a note on FTP: using local FTP greatly improves testing speed, on the other hand
+# it requires that an FTP server is operated on the LAN of the developer. Therefore
+# the ftp.milkfarmproductions.com & test account (mf-share) is default in the fixtures.
+# feel free to change it locally....
+
+data_test:
+  id: 1
+  name: data_test
+  type: DataRecipient
+  emails: "John Doe <stuff@milkfarmproductions.com>"
+  is_automatic: true
+
+data_test_onix:
+  id: 2
+  name: data_test_onix
+  type: DataRecipient
+  emails: "Dev <dev@milkfarmproductions.com>, Test <test@milkfarmproductions.com>"
+  ftp: <%= CONFIG[:webmaster_ftp] %>
+  is_automatic: true
+
+ebooks_test:
+  id: 3
+  name: ebooks_test
+  type: EbookRecipient
+  emails: "John Doe <stuff@milkfarmproductions.com>"
+  ftp: <%= CONFIG[:webmaster_ftp] %>
+  is_automatic: true
+
+ebooks_follett:
+  id: 4
+  name: ebooks_follett
+  type: EbookRecipient
+  emails: "Test <test@milkfarmproductions.com>"
+  ftp: <%= CONFIG[:webmaster_ftp] %>
+  is_automatic: true
+
+images_test:
+  id: 5
+  name: images_test
+  type: ImageRecipient
+  emails: "John Doe <stuff@milkfarmproductions.com>"
+  ftp: <%= CONFIG[:webmaster_ftp] %>
+  is_automatic: true
+

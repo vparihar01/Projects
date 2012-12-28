@@ -1,0 +1,8 @@
+<% set_tab(__FILE__) %>
+<% content_for :panel do %>
+  <%= render :partial => 'shared/panel_shop' %>
+<% end if CONFIG[:show_panel] %>
+<% content_for :sidebar do %>
+  <%= render :partial => 'shared/sidebar_home' %>
+<% end if CONFIG[:show_sidebar] %>
+<%= render :file => 'layouts/application' %>

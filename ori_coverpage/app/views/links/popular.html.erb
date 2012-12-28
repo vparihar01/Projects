@@ -1,0 +1,11 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"}  %>
+
+<h1>Most Popular Links</h1>
+
+<ul class="page-actions">
+  <li><%= link_to "&laquo; Return to Research Assistant".html_safe, links_path %></li>
+</ul>
+
+<%= render :partial => 'links/link', :collection => @links, :spacer_template => 'shared/spacer', :locals => {:show_admin => admin?} %>
+
+<%= will_paginate @links %>

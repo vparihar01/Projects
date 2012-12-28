@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  name: one
+  is_visible: true
+two:
+  id: 2
+  name: two
+  is_visible: true

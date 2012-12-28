@@ -1,0 +1,19 @@
+<fieldset>
+  <div class="group clearfix">
+    <div class="half first" style="padding-bottom:0;">
+      <%= label_tag :product_select, "Select Assets By" %>
+      <% Product.select_partials_dropdown.each_with_index do |t,i| -%>
+        <div class="unsized">
+          <%= radio_button_tag 'product_select', t[1], params[:product_select] == t[1], {:class => 'unsized', :id => t[1], :onchange => remote_function( :url => select_admin_products_path, :with=>"'product_select='+this.value" )} %> <%= label_tag t[1], t[0], {:class => 'subdue'} %>
+        </div>
+      <% end -%>
+    </div>
+    <div class="half" style="padding-bottom:0;">
+      <%= label_tag :status, "Restrict Selection To" %>
+      <%= select_tag 'status', options_for_select(status_options(:include_blank => true), params[:status]) %>
+    </div>
+  </div>
+  <div id="product_select_partial" class="group clearfix">
+    <%= render :partial => "admin/products/#{params[:product_select]}" unless params[:product_select].blank? %>
+  </div>
+</fieldset>

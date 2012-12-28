@@ -1,0 +1,82 @@
+<h1><%= calculate_checkout_page_heading("Order Review") %></h1>
+
+<%= form_tag checkout_complete_path do %>
+<br />
+
+<fieldset>
+<legend>Shopping Cart</legend>
+<div class="group">
+  <div class="smallbuttons">
+  <%= link_to image_tag('buttons/s/edit.gif'), cart_path, :alt => 'Edit' %>
+  </div>
+  <div class="clearboth">&nbsp;</div>
+  <%= render :partial => 'shared/line_item_collection_final', :locals => {:line_item_collection => @cart, :ship_address => session[:ship_address]} %>
+</div>
+</fieldset>
+<br />
+
+<fieldset>
+<legend>Library Processing</legend>
+<div class="group">
+  <%- if Customer::INSTITUTIONS.include?(current_user.category) -%>
+    <div class="smallbuttons">
+    <%= link_to image_tag('buttons/s/edit.gif'), checkout_processing_path, :alt => 'Edit' %>
+    </div>
+    <% if session[:spec] %>
+      <%= render :partial => '/specs/spec_summary', :locals => {:spec => session[:spec]} %>  
+    <% else %>
+      <p>Do NOT process</p>
+    <% end %>
+  <%- else -%>
+  <p>Processing is not available to non-institutions.<br/>To be categorized as an institution, please call <%= CONFIG[:phone] %>.</p>
+  <%- end -%>
+</div>
+</fieldset>
+<br />
+
+<fieldset>
+<legend>Shipping Address</legend>
+<div class="group">
+  <div class="smallbuttons">
+  <%= link_to image_tag('buttons/s/edit.gif'), checkout_shipping_path, :alt => 'Edit' %>
+  </div> 
+  <ul>
+    <%= raw current_user.addresses.find(session[:ship_address]).to_html %>
+  </ul>
+  <p><i>Shipping Method: <%= UPS::Client::Services[@cart.shipping_method] %></i></p>
+</div>
+</fieldset>
+<br />
+
+<fieldset>
+<legend>Billing Address</legend>
+<div class="group">
+  <div class="smallbuttons">
+  <%= link_to image_tag('buttons/s/edit.gif'), checkout_billing_path, :alt => 'Edit' %>
+  </div>
+  <ul>
+    <%= raw current_user.addresses.find(session[:bill_address]).to_html %>
+  </ul>
+  <p><i>Payment Method: 
+    <%= @cart.payment_method %>
+    <% if @cart.card_authorization %>
+      <br/>
+      <%= CardAuthorization::CreditCardHash[@cart.card_authorization.card_type] %> <%= @cart.card_authorization.number %>
+    <% end %></i></p>
+</div>
+</fieldset>
+<br />
+
+<fieldset>
+<legend>Purchase Order # / Order Comments</legend>
+<div class="group">
+  <div class="smallbuttons">
+  <%= link_to image_tag('buttons/s/edit.gif'), checkout_billing_path, :alt => 'Edit' %>
+  </div>
+  <%= simple_format @cart.comments %>
+</div>
+</fieldset>
+<br />
+
+<%= submit_or_cancel(cart_path, 'Submit Order') %>
+<% end %>

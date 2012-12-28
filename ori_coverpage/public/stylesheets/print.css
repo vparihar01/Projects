@@ -1,0 +1,66 @@
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack/ */
+/* slightly enhanced, universal clearfix hack */
+.clearfix:after {
+   visibility: hidden;
+   display: block;
+   font-size: 0;
+   content: " ";
+   clear: both;
+   height: 0;
+ }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+body {
+  font:80%/1.4 Arial, Helvetica, sans-serif;
+}
+
+a img {border:none;}
+a.logo { display:none; }
+a { color:#000; text-decoration:none; }
+
+#sidebar div.content, .pagebuttons, ul.toc, div.buy, .noprint, div.menu, div.submenu, ul.submenu, ul.shortcuts, div.splash, form.search, form.place, .page-actions, .actions, .view, .alt-view, .product-links, a.more, #bottombar, form.set {
+  display: none;
+}
+
+img.new { float:right; margin-left:10px; }
+img.photo { float:left; margin-right:20px; }
+
+div.module, div.module p, div.module h3 { margin:0;padding:0; }
+
+#footer { 
+  margin-top:2em;
+  padding-top:1em;
+  font-size:.78em;
+  border-top: 2px solid #999; 
+  text-align: center;
+}
+#footer ul { display:none; }
+#footer p { margin:0;padding:0; }
+
+table {
+  width: 100%;
+}
+th { border-bottom:1px solid #000; text-align:left; }
+
+ul { 
+  list-style: none none outside;
+  margin:0 0 1em 0;
+  padding:0 0 0 .2em;
+}
+
+.number {
+  text-align: right;
+}
+.center, .qty {
+  text-align: center;
+}
+
+cite, .meta {
+  color: #666;
+  font-size: 0.78em;
+}
+

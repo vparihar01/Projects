@@ -1,0 +1,35 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"} %>
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<h1>Downloads</h1>
+
+<p>Download order forms, product information, sample books and more for offline viewing.</p>
+
+<div class="group forcebottommargin">
+<span class="inline label">Tags: </span> &nbsp;
+<%=raw tag_list_to_links(@tags, :show_all => true) %>
+</div>
+
+<% if @downloads.any? -%>
+  <% if session[:layout] == 'x' -%>
+    <%= render :partial => 'downloads/xdownload', :collection => @downloads, :as => :download, :spacer_template => 'shared/spacer', :locals => {:show_admin => admin?} %>
+  <% else -%>
+    <table>
+      <tr>
+        <th class="first">Title</th>
+        <th>Size</th>
+        <th>Format</th>
+        <% if admin? -%>
+          <th>Date</th>
+          <th colspan="3" class="icon last">Actions</th>
+        <% else -%>
+          <th class="last">Date</th>
+        <% end -%>
+      </tr>
+    <%= render :partial => 'downloads/download', :collection => @downloads, :locals => {:show_admin => admin?} %>
+    </table>
+  <% end -%>
+  <%#= will_paginate @downloads %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

@@ -1,0 +1,36 @@
+---
+Author: 
+  value: Author
+  onix: A01
+  ingram: Author
+  bakertaylor: Author
+Illustrator: 
+  value: Illustrator
+  onix: A12
+  ingram: Illustrator
+  bakertaylor: Illustrator
+Photographer: 
+  value: Photographer
+  onix: A13
+  ingram: Photographer
+  bakertaylor: Photographer
+Editor: 
+  value: Editor
+  onix: B01
+  ingram: Editor
+  bakertaylor: Editor
+Content Adviser: 
+  value: Content Adviser
+  onix: B20
+  ingram: Content Adviser
+  bakertaylor: Content Adviser
+'Author & Illustrator': 
+  value: 'Author & Illustrator'
+  onix: [A01, A12]
+  ingram: 'Author & Illustrator'
+  bakertaylor: 'Author & Illustrator'
+Designer: 
+  value: Designer
+  onix: A11
+  ingram: Designer
+  bakertaylor: Designer

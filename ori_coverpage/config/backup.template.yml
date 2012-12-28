@@ -1,0 +1,7 @@
+---
+username: john@domain.com
+password: ABCxyz
+ip: domain.com
+port: 22
+path: /path/to/directory
+keep: 5

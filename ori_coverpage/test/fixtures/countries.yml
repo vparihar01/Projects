@@ -1,0 +1,15 @@
+us:
+  id: 1
+  name: United States
+  fedex_code: US
+  iso_code_2: US
+  ufsi_code: "001"
+  iso_code_3: USA
+
+hu:
+  id: 2
+  name: Hungary
+  fedex_code: HU
+  iso_code_2: HU
+  ufsi_code: "036"
+  iso_code_3: HUN

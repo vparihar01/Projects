@@ -1,0 +1,8 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for @contributor_assignment, :url => admin_contributor_assignments_path do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_or_cancel %>
+<% end -%>

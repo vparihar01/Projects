@@ -1,0 +1,57 @@
+<%= error_messages_for :bundle %>
+
+<fieldset>
+  <div class="group">
+    <div class="half first">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="half">
+      <%= f.label :code %>
+      <%= f.text_field :code %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :amount, 'Amount <span class="help">(in dollars or as decimal)</span>'.html_safe %>
+      <%= f.text_field :amount %>
+    </div>
+    <div class="half">
+      <%= f.label :percent %>
+      <%= f.check_box :percent, :class => 'unsized' %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :start_on %>
+      <%= f.text_field :start_on %>
+    </div>
+    <div class="half">
+      <%= f.label :end_on %>
+      <%= f.text_field :end_on %>
+    </div>
+    <div class="clearboth"></div>
+  
+    <div class="vertical-groups">
+    <%= hidden_field_tag 'bundle[product_ids][]', '' %>
+    <%= f.label :product_ids, 'Products' %>
+    <div class="list">
+    <% @products = Product.order('name ASC') %>
+    <% @products.in_vertical_groups_of(2).each do |pair| -%>
+      <% unless pair[0].nil? -%>
+      <div class="half first" style="width:40%;">
+        <input type="checkbox" class="unsized inline" name="bundle[product_ids][]" value="<%= pair[0].id %>"<%= ' checked="checked"' if @bundle.product_ids.include?(pair[0].id) %> id="bundle_product_ids_<%= pair[0].id %>"/>
+        <%= f.label "product_ids_#{pair[0].id}", pair[0].name, :class => 'inline normal' %>
+      </div>
+      <% end -%>
+      <% unless pair[1].nil? -%>
+      <div class="half" style="width:40%;">
+        <input type="checkbox" class="unsized" name="bundle[product_ids][]" value="<%= pair[1].id %>"<%= ' checked="checked"' if @bundle.product_ids.include?(pair[1].id) %> id="bundle_product_ids_<%= pair[1].id %>"/>
+        <%= f.label "product_ids_#{pair[1].id}", pair[1].name, :class => 'inline normal' %>
+      </div>
+      <% end -%>
+    <% end -%>
+    <div class="clearboth"></div>
+    </div>
+    </div>
+  
+</div>
+</fieldset>

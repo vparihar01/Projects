@@ -1,0 +1,39 @@
+.wrapper {
+  width:960px;
+  overflow:hidden;
+  padding:0 0 0 0;
+  font-size:75%;
+}
+.main {
+  width:790px;
+  float:right;
+}
+#content {
+  padding:0 10px 0 0;
+}
+.with-sidebar {
+  padding:38px 20px 30px 30px;
+  width:490px;
+  float:left;
+  border:none;
+}
+.sidebar {
+  float:right;
+  width:240px;
+}
+.sidebar .pad {
+  padding:20px 20px 20px 20px;
+}
+#bottombar {
+  font-size:0.78em;
+  padding:80px 10px 30px 10px;
+  color:#666;
+}
+a.more, a.default, a.cancel {
+  color: #666;
+  background-color: #ccc;
+}
+a.more:hover, a.default:hover, a.cancel:hover {
+  color: #555;
+  background-color: #bbb;
+}

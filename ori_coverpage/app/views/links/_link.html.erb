@@ -1,0 +1,11 @@
+<%= div_for link, :class => 'module' do -%>
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => link, :controller_path => "admin/#{controller.controller_name}"} %>
+  <% end -%>
+  <h3><%= link_to link.link_title, click_link_path(link), :method => :put %></h3>
+  <p>
+    <%= link.description %>
+    <span class="meta">[<%= "Views: #{link.views}" %><%= ", Code: #{link_to link.code || 'N/A', admin_link_path(link), :class => 'plain'}".html_safe if admin? %>]</span>
+  </p>
+  <p><%= link_to link.url, click_link_path(link), :class => "meta", :method => :put %></p>
+<% end -%>

@@ -1,0 +1,11 @@
+<%= content_tag_for(:tr, product_format, :edit, :class => "odd", :style => "display:none;") do -%>
+  <td colspan="8">
+    <%= form_for( product_format, :url => admin_product_format_path(product_format), :remote => true, :method => :put ) do |f| -%>
+      <%= render :partial => 'admin/products/product_format_form', :locals => {:f => f} %>
+      <div class="formbuttons" style="margin-right:20px;margin-bottom:10px;">
+        <span class=""><%= link_to_function "Cancel", visual_effect(:blind_up, dom_id(product_format, :edit), :duration => CONFIG[:blind_duration]), :class => 'highlight' %></span> &nbsp; or &nbsp; 
+        <%= f.submit('Save') %>
+      </div>
+    <% end -%>
+  </td>
+<% end -%>

@@ -1,0 +1,160 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'tooltip' %>
+  <%= stylesheet_link_tag 'window', 'tooltip', :media => 'screen' %>
+  <% if CONFIG[:show_facebook_like] == true -%>
+    <meta property="og:site_name" content="<%= CONFIG[:company_name] %>" />
+    <meta property="fb:admins" content="<%= CONFIG[:facebook_id] %>" />
+    <meta property="og:title" content="<%= @product.name %>" />
+    <meta property="og:type" content="book" />
+    <meta property="og:description" content="<%= @product.description %>" />
+    <meta property="og:url" content="<%= show_url(@product) %>" />
+    <meta property="og:image" content="<%= File.join(CONFIG[:app_url], "images", @product.web_image_path("covers", "m")) %>" />
+    <meta property="og:image" content="<%= File.join(CONFIG[:app_url], "images", @product.web_image_path("spreads", "m")) %>" />
+    <% if @product.is_a?(Title) -%>
+      <meta property="og:isbn" content="<%= @product.isbn %>" />
+    <% end -%>
+  <% end -%>
+<% end -%>
+
+<% if CONFIG[:show_facebook_like] == true -%>
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<% end -%>
+
+<% if admin? -%>
+  <ul class="actions">
+    <li><%= link_to image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_product_path(@product), {:method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin'} %></li>
+    <li class="last"><%= link_to image_tag('buttons/admin/edit.gif', :alt => 'Edit'), edit_admin_product_path(@product) %></li>
+  </ul>
+<% end -%>
+
+<% if @product.replacement -%>
+  <p class="nb">This product has been replaced. Please <%= link_to("follow this link &rarr;".html_safe, show_path(@product.replacement)) %></p>
+<% end -%>
+
+<div><%= image_tag("recent.gif", :alt => "New for #{Product.recent_season}", :class => 'f-right') if @product.recent? %></div>
+<div><%= image_tag("new.gif", :alt => "New for #{Product.new_season}", :class => 'f-right') if @product.new? %></div>
+
+<h1><%= @product.name %></h1>
+
+<div class="clearboth forcetopmargin">&nbsp;</div>
+<div class="clearfix">
+  <div id="screen" style="display: none;"></div> 
+  <div id="modal" class="window" style="display: none;"></div> 
+
+  <% if @product.respond_to?(:excerpt) && !@product.excerpt.nil? -%>
+    <%= link_to_function( image_tag(@product.image("covers","m"), :class => "photo"), "popupScribd('#{read_excerpt_url(@product.excerpt)}')", :title => 'Read excerpt' ) if @product.has_cover? %>
+    <%= link_to_function( image_tag(@product.image("spreads", (@product.is_wide? ? 's' : 'm')), :class => "photo"), "popupScribd('#{read_excerpt_url(@product.excerpt)}')", :title => 'Read excerpt' ) if @product.has_spread? %>
+  <% else -%>
+    <%= link_to( image_tag(@product.image("covers","m"), :class => "photo"), enlarge_path(@product), :remote => true, :method => :post, :title => 'Enlarge image' ) if @product.has_cover? %>
+    <%= link_to( image_tag(@product.image("spreads", (@product.is_wide? ? 's' : 'm')), :class => "photo"), enlarge_path(@product, 'spreads'), :remote => true, :method => :post, :title => 'Enlarge image' ) if @product.has_spread? %>
+  <% end %>
+</div>
+<div class="clearboth" style="margin-top:0.5em;">&nbsp;</div>
+<ul class="image-actions clearfix">
+  <li class="first"><%= link_to_function("Read excerpt", "popupScribd('#{read_excerpt_url(@product.excerpt)}')", :title => 'Read excerpt', :class => 'extlink') if @product.respond_to?(:excerpt) && !@product.excerpt.nil? %></li>
+  <li><%= link_to("Enlarge cover", enlarge_path(@product), :remote => true, :method => :post, :title => 'Enlarge image', :class => 'searchlink') if @product.has_cover? %></li>
+  <li><%= link_to("Enlarge spread", enlarge_path(@product, 'spreads'), :remote => true, :method => :post, :title => 'Enlarge image', :class => 'searchlink') if @product.has_spread? %></li>
+</ul>
+<div class="clearboth forcetopmargin">&nbsp;</div>
+<%= buy_form(@product, :type => 'check_box', :show_inactive_wishlist => true) %>
+<%= price_listing(@product) %>
+
+<%= byline(@product) -%>
+<%= simple_format(@product.description) %>
+
+<% if @product.respond_to?(:chapters) && @product.chapters.any? -%>
+  <h2 id="toc" class="divider">Table of Contents</h2>
+  <ul class="disc">
+    <% @product.chapters.each do |chapter| -%>
+      <li><%= chapter %></li>
+    <% end -%>
+  </ul>
+<% end -%>
+
+<% if @product.respond_to?(:titles) && @product.titles.any? -%>
+  <h2 id="titles" class="divider">Individual Titles</h2>
+  <div id="subproducts">
+      <%= render :partial => 'products', :locals => { :products => @product.titles.available, :assembly => @product } %>
+  </div>
+<% end -%>
+
+<h2 id="details" class="divider">Details</h2>
+
+<h3>Specifications</h3>
+<%= content_tag(:ul, :class => "disc") do %>
+  <%= display_value_in_list(@product, :author) %>
+  <%= display_value_in_list(@product, :copyright) %>
+  <%= display_value_in_list(@product, :dewey) %>
+  <%= display(bisac_link(@product), "BISAC", :wrap => true) %>
+  <%= display_value_in_list(@product, :pages) %>
+  <%= display_value_in_list(@product, :graphics) %>
+  <%= display_value_in_list(@product, :available_on, "Date Available") %>
+  <% if CONFIG[:default_format_only] -%>
+    <%= display("#{@product.default_format.format.form} (#{@product.default_format.format.detail})", "Format", :wrap => true) %>
+    <%= display_value_in_list(@product.default_format, :isbn, "ISBN") %>
+    <%= display_value_in_list(@product.default_format, :dimensions, "Dimensions") %>
+  <% else -%>
+    <% @product.active_formats.each do |pf| -%>
+      <%= display_value_in_list(pf, :isbn, "ISBN (#{pf.to_s})") %>
+      <%= display_value_in_list(pf, :dimensions, "Dimensions (#{pf.to_s})") %>
+    <% end -%>
+  <% end -%>
+  <%= display(category_link(@product, :class => 'subdue'), "Subject", :wrap => true) %>
+  <%= display(series_link(@product, :class => 'subdue'), "Series", :wrap => true) %>
+  <%= display(subseries_link(@product, :class => 'subdue'), "Subseries", :wrap => true) %>
+<% end -%>
+
+<h3>Leveling</h3>
+<%= content_tag(:ul, :class => "disc") do %>
+  <%= display(interest_level_range_link(@product), "Suggested Interest Level", :wrap => true) %>
+  <%= display_value_in_list(@product, :reading_level, "Suggested Reading Level".html_safe) %>
+  <%= display_value_in_list(@product, :lexile, "Lexile&reg; Measure".html_safe) %>
+  <%= display_value_in_list(@product, :guided_level, "Guided Reading Level".html_safe) %>
+  <%= display_value_in_list(@product, :alsreadlevel, "ATOS Reading Level".html_safe) unless @product.alsreadlevel.to_f == 0 %>
+  <%= display_value_in_list(@product, :alsinterestlevel, "ATOS Interest Level".html_safe) %>
+  <%= display_value_in_list(@product, :alsquiznr, "Accelerated Reader&reg; Quiz".html_safe) %>
+  <%= display_value_in_list(@product, :alspoints, "Accelerated Reader&reg; Points".html_safe) unless @product.alspoints.to_f == 0 %>
+<% end -%>
+
+<h2 id="reviews" class="divider">Reviews</h2>
+<% if admin? -%>
+  <ul class="actions">
+    <li class="last"><%= link_to image_tag('buttons/admin/new.gif', :alt => 'New'), new_admin_editorial_review_path %></li>
+  </ul>
+<% end -%>
+<% if @product.editorial_reviews.any? -%>
+  <%= render :partial => 'editorial_reviews/editorial_review', :collection => @product.editorial_reviews %>
+<% else -%>
+  <p>No editorial reviews found.</p>
+<% end -%>
+
+<h2 id="contributors" class="divider">Contributors</h2>
+<% if admin? -%>
+  <ul class="actions">
+    <li><%= link_to image_tag('buttons/admin/assign.gif', :alt => 'Assign'), edit_admin_product_path(@product) + "#contributors" %></li>
+    <li class="last"><%= link_to image_tag('buttons/admin/new.gif', :alt => 'New'), new_admin_contributor_path %></li>
+  </ul>
+<% end -%>
+<% if ( @product.contributors.any? ) -%>
+<% prev_id = -1 -%>
+<% @product.contributors.each do |contributor| -%>
+<% if ( contributor.id != prev_id ) -%>
+  <div class="contributor">
+  <h3><%= ContributorAssignment.where("product_id = ? AND contributor_id = ?", @product, contributor).order('role ASC').all.map(&:role).join(", ") %>: <%= link_to(contributor.name, contributor_path(contributor)) %></h3>
+  <p class="tight">
+  <%= contributor.description %>
+  </p>
+  </div>
+  <% prev_id = contributor.id -%>
+<% end -%>
+<% end -%>
+<% else -%>
+  <p>No contributors found.</p>
+<% end -%>

@@ -1,0 +1,38 @@
+<div class="half first">
+  <%= label_tag :preferred_ebook_suffix, "Ebook file suffix" %>
+  <%= text_field_tag 'recipient[preferred_ebook_suffix]', @recipient.preferred_ebook_suffix %>
+</div>
+<div class="half">
+  <%= label_tag :preferred_ebook_cover_suffix, "Cover file suffix" %>
+  <%= text_field_tag 'recipient[preferred_ebook_cover_suffix]', @recipient.preferred_ebook_cover_suffix %>
+</div>
+<div class="clearboth"></div>
+<div class="formrow">
+  <%= label_tag :preferred_ebook_use_eisbn, "Name files by eISBN?" %>
+  <%= radio_button_tag( 'recipient[preferred_ebook_use_eisbn]', "true", @recipient.preferred_ebook_use_eisbn == true ) %>
+  <%= label_tag 'recipient_preferred_ebook_use_eisbn_true', 'Yes', :class => 'subdue inline' %> &nbsp; &nbsp; 
+  <%= radio_button_tag( 'recipient[preferred_ebook_use_eisbn]', "false", @recipient.preferred_ebook_use_eisbn == false ) %>
+  <%= label_tag 'recipient_preferred_ebook_use_eisbn_false', 'No', :class => 'subdue inline' %>
+</div>
+<div class="formrow">
+  <%= label_tag :preferred_ebook_include_covers, "Upload covers?" %>
+  <%= radio_button_tag( 'recipient[preferred_ebook_include_covers]', "true", @recipient.preferred_ebook_include_covers == true ) %>
+  <%= label_tag 'recipient_preferred_ebook_include_covers_true', 'Yes', :class => 'subdue inline' %> &nbsp; &nbsp; 
+  <%= radio_button_tag( 'recipient[preferred_ebook_include_covers]', "false", @recipient.preferred_ebook_include_covers == false ) %>
+  <%= label_tag 'recipient_preferred_ebook_include_covers_false', 'No', :class => 'subdue inline' %>
+</div>
+<div class="formrow">
+  <%= label_tag :preferred_ebook_include_data, "Upload data file?" %>
+  <%= radio_button_tag( 'recipient[preferred_ebook_include_data]', "true", @recipient.preferred_ebook_include_data == true ) %>
+  <%= label_tag 'recipient_preferred_ebook_include_data_true', 'Yes', :class => 'subdue inline' %> &nbsp; &nbsp; 
+  <%= radio_button_tag( 'recipient[preferred_ebook_include_data]', "false", @recipient.preferred_ebook_include_data == false ) %>
+  <%= label_tag 'recipient_preferred_ebook_include_data_false', 'No', :class => 'subdue inline' %>
+</div>
+<div class="formrow">
+  <%= label_tag :preferred_ebook_include_manifest, "Email manifest?" %>
+  <%= radio_button_tag( 'recipient[preferred_ebook_include_manifest]', "true", @recipient.preferred_ebook_include_manifest ) %>
+  <%= label_tag 'recipient_preferred_ebook_include_manifest_true', 'Yes', :class => 'subdue inline' %> &nbsp; &nbsp; 
+  <%= radio_button_tag( 'recipient[preferred_ebook_include_manifest]', "false", !@recipient.preferred_ebook_include_manifest ) %>
+  <%= label_tag 'recipient_preferred_ebook_include_manifest_false', 'No', :class => 'subdue inline' %>
+</div>
+  

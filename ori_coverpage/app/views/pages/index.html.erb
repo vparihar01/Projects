@@ -1,0 +1,20 @@
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<p>These are editable, admin-controlled pages of content.</p>
+
+<table>
+  <tr>
+    <th class="first">Title</th>
+    <th>Path</th>
+    <th class="last icon">Delete</th>
+  </tr>
+  <% @pages.each do |page| -%>
+    <%= content_tag_for(:tr, page, :class => cycle('odd', 'even')) do -%>
+      <td><%= link_to page.title, edit_admin_page_path(page), :class => 'highlight' %></td>
+      <td><%= link_to page.path, public_page_path(:path => page.path) %></td>
+      <td class="icon"><%= page.is_protected? ? '&nbsp;'.html_safe : link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_page_path(page), :method => :delete, :confirm => 'Are you sure you want to delete this page?', :class => 'admin') %></td>
+    <% end -%>
+  <% end -%>
+</table>

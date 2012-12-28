@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+preschool: 
+  id: 1
+  name: Preschool
+  abbreviation: P
+  is_visible: true
+kindergarten: 
+  id: 2
+  name: Kindergarten
+  abbreviation: K
+  is_visible: true
+gradeone: 
+  id: 3
+  name: Grade 1
+  abbreviation: 1
+  is_visible: true
+gradetwo: 
+  id: 4
+  name: Grade 2
+  abbreviation: 2
+  is_visible: false

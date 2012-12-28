@@ -1,0 +1,7 @@
+---
+username: contention@childsworld.com
+password: 
+ip: childsworld.strongspace.com
+port: 22
+path: /strongspace/childsworld/contention/backups
+keep: 10

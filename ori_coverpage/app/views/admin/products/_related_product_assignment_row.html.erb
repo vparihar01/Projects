@@ -1,0 +1,7 @@
+<tr id="<%= dom_id(assignment) %>">
+  <td><%= link_to assignment.related_product.name, admin_product_path(assignment.related_product) %></td>
+  <td><%= assignment.to_s %></td>
+  <td class="center">
+    <%= link_to( image_tag( 'buttons/admin/trash.gif', :alt => '' ), admin_related_product_assignment_path(assignment), :remote => true, :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :title => 'Delete' ) %>
+  </td>
+</tr>

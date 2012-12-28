@@ -1,0 +1,71 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  title: Google Search Engine
+  url: http://www.google.com
+  description: want a good ranking here...
+  meta_title: Google
+  meta_description: most popular search engine
+  code: 200
+two:
+  id: 2
+  title: MilkFarm Productions
+  url: http://milkfarmproductions.com
+  description: the developers...
+  meta_title: Ruby-On-Rails development
+  meta_description: Passionate Programming
+  code: 200
+without_title:
+  id: 3
+  url: http://www.microsoft.com
+  meta_title: not really a friend...
+without_any_title:
+  id: 4
+  url: http://www.linux.org
+  description: no need for title...
+  meta_description: speaks for itself.
+adults:
+  id: 5
+  url: http://porno.org
+  title: porno.org
+  title: site for naughty people
+  is_adults: 1
+  is_highlight: 1
+  code: 200
+minors:
+  id: 6
+  url: http://childsworld.com
+  title: The Child's World
+  description: fun and education for the future (so they don't become naughty people)
+  is_kids: 1
+  is_highlight: 1
+  code: 200
+ambigous_highlight:
+  id: 7
+  url: http://www.youtube.com
+  title: YouTube video portal
+  is_adults: 1
+  is_kids: 1
+  is_highlight: 1
+  code: 200
+soft_deleted:
+  id: 8
+  url: http://deleted.com
+  title: does not matter
+  description: it is deleted
+  deleted_at: 2010-01-01
+wrongproto:
+  id: 9
+  url: ftp://ftp.com
+  title: FTP link
+  description: link with FTP protocol
+malformed:
+  id: 10
+  url: invalid url
+  title: Invalid Link
+  description: url is invalid
+notfound:
+  id: 11
+  url: http://this.should.not.be.found.com
+  title: URL should not exist
+  description: the URL should not exist

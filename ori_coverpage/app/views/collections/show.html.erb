@@ -1,0 +1,41 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @collection, :controller_path => "admin/#{controller.controller_name}"} %>
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<% if @collection.ancestors.any? -%>
+  <div class="meta">
+    <% @collection.ancestors.reverse.each do |collection| -%>
+      <%= link_to collection.name, collection %> &raquo; 
+    <% end -%>
+  </div>
+<% end -%>
+
+<h1><%= @collection.name %></h1>
+
+<p><%= @collection.description %></p>
+
+<% if @subcollections.any? %>
+  <h2>Subseries</h2>
+  <ul>
+    <% @subcollections.each do |child_collection| -%>
+      <li><%= link_to(child_collection.name, collection_path(child_collection)) %></li>
+    <% end -%>
+  </ul>
+<% else %>
+  <% if @titles.any? %>
+    <% if session[:layout] == 'x' -%>
+      <%= render :partial => 'shop/xproduct', :collection => @titles, :as => :product, :spacer_template => 'shared/spacer' %>
+    <% else -%>
+      <%= render :partial => 'shop/products', :locals => { :products => @titles, :assembly => nil } %>
+    <% end -%>
+    <%= will_paginate @titles %>
+  <% end %>
+<% end %>
+
+<% if @assemblies.any? %>
+  <h2>Related Sets</h2>
+  <ul>
+    <% @assemblies.each do |assembly| -%>
+      <li><%= link_to(assembly.name, show_path(assembly)) %></li>
+    <% end -%>
+  </ul>
+<% end %>

@@ -1,0 +1,16 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :format %>
+
+<%= f.inputs do %>
+  <%= f.input :name, :wrapper_html => { :class => "full" } %>
+  <%= f.input :form, :as => :select, :collection => app_select_options(:form), :wrapper_html => { :class => "half firs" } %>
+  <%= f.input :detail, :as => :select, :collection => app_select_options(:detail), :wrapper_html => { :class => "half" } %>
+  <%= f.input :is_default, :label => "Default?", :as => :select, :collection => boolean_options, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :is_pdf, :label => "PDF?", :as => :select, :collection => boolean_options, :wrapper_html => { :class => "half" } %>
+  <%= f.input :is_virtual, :label => "Virtual?", :as => :select, :collection => boolean_options, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :is_processed, :label => "Processed?", :as => :select, :collection => boolean_options, :wrapper_html => { :class => "half" } %>
+  <%= f.input :requires_valid_isbn, :label => "Valid ISBN?", :as => :select, :collection => boolean_options, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :units, :as => :select, :collection => (1..9).to_a, :wrapper_html => { :class => "half" } %>
+<% end %>

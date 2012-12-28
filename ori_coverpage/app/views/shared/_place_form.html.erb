@@ -1,0 +1,19 @@
+<fieldset>
+  <legend>Place All in Cart</legend>
+  <div class="group">
+  <% if cart.line_items.any? -%>
+    <div class="formrow">
+      <p>You currently have <strong><%= pluralize(cart.line_items.count, 'item') %></strong> in your cart.</p>
+      <%= radio_button_tag :replace, 0, true, :class => 'unsized' %>
+      <%= label_tag 'replace_0', 'Add to current cart', :class => 'inline' %> &nbsp; &nbsp; &nbsp; 
+      <%= radio_button_tag :replace, 1, false, :class => 'unsized' %>
+      <%= label_tag 'replace_1', 'Replace current cart', :class => 'inline' %>
+    </div>
+  <% else -%>
+    <div class="formrow">
+      Your cart is empty. Click the button below to add all items in your <%= type || 'list' %> to your cart.
+    </div>
+  <% end -%>
+  </div>
+  <%= page_buttons(image_submit_tag("buttons/l/load.gif", :title => 'Load items into cart')) %>
+</fieldset>

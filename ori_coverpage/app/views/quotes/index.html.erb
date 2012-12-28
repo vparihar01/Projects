@@ -1,0 +1,49 @@
+<h1><%= calculate_page_heading %></h1>
+
+<ul class="page-actions">
+  <% if @cart.line_items.any? -%>
+  <%= content_tag(:li, link_to('Create a new quote', new_quote_path)) %>with items in your cart.
+  <% else -%>
+  <%= content_tag(:li, 'Place items in your cart to create a new quote.') %>
+  <% end -%>
+</ul>
+
+<% if @quotes.count > 0 %>
+
+  <table class="list" id="<%= controller.controller_name %>">
+  <thead>
+    <tr>
+      <th class="first">Description</th>
+      <%= content_tag(:th, 'Customer') unless current_user.customer? %>
+      <%= content_tag(:th, 'Created By') if admin? || current_user.head_sales_rep? %>
+      <th>Date</th>
+      <th class="last center">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @quotes.each do |quote| %>
+    <%= content_tag_for(:tr, quote, :class => cycle('odd', 'even')) do %>
+      <td><%= link_to(quote.name, quote_path(quote), :class => 'highlight') %></td>
+      <% unless current_user.customer? %>
+        <%= content_tag_for(:td, quote) do %>
+          <%= link_to(quote.customer.name, customer_url(quote.customer)) if quote.customer %>
+        <% end %>
+      <% end %>
+      <%= content_tag(:td, quote.user ? quote.user.name : '') if admin? || current_user.head_sales_rep? %>
+      <td><%= quote.created_at.to_s(:us) %></td>
+      <td class="center"><%= link_to(image_tag('icons/trash.gif', :alt => ''), quote_path(quote), :method => :delete, :class => 'highlight', :confirm => 'Are you sure you wish to delete this record?', :title => 'Delete') %></td>
+    <% end %>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="<%= admin? || current_user.head_sales_rep? ? '5' : '4' %>">
+        <%= will_paginate @quotes %>
+      </td>
+    </tr>
+  </tfoot>
+  </table>
+
+<% else %>
+  <p>No quotes found.</p>
+<% end %>

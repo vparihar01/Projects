@@ -1,0 +1,29 @@
+<p>The public cannot view the page if the layout is set to 'Admin'.</p>
+<%= error_messages_for 'page' %>
+
+<fieldset>
+<div class="group">
+  <div class="half first">
+    <%= f.label :title, 'Title' %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="half">
+    <%= f.label :path, 'Path' %>
+    <%= f.text_field :path %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :layout, 'Layout' %>
+    <%= f.select :layout, Page::LAYOUTS.collect{|x| [x.titlecase, x]}, :include_blank => true %>
+  </div>
+  <div class="half">
+    <%= f.label :is_protected, "Protect from deletion?" %>
+    <%= f.select :is_protected, [["Yes",true],["No",false]] %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full">
+    <%= f.label :body %>
+    <%= f.text_area :body, :class => 'tall' %>
+  </div>
+</div>
+</fieldset>

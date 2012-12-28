@@ -1,0 +1,15 @@
+<h1>Thank You! We Appreciate your Business!</h1>
+
+<p>
+  Your order was successfully submitted. Your order number is <strong><%= @sale.id%></strong>. 
+  <% if @sale.payment_method == 'Check/Money Order' %>
+    <strong>Your order will be on hold and will not ship until your payment has been received.</strong>
+  <% end %>
+  You will receive a UPS tracking number once your order has been shipped.
+</p>
+
+<p>You can view your order status by going to the <%= link_to 'My Account', account_path %> page and by clicking on <%= link_to	'View your orders', orders_account_path %>.</p>
+
+<p>We hope you enjoyed your shopping experience with <%= CONFIG[:company_name] %>. If you have any questions, please call us at <%= CONFIG[:phone] %> or email <%= link_to 'customer service', contact_path %>.</p>
+
+<p><strong>Thank-you again for choosing <%= CONFIG[:company_name] %>.</strong></p>

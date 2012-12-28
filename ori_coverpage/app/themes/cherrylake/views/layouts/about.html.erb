@@ -1,0 +1,14 @@
+<% set_tab(__FILE__) %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'public-colored', 'public-gray', :media => 'screen' %>
+<% end %>
+<% content_for :panel do %>
+  <%= render :partial => 'shared/panel_about' %>
+<% end %>
+<% content_for :sidebar do %>
+  <%= image_tag("accent-pier.jpg") %>
+  <div class="pad">
+    <%= render :partial => 'shared/sidebar_about' %>
+  </div>
+<% end %>
+<%= render :file => 'layouts/application' %>

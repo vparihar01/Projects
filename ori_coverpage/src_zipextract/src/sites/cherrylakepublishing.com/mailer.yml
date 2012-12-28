@@ -1,0 +1,19 @@
+development:
+  :tls: false
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :domain: cherrylakepublishing.com
+  :user_name: app@cherrylakepublishing.com
+  :password: 
+  :enable_starttls_auto: true
+
+production:
+  :tls: false
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :domain: cherrylakepublishing.com
+  :user_name: app@cherrylakepublishing.com
+  :password: 
+  :enable_starttls_auto: true

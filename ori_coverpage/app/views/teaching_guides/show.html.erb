@@ -1,0 +1,65 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @teaching_guide, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= @teaching_guide.name %></h1>
+
+<div class="module">
+  <p class="meta">Updated on <%= @teaching_guide.updated_at.to_s(:long) %></p>
+  <% if @teaching_guide.document_exist? -%>
+    <div class="forcetopmargin">
+      <%= render :partial => 'download', :locals => {:teaching_guide => @teaching_guide} %>
+    </div>
+  <% end -%>
+  <% unless @teaching_guide.rationale.blank? -%>
+  <div class="forcetopmargin">
+    <h2>Rationale</h2>
+    <%= RedCloth.new(@teaching_guide.rationale).to_html.html_safe %>
+  </div>
+  <% end -%>
+  <% unless @teaching_guide.objective.blank? -%>
+  <div class="forcetopmargin">
+    <h2>Objectives</h2>
+    <ul class="disc">
+      <% @teaching_guide.objectives.each do |objective| -%>
+        <li><%= objective.html_safe %></li>
+      <% end -%>
+    </ul>
+  </div>
+  <% end -%>
+  <% if @teaching_guide.tags.any? -%>
+  <div class="forcetopmargin">
+    <h2>Content Areas</h2>
+    <%=raw tag_list_to_links(@teaching_guide.tags) %>
+  </div>
+  <% end -%>
+  <% unless @teaching_guide.interest_level_min_id.blank? && @teaching_guide.interest_level_max_id.blank? -%>
+  <div class="forcetopmargin">
+    <h2>Grade</h2>
+    <%= @teaching_guide.interest_level_range %>
+  </div>
+  <% end -%>
+  <div class="forcetopmargin">
+    <h2>Lesson</h2>
+    <%= RedCloth.new(@teaching_guide.body).to_html.html_safe %>
+  </div>
+</div>
+
+<% if @teaching_guide.handouts.any? -%>
+  <h2 id="handouts" class="clearboth">Handouts</h2>
+  <%= render :partial => 'handouts/handouts', :locals => {:handouts => @teaching_guide.handouts.order(:name)} %>
+<% end -%>
+
+<% if @teaching_guide.products.available.any? -%>
+  <h2 id="products" class="clearboth">Related Products</h2>
+  <%= render :partial => 'shop/products', :locals => { :products => @teaching_guide.products.order('name').all, :assembly => nil } %>
+<% end -%>
+
+<% if admin? -%>
+  <ul class="meta">
+    <li>Path: <%= @teaching_guide.document_path %></li>
+    <li>Downloads: <%= @teaching_guide.download_counter %></li>
+    <li>Created: <%= @teaching_guide.created_at.to_s(:custom_with_time) %></li>
+    <li>Updated: <%= @teaching_guide.updated_at.to_s(:custom_with_time) %></li>
+  </ul>
+<% end -%>
+
+<p class="morebuttons"><%= link_to('&laquo; Teaching Guides'.html_safe, teaching_guides_path, :class => 'more') %></p>

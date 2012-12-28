@@ -1,0 +1,41 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => request.path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :name_contains, :label => "Name", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :company_contains, :label => "Company", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :location_contains, :label => "Location", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :comment_contains, :label => "Comment", :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @testimonials.any? -%>
+  <table cellspacing="0" class="list">
+    <tr>
+      <th class="first"><%= sort_link(@search, :name) %></th>
+      <th><%= sort_link(@search, :company) %></th>
+      <th>Comment</th>
+      <th><%= sort_link(@search, :updated_at, 'Updated') %></th>
+      <th colspan="2" class="icon last">Actions</th>
+    </tr>
+    <% @testimonials.each do |testimonial| %>
+      <%= content_tag_for(:tr, testimonial, :class => cycle('odd', 'even') ) do -%>
+        <td><%= testimonial.name %></td>
+        <td><%= testimonial.company %></td>
+        <td><%= truncate_to_nearest_word(testimonial.comment) + " " + link_to('Show &raquo;'.html_safe, admin_testimonial_url(testimonial)) %></td>
+        <td><%= testimonial.created_at.to_s(:custom) %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/edit.gif', :alt => 'Edit'), edit_admin_testimonial_path(testimonial), :class => 'admin') %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_testimonial_path(testimonial), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></td>
+      <% end %>
+    <% end -%>
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @testimonials} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

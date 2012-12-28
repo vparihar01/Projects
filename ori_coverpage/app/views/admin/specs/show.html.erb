@@ -1,0 +1,94 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @spec} %>
+
+<h1>Library Specification</h1>
+
+<% if @spec.specable -%>
+  <ul class="page-actions">
+  <% if @spec.specable.is_a?(User) -%>
+    <li><%= link_to("View User &raquo;".html_safe, admin_user_path(@spec.specable)) -%></li>
+  <% elsif @spec.specable.is_a?(Sale) -%>
+    <li><%= link_to("View Sale &raquo;".html_safe, admin_sale_path(@spec.specable)) -%></li>
+  <% end -%>
+  </ul>
+<% end -%>
+
+<%= div_for @spec, :class => 'module' do -%>
+  <h2>General</h2>
+  <ul>
+    <li><span class="meta">Name</span> <%= @spec.name %></li>
+  </ul>
+  
+  <h2>Contact</h2>
+  <ul>
+    <li><span class="meta">Contact Name</span> <%= @spec.contact_name %></li>
+    <li><span class="meta">Contact Email</span> <%= @spec.contact_email %></li>
+    <li><span class="meta">Contact Telephone</span> <%= @spec.contact_telephone %></li>
+  </ul>
+  
+  <h2>Accelerated Reader&reg; Quizzes</h2>
+  <ul>
+    <li><span class="meta">Include?</span> <%= @spec.include_tests %></li>
+  </ul>
+  
+  <h2>Reading Program Labels</h2>
+  <ul>
+    <li><span class="meta">Include?</span> <%= @spec.include_readinglabels %></li>
+    <li><span class="meta">Accelerated Reader&reg; Labels</span> <%= @spec.arlabels %></li>
+  </ul>
+  
+  <h2>Catalog Card Kits</h2>
+  <ul>
+    <li><span class="meta">Include?</span> <%= @spec.include_kits %></li>
+    <li><span class="meta">Cards</span> <%= @spec.cards %></li>
+    <li><span class="meta">Pockets</span> <%= @spec.pockets %></li>
+    <li><span class="meta">Labels</span> <%= @spec.labels %></li>
+  </ul>
+  
+  <h2>Cataloging Options</h2>
+  <ul>
+    <li><span class="meta">Subject Headings</span> <%= @spec.subjectheadings %></li>
+    <li><span class="meta">Call Numbers</span> <%= @spec.callnumbers %></li>
+    <li><span class="meta">Capitalization</span> <%= @spec.capitalization %></li>
+    <li><span class="meta">Non-fiction</span> <%= @spec.nonfiction %></li>
+    <li><span class="meta">Individual Bio</span> <%= @spec.individualbio %></li>
+    <li><span class="meta">Collective Bio</span> <%= @spec.collectivebio %></li>
+    <li><span class="meta">Fiction</span> <%= @spec.fiction %></li>
+    <li><span class="meta">Story</span> <%= @spec.story %></li>
+    <li><span class="meta">Easy</span> <%= @spec.easy %></li>
+    <li><span class="meta">Reference</span> <%= @spec.reference %></li>
+  </ul>
+  
+  <h2>Automation Options</h2>
+  <ul>
+    <li><span class="meta">Include?</span> <%= @spec.include_disk %></li>
+    <li><span class="meta">Software</span> <%= @spec.disksoftware %></li>
+    <li><span class="meta">MARC Format</span> <%= @spec.recordformat %></li>
+    <li><span class="meta">Media Format</span> <%= @spec.mediaformat %></li>
+    <li><span class="meta">Media Type</span> <%= @spec.mediatype %></li>
+  </ul>
+  
+  <h2>Barcode Labels</h2>
+  <ul>
+    <li><span class="meta">Include?</span> <%= @spec.include_labels %></li>
+    <li><span class="meta">Symbology</span> <%= @spec.symbology %></li>
+    <li><span class="meta">Location</span> <%= @spec.location %></li>
+    <li><span class="meta">Position</span> <%= @spec.position %></li>
+    <li><span class="meta">Orientation</span> <%= @spec.orientation %></li>
+    <li><span class="meta">Library Name</span> <%= @spec.libraryname %></li>
+    <li><span class="meta">Start Number</span> <%= @spec.startnumber %></li>
+    <li><span class="meta">End Number</span> <%= @spec.endnumber %></li>
+  </ul>
+  
+  <h2>Special Processing Request</h2>
+  <p class="forcebottommargin">
+    <%= @spec.customization %>
+  </p>
+<% end -%>
+
+<ul>
+  <li class="meta">ID: <%=@spec.id %></li>
+  <li class="meta">Created: <%=@spec.created_at.to_s(:custom_with_time) %></li>
+  <li class="meta">Updated: <%=@spec.updated_at.to_s(:custom_with_time) %></li>
+  <li class="meta">Specable ID: <%=@spec.specable_id %></li>
+  <li class="meta">Specable Type: <%=@spec.specable_type %></li>
+</ul>

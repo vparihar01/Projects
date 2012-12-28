@@ -1,0 +1,20 @@
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<% if @contributor_assignments.nil? %>
+  <p>No records found.</p>
+<% else %>
+
+  <table class="list" id="assignments">
+    <tr>
+      <th class="first">Contributor</th>
+      <th>Role</th>
+      <th>Product</th>
+      <th class="last center">Delete</th>
+    </tr>
+    <%= render :partial => 'assignment', :collection => @contributor_assignments %> 
+  </table>
+  <%= will_paginate @contributor_assignments %>
+
+<% end %>

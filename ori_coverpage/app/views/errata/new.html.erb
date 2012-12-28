@@ -1,0 +1,10 @@
+<h1><%= calculate_page_heading %></h1>
+
+<p>Thanks for contributing an erratum for <em><%= link_to @product.name, show_path(@product) %></em>.</p>
+
+<%= error_messages_for :erratum %>
+
+<%= form_for @erratum, :url => product_errata_path(@product) do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_or_cancel(product_errata_path(@product)) %>
+<% end -%>

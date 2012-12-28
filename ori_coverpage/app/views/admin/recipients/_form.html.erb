@@ -1,0 +1,17 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :recipient %>
+
+<%= f.inputs do %>
+  <%= f.input :name, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :type, :as => :select, :collection => Recipient::SUBCLASSES, :include_blank => false, :input_html => { :disabled => !@recipient.new_record?, :onchange => remote_function( :url => select_type_admin_recipients_path, :with=>"'type='+document.getElementById('recipient_type').value" ) }, :wrapper_html => { :class => "half" } %>
+  <%= f.input :emails, :wrapper_html => { :class => "full" } %>
+  <%= f.input :ftp, :wrapper_html => { :class => "full" } %>
+  <%= f.input :is_automatic, :label => "Include in bulk delivery?", :wrapper_html => { :class => "full" } %>
+<% end %>
+
+<h2>Type Preferences</h2>
+<fieldset id="preferences" class="inputs">
+  <%= render :partial => "#{@recipient.class.to_s.underscore}_preferences" %>
+</fieldset>

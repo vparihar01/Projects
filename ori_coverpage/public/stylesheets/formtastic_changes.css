@@ -1,0 +1,119 @@
+/* -------------------------------------------------------------------------------------------------
+
+Load this stylesheet after formtastic.css in your layouts to override the CSS to suit your needs.
+This will allow you to update formtastic.css with new releases without clobbering your own changes.
+
+For example, to make the inline hint paragraphs a little darker in color than the standard #666:
+
+form.formtastic fieldset > ol > li p.inline-hints { color:#333; }
+
+HINT:
+The following style may be *conditionally* included for improved support on older versions of IE(<8)
+form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
+
+--------------------------------------------------------------------------------------------------*/
+
+form.formtastic fieldset.inputs {
+  margin: 0 0 1.5em;
+  padding: 7px;
+  background-color: #efefef;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+}
+form.formtastic fieldset.inputs > legend {
+  color:#999;
+  font-size: 0.83em;
+  padding: 5px 8px;
+  background-color: #efefef;
+}
+
+/* INPUT LIs
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset > ol > li { float:left; margin-bottom:0.5em; }
+form.formtastic fieldset > ol > li.error { background-color:transparent; }
+
+/* INLINE ERRORS
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset > ol > li p.inline-errors { font-style:italic; color:#cc0000; margin:0.5em 0 0 0; }
+
+/* 
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset.inputs > ol { }
+form.formtastic fieldset.inputs > ol > li label { 
+  float:none;
+  display:block; 
+  width:100%;
+  margin:0 0 3px 0;
+}
+form.formtastic abbr { padding-left:4px; }
+
+form.formtastic fieldset.inputs .half, form.formtastic fieldset.inputs .full, form.formtastic fieldset.inputs .quarter, form.formtastic fieldset.inputs .threequarters, form.formtastic fieldset.inputs .unsized {
+  width:45%;
+  padding:.5em 2% .5em;
+  float:left;
+  }
+form.formtastic fieldset.inputs .half input, form.formtastic fieldset.inputs .full input, form.formtastic fieldset.inputs .quarter input, form.formtastic fieldset.inputs .threequarters input, form.formtastic fieldset.inputs .unsized input, form.formtastic fieldset.inputs .half select, form.formtastic fieldset.inputs .full select, form.formtastic fieldset.inputs .quarter select, form.formtastic fieldset.inputs .threequarters select, form.formtastic fieldset.inputs .unsized select, form.formtastic fieldset.inputs .half textarea, form.formtastic fieldset.inputs .full textarea, form.formtastic fieldset.inputs .quarter textarea, form.formtastic fieldset.inputs .threequarters textarea, form.formtastic fieldset.inputs .unsized textarea {
+  width:98%;
+  max-width:98%;
+}
+form.formtastic fieldset.inputs .half label input, form.formtastic fieldset.inputs .full label input, form.formtastic fieldset.inputs .quarter label input, form.formtastic fieldset.inputs .threequarters label input, form.formtastic fieldset.inputs .unsized label input {
+  width:auto;
+}
+form.formtastic fieldset.inputs .full {
+  width:95%;
+  clear:left;
+  float:none;
+}
+form.formtastic fieldset.inputs .quarter {
+  width:20%;
+}
+form.formtastic fieldset.inputs .threequarters {
+  width:68%;
+}
+
+form.formtastic fieldset.inputs textarea.tall {
+  height: 250px;
+}
+form.formtastic fieldset.inputs textarea.medium {
+  height: 100px;
+}
+form.formtastic fieldset.inputs textarea.short {
+  height: 50px;
+}
+
+form.formtastic fieldset.actions {
+  margin:0;
+  padding:0;
+}
+form.formtastic fieldset.actions > ol > li .secondary {
+  float: left;
+  font-size:.83em;
+}
+form.formtastic fieldset.actions > ol > li .secondary a {
+  color:#666;
+}
+form.formtastic fieldset.actions > ol > li .secondary {
+  color:#999;
+}
+form.formtastic fieldset.actions > ol > li.link_action {
+  padding-top:3px;
+}
+
+/* NESTED FIELDSETS AND LEGENDS (radio, check boxes and date/time inputs use nested fieldsets)
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset > ol > li fieldset legend { padding-top:0; border:none; }
+form.formtastic fieldset > ol > li fieldset legend.label label { font-size:1em; }
+form.formtastic fieldset > ol > li fieldset ol { width:74%; margin:0; padding:0 0 0 25%; }
+form.formtastic fieldset > ol > li fieldset ol li { padding:0 10px 0 0; }
+
+/* BOOLEAN OVERRIDES
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset > ol > li.boolean label { padding-left:0%; width:auto; }
+form.formtastic fieldset > ol > li.boolean label input { margin:0 0.5em 0 0.2em; }
+
+/* RADIO OVERRIDES
+--------------------------------------------------------------------------------------------------*/
+form.formtastic fieldset > ol > li.radio fieldset ol { margin-bottom:0; }
+form.formtastic fieldset > ol > li.radio fieldset ol li { margin:0; }
+form.formtastic fieldset > ol > li.radio fieldset ol li label { font-weight:normal; }

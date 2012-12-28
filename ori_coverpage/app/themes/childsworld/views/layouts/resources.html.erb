@@ -1,0 +1,15 @@
+<% set_tab(__FILE__) %>
+<% content_for :sidebar do -%>
+  <h2>Research Assistant</h2>
+  <p>Use the form below to find sites related to a specific book published by <%= CONFIG[:company_name] %>. Simply enter the Product Name or ISBN and press the search button.</p>
+  <%= form_tag search_links_path, :method => :get, :class => 'quick-search' do %>
+    <fieldset>
+      <div class="group">
+        <% value = 'product search' -%>
+        <%= text_field_tag 'q', (params[:q] || value), :onfocus => "clear_value(this, '#{value}')", :onblur => "reset_value(this, '#{value}')", :class => 'text' %>
+        <%= image_submit_tag 'search-dark.gif', :alt => '', :class => 'button' %>
+      </div>
+    </fieldset>
+  <% end -%>
+<%- end -%>
+<%= render :file => 'layouts/application' %>

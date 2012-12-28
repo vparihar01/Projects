@@ -1,0 +1,30 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => { :controller_path => 'admin/excerpts'} %>
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<h1>Samples</h1>
+
+<% if @excerpts.any? -%>
+  <% if session[:layout] == 'x' -%>
+    <%= render :partial => 'xexcerpt', :collection => @excerpts, :as => :excerpt, :spacer_template => 'shared/spacer', :locals => {:show_admin => admin?} %>
+    <div class="clearleft">&nbsp;</div>
+  <% else -%>
+    <table>
+      <tr>
+        <th class="first">Title</th>
+        <th>ISBN</th>
+        <th>Copyright</th>
+        <% if admin? -%>
+          <th>Set</th>
+          <th colspan="2" class="icon last">Actions</th>
+        <% else -%>
+          <th class="last">Series</th>
+        <% end -%>
+      </tr>
+    <%= render :partial => 'excerpt', :collection => @excerpts, :locals => {:show_admin => admin?} %>
+    </table>
+  <% end -%>
+  <%= will_paginate @excerpts %>
+  <p class="meta clearleft">NB: To read PDF documents you should install <a href="http://www.adobe.com/products/acrobat/readstep.html">Adobe&reg; Reader&reg;</a> on your computer.</p>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

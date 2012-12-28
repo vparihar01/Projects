@@ -1,0 +1,33 @@
+<%= error_messages_for :contract %>
+
+<fieldset>
+  <div class="group">
+    <div class="half first">
+      <%= f.label :start_on, 'Start Date' %>
+      <%= f.text_field :start_on %>
+    </div>
+    <div class="half">
+      <%= f.label :end_on, 'End Date' %>
+      <%= f.text_field :end_on %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :rate %>
+      <%= f.text_field :rate, :size => 5 %>
+    </div>
+    <div class="half">
+      <%= f.label :category %>
+      <%= f.select :category, Contract::CATEGORIES %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :sales_team_id, 'Sales Team' %>
+      <%= f.select :sales_team_id, SalesTeam.order('name ASC').collect {|t| [ t.name, t.id ]} %>
+    </div>
+    <div class="half">
+      <%= f.label :sales_zone_id, 'Sales Zone' %>
+      <%= f.select :sales_zone_id, SalesZone.order('name').collect {|z| [ z.name, z.id ]} %>
+    </div>
+    <div class="clearboth"></div>
+  </div>
+<fieldset>

@@ -1,0 +1,4 @@
+ID,Created At,Name,Attention,Street,Suite,City,State,Postal Code,Country
+<% @catalog_requests.each do |x| -%>
+"<%= ([x.id,x.created_at,x.address.name,x.address.attention,x.address.street,x.address.suite,x.address.city,x.address.zone_name,x.address.postal_code_name,x.address.country_name]).join('","').html_safe %>"
+<% end -%>

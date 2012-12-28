@@ -1,0 +1,96 @@
+<% if admin? -%>
+<ul class="actions">
+  <li><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_sale_path(@sale), :method => :delete, :confirm => 'Are you sure you wish to delete this record?') %></li>
+  <li class="last"><%= link_to(image_tag('buttons/admin/back.gif', :alt => 'Back'), admin_sales_path) %></li>
+</ul> 
+<% end -%>
+
+<h1>Order Number <%= @sale.id %></h1>
+
+<ul>
+  <li><span>Date Ordered:</span> <%= @sale.completed_at.to_s(:custom_with_time) %></li>
+  <li><span>User Account:</span> <%= @sale.user ? link_to(@sale.user.name, admin_user_path(@sale.user)) : "Unspecified"  %></li>
+  <li><span>User Email:</span> <%= @sale.user ? mail_to(@sale.user.email) : "Unspecified"  %></li>
+  <li><span>User Category:</span> <%= @sale.user ? @sale.user.category : "Unspecified"  %></li>
+</ul>
+
+<% if @sale.card_authorization && !@sale.card_authorization.captured? %>
+  <p>
+    This sale has a pending credit card authorization.  To capture payment, change the status to Paid using the link below.
+  </p>
+<% end %>
+
+<p>
+  Set status to:
+  <%= 
+    Sale::VALID_STATUSES.map do |status| 
+      link_to_unless(@sale.status == status, status,  set_status_admin_sale_url(:id => @sale, :status => status), :method => :post)
+    end.join(' | ').html_safe
+  %>
+</p>
+
+<h2>Status History</h2>
+<table cellspacing="0" class="list">
+  <tr>
+    <th>Status</th>
+    <th>Time Changed</th>
+  </tr>
+  <%= render :partial => 'account/status_change', :collection => @sale.status_changes %>
+</table>
+
+<h2>Details</h2>
+<fieldset>
+  <legend>Ordered Items</legend>
+  <div class="group">
+    <%= render :partial => 'shared/line_item_collection_final', :locals => {:line_item_collection => @sale, :ship_address => @sale.ship_address} %>
+  </div>
+</fieldset>
+<br />
+
+<fieldset>
+<legend>Library Processing</legend>
+<div class="group">
+  <% if @sale.spec %>
+    <ul class="record-actions"><li><%= link_to "View specification &raquo;".html_safe, admin_spec_path(@sale.spec) %></li></ul>
+    <%= render :partial => '/specs/spec_summary', :locals => {:spec => @sale.spec} %>
+  <% else %>
+    <p>No processing options were selected</p>
+  <% end %>
+</div>
+</fieldset>
+<br />
+
+<fieldset>
+  <legend>Shipping Address</legend>
+  <div class="group">
+    <ul>
+      <%= raw @sale.ship_address.to_html rescue nil %>
+    </ul>
+    <p><i>Shipping Method: <%= UPS::Client::Services[@sale.shipping_method] %></i></p>
+  </div>
+</fieldset>
+<br />
+
+<fieldset>
+  <legend>Billing Address</legend>
+  <div class="group">
+    <ul>
+      <%= raw @sale.bill_address.to_html rescue nil %>
+    </ul>
+    <p><i>Payment Method: 
+      <%= @sale.payment_method %>
+      <% if @sale.card_authorization %>
+        <br/>
+        <%= CardAuthorization::CreditCardHash[@sale.card_authorization.card_type] %> 
+        <%= @sale.card_authorization.number %>
+      <% end %></i></p>
+  </div>
+</fieldset>
+<br />
+
+<fieldset>
+  <legend>Purchase Order # / Order Comments</legend>
+  <div class="group">
+    <%= simple_format @sale.comments %>
+  </div>
+</fieldset>

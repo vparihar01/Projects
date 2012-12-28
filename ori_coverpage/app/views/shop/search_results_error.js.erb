@@ -1,0 +1,4 @@
+var div = new Element('div', {id: 'error', class: 'other-error'}).update("<%= flash.now[:error] %>");
+$('content').insert({
+  top: div
+});

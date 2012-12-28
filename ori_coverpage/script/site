@@ -1,0 +1,560 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require 'yaml'
+
+include FileUtils
+
+require File.expand_path('../../lib/coverpage/sites',  __FILE__)
+
+# load default environment and parse arguments
+require 'optparse'
+module Commands
+  
+  class Site
+    attr_reader :environment, :script_name
+    def initialize
+      @environment = Coverpage::RailsEnvironment.default
+      @rails_root = Coverpage::RailsEnvironment.default.root
+      @script_name = File.basename($0)
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: config [OPTIONS] command"
+        o.define_head "Coverpage site manager."
+
+        o.separator ""
+        o.separator "GENERAL OPTIONS"
+
+        o.on("-r", "--root=DIR", String,
+             "Set an explicit rails app directory.",
+             "Default: #{@rails_root}") { |rails_root| @rails_root = rails_root; self.environment = Coverpage::RailsEnvironment.new(@rails_root) }
+
+        o.on("-h", "--help", "Show this help message.") { puts o; exit }
+
+        o.separator ""
+        o.separator "COMMANDS"
+
+        o.separator "  info       Information about sites that can be configured. Require site.yml."
+        o.separator "  check      Check that the expected files are present in the site directory."
+        o.separator "  stub       Copy template files from config dir to site directory."
+        o.separator "  pull       Copy from server to local machine."
+        o.separator "  push       Copy from local machine to server."
+        o.separator "  rsync      Sync file from local machine to server -- better solution."
+        o.separator "  enable     Enable site for Capistrano deployment, setting it as the deploy target."
+        o.separator "  disable    Disable site Capistrano deployment, recommended after a deployment session."
+        o.separator "  add        Add a new site to control."
+        o.separator "  remove     Remove site directory -- DESTRUCTIVE."
+        o.separator "  clean      Remove non-controlled files from site directory -- DESTRUCTIVE."
+        o.separator "  zip        Zip specified site directory for backup purposes."
+        o.separator "  diff       Run diff between installed config files and local site files."
+        o.separator "  patch      Run diff/patch between installed config files and local site files."
+      end
+    end
+
+    def parse!(args=ARGV)
+      general, sub = split_args(args)
+      options.parse!(general)
+
+      command = general.shift
+      if command =~ /^(info|check|stub|pull|push|rsync|enable|disable|add|remove|clean|zip|diff|patch)$/
+        command = Commands.const_get(command.capitalize).new(self)
+        command.parse!(sub)
+      else
+        puts "Unknown command: #{command}" unless command.nil? || command.empty?
+        puts options
+        exit 1
+      end
+    end
+
+    def split_args(args)
+      left = []
+      left << args.shift while args[0] and args[0] =~ /^-/
+      left << args.shift if args[0]
+      [left, args]
+    end
+
+    def self.parse!(args=ARGV)
+      Site.new.parse!(args)
+    end
+  end
+  
+  class Info
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} info"
+        o.define_head "Print info about config setup."
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from installation.") { |v| @options[:verbose] = false }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      Coverpage::Site.options = @options
+      Coverpage::Site.info
+    end
+  end
+
+  class Check
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :fix => false, :pull => false, :templates => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} check [SITE]"
+        o.define_head "Check that defined sites have required files."
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      Coverpage::Site.options = @options
+      if args.any?
+        # Check sites listed
+        args.each do |name|
+          Coverpage::Site.find(name).check
+        end
+      else
+        # Check all sites
+        # Coverpage::Site.check
+        name = Coverpage::Site.enabled
+        Coverpage::Site.find(name).check
+      end
+    end
+  end
+  
+  class Stub
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :force => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} stub [SITE]"
+        o.define_head "Copy template config files to specified site directory."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-f", "--force",
+                      "Clobber pre-existing files in local site directory.") { |v| @options[:force] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      if args.any?
+        name = args.shift
+      else
+        name = Coverpage::Site.enabled
+      end
+      Coverpage::Site.options = @options
+      Coverpage::Site.find(name).stub
+    end
+  end
+
+  class Pull
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :force => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} pull [SITE]"
+        o.define_head "Pull config files from remote server to local machine (ie, download)."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-f", "--force",
+                      "Clobber pre-existing files in local site directory.") { |v| @options[:force] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      if args.any?
+        name = args.shift
+      else
+        name = Coverpage::Site.enabled
+      end
+      Coverpage::Site.options = @options
+      Coverpage::Site.find(name).pull
+    end
+  end
+  
+  class Push
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} push [SITE]"
+        o.define_head "Push config files from local machine to remote server (ie, upload)."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      if args.any?
+        name = args.shift
+      else
+        name = Coverpage::Site.enabled
+      end
+      Coverpage::Site.options = @options
+      Coverpage::Site.find(name).push
+    end
+  end
+  
+  class Rsync
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :force => false, :delete => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} rsync [SITE]"
+        o.define_head "Push files from local machine to remote server (ie, upload) in a more elegant fashion."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-f", "--force",
+                      "Force pushing even if local directory is empty.") { |v| @options[:force] = true }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-x", "--delete",
+                      "Delete extraneous files from remote directory.") { |v| @options[:delete] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      Coverpage::Site.options = @options
+      if args.any?
+        name = args.shift
+      else
+        name = Coverpage::Site.enabled
+      end
+      Coverpage::Site.find(name).rsync
+    end
+  end
+
+  class Enable
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :verbose => true, :force => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} enable SITE"
+        o.define_head "Configure Capistrano deployment per SITE settings."
+        o.define_head "Use site theme in local Rails app for development."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation (except errors).") { |v| @options[:verbose] = false }
+        o.on(         "-f", "--force",
+                      "Force deployment per site settings, therein clobbering",
+                      "pre-existing settings.") { |v| @options[:force] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      unless args.any?
+        puts options
+        exit 1
+      end
+      name = args.shift
+      Coverpage::Site.options = @options
+      Coverpage::Site.find(name).enable
+    end
+  end
+  
+  class Disable
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} disable"
+        o.define_head "Unconfigure Capistrano deployment settings, in effect, disabling future deploys."
+        o.define_head "Though not required, performing this command is recommended to avoid unwanted cross-deployments."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from operation (except errors).") { |v| @options[:verbose] = false }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      Coverpage::Site.options = @options
+      Coverpage::Site.disable
+    end
+  end
+
+  class Add
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :force => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} add SITE"
+        o.define_head "Setup a directory and site.yml file for given SITE (host)."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-f", "--force",
+                      "Clobber pre-existing site directory.") { |v| @options[:force] = true }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      unless args.any?
+        puts options
+        exit 1
+      end
+      name = args.shift
+      Coverpage::Site.options = @options
+      Coverpage::Site.new(name).add
+    end
+  end
+  
+  class Remove
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} remove [SITE]"
+        o.define_head "Remove a site directory from control -- DESTRUCTIVE."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      if args.any?
+        name = args.shift
+      else
+        name = Coverpage::Site.enabled
+      end
+      Coverpage::Site.options = @options
+      Coverpage::Site.find(name).remove
+    end
+  end
+  
+  class Clean
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} clean [SITE]"
+        o.define_head "Remove non-controlled files from site directory -- DESTRUCTIVE."
+        o.define_head "If SITE not given, clean zips from SITES_DIR."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      Coverpage::Site.options = @options
+      if name = args.shift
+        Coverpage::Site.find(name).clean
+      else
+        Coverpage::Site.clean
+      end
+    end
+  end
+  
+  class Zip
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} zip [SITE]"
+        o.define_head "Zip specified site directory for backup purposes."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      if args.any?
+        name = args.shift
+      else
+        name = Coverpage::Site.enabled
+      end
+      Coverpage::Site.options = @options
+      Coverpage::Site.find(name).zip
+    end
+  end
+  
+  class Diff
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} diff [SITE]"
+        o.define_head "Run diff between installed config files and local site files."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      if args.any?
+        name = args.shift
+      else
+        name = Coverpage::Site.enabled
+      end
+      Coverpage::Site.options = @options
+      Coverpage::Site.find(name).diff
+    end
+  end
+  
+  class Patch
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :reverse => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} patch [SITE]"
+        o.define_head "Run diff/patch between installed config files and local site files."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-r", "--reverse",
+                      "Perform reverse patch.") { |v| @options[:reverse] = true }
+        o.separator   ""
+        o.separator   "You can specify SITE names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      if args.any?
+        name = args.shift
+      else
+        name = Coverpage::Site.enabled
+      end
+      Coverpage::Site.options = @options
+      Coverpage::Site.find(name).patch
+    end
+  end
+  
+end
+
+Commands::Site.parse!

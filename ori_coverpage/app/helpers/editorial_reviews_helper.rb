@@ -1,0 +1,2 @@
+module EditorialReviewsHelper
+end

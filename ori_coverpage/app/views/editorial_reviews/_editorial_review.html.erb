@@ -1,0 +1,8 @@
+<div class="module">
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => editorial_review, :controller_path => "admin/#{controller.controller_name}"} %>
+  <% end -%>
+  <h3><%= editorial_review.to_s %></h3>
+  <p class="byline"><em>Reviewed on <%= editorial_review.written_on.to_s(:long) %></em></p>
+  <p><%= RedCloth.new(editorial_review.body).to_html.html_safe %></p>
+</div>

@@ -1,0 +1,38 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading("Subjects") %></h1>
+
+<%= semantic_form_for :search, :url => admin_categories_path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :name_contains, :label => "Name", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :id_equals, :label => "ID", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :is_visible_equals, :label => "Visible?", :as => :select, :collection => boolean_options, :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :proprietary_id_equals, :label => "Proprietary ID", :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @categories.any? -%>
+  <table cellspacing="0" class="list">
+    <tr>
+      <th class="first"><%= sort_link(@search, :name) %></th>
+      <th><%= sort_link(@search, :id, 'ID') %></th>
+      <th><%= sort_link(@search, :is_visible, 'Visible?') %></th>
+      <th class="icon last">Delete</th>
+    </tr>
+    <% @categories.each do |category| %>
+      <%= content_tag_for(:tr, category, :class => cycle('odd', 'even') ) do -%>
+        <td><%= link_to category.name, edit_admin_category_path(category), :class => 'highlight' %></td>
+        <td><%= link_to category.id, category_path(category) %></td>
+        <td><%= category.is_visible? %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_category_path(category), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></td>
+      <% end %>
+    <% end -%>
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @categories} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

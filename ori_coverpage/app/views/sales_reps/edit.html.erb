@@ -1,0 +1,6 @@
+<h1>Edit Sales Rep for <%= @sales_team.name %></h1>
+
+<%= form_for @sales_rep, :url => sales_team_sales_rep_path(@sales_team, @sales_rep), :html => { :method => :put } do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= submit_or_cancel sales_team_sales_rep_path(@sales_team, @sales_rep) %>
+<% end %>

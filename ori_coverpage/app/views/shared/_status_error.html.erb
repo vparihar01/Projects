@@ -1,0 +1,11 @@
+<div class="flash-error" id="flash_error">
+  <% if !product_format.product.available? -%>
+    The item cannot be added to your cart. The product is not available until 
+    <%= product_format.product.available_on.to_s %>
+  <% elsif !product_format.active? -%>
+    The item cannot be added to your cart. The product format is not active 
+    (current status = <%= APP_STATUSES[product_format.status]['value'] %>)
+  <% else -%>
+    The item cannot be added to your cart.
+  <% end -%>
+</div>

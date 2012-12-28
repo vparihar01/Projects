@@ -1,0 +1,25 @@
+<div class="half first">
+  <%= label_tag :preferred_image_types, "Image Type" %>
+  <%= select_tag 'recipient[preferred_image_types]', options_for_select(ImageRecipient::IMAGE_TYPES, @recipient.image_type_array), :multiple => true %>
+</div>
+<div class="half">
+  <%= label_tag :preferred_image_formats, "Image Format" %>
+  <%= select_tag 'recipient[preferred_image_formats]', options_for_select(ImageRecipient::IMAGE_FORMATS, @recipient.image_format_array), :multiple => true %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <%= label_tag :preferred_image_suffix, "File Suffix" %>
+  <%= text_field_tag 'recipient[preferred_image_suffix]', @recipient.preferred_image_suffix %>
+</div>
+<div class="half">
+  <%= label_tag :preferred_image_format_id, "Product Format" %>
+  <%= select_tag 'recipient[preferred_image_format_id]', options_for_select(format_options(:singles_only => true), @recipient.preferred_image_format_id) %>
+</div>
+<div class="clearboth"></div>
+<div class="formrow">
+  <%= label_tag :preferred_image_compress, "Compress Files?" %>
+  <%= radio_button_tag( 'recipient[preferred_image_compress]', "true", @recipient.preferred_image_compress == true ) %>
+  <%= label_tag 'recipient_preferred_image_compress_true', 'Yes', :class => 'subdue inline' %> &nbsp; &nbsp; 
+  <%= radio_button_tag( 'recipient[preferred_image_compress]', "false", @recipient.preferred_image_compress == false ) %>
+  <%= label_tag 'recipient_preferred_image_compress_false', 'No', :class => 'subdue inline' %>
+</div>

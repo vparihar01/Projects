@@ -1,0 +1,13 @@
+<% if (product.respond_to?(:assemblies) && product.assemblies.available.any?) || (product.similar_products.any?) -%>
+  <h2 class="divider">Related Sets</h2>
+  <ul>
+    <% if product.respond_to?(:assemblies) -%>
+      <% product.assemblies.available.each do |assembly| -%>
+        <%= content_tag(:li, link_to(assembly.title, show_path(assembly))) if assembly.default_format.active? %>
+      <% end -%>
+    <% end -%>
+    <% product.similar_products.available.each do |product| -%>
+      <%= content_tag(:li, link_to(product.title, show_path(product))) if product.default_format.active? %>
+    <% end -%>
+  </ul>
+<% end -%>

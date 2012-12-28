@@ -1,0 +1,7 @@
+<%= form_tag search_results_url(:protocol => 'http://'), :class => 'menu-search' do -%>
+  <fieldset>
+    <% value = 'Advanced Search' -%>
+    <%= text_field_tag 'q', (params[:q] || value), :onfocus => "clear_value(this, '#{value}')", :onblur => "reset_value(this, '#{value}')", :class => 'text' %>
+    <%= image_submit_tag 'search-dark.gif', :alt => '', :class => 'button' %>
+  </fieldset>
+<% end -%>

@@ -1,0 +1,10 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :faq %>
+
+<%= f.inputs do %>
+  <%= f.input :question, :wrapper_html => { :class => "full" } %>
+  <%= f.input :answer, :wrapper_html => { :class => "full" }, :input_html => { :class => "tall" } %>
+  <%= f.input :tag_list, :label => "Tags (comma-separated)", :wrapper_html => { :class => "full" } %>
+<% end %>

@@ -1,0 +1,18 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @link} %>
+
+<h1><%= @link.title %></h1>
+
+<div class="module-link">
+  <p class="url"><%= @link.url %></p>
+  <p class="description"><%= @link.description %></p>
+  <ul class="meta">
+    <li>Created: <%= @link.created_at.to_s(:long_day) unless @link.created_at.nil? %></li>
+    <li>Updated: <%= @link.updated_at.to_s(:long_day) %></li>
+    <li>Views: <%= @link.views %></li>
+    <li>Code: <%= @link.code %></li>
+  </ul>
+
+  <h2 id="products">Assigned Products</h2>
+  <%= render :partial => 'admin/shared/product_assignments', :locals => { :assignable => @link }  %>
+</div>
+

@@ -1,0 +1,19 @@
+<%= div_for(download, :class => 'module') do -%>
+  <% if defined?(show_admin) && show_admin -%>
+    <ul class="actions">
+      <li><%= link_to( ( download.is_visible ? image_tag( 'buttons/admin/on.gif', :alt => 'On' ) : image_tag( 'buttons/admin/off.gif', :alt => 'Off' ) ), toggle_admin_download_path(download), :remote => true, :method => :put, :class => 'admin' ) %></li>
+      <li><%= link_to(image_tag('buttons/admin/edit.gif', :alt => 'Edit'), edit_admin_download_path(download), :class => 'admin') %></li>
+      <li class="last"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_download_path(download), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></li>
+    </ul>
+  <% end -%>
+  <h2><%= download.title %></h2>
+  <p><%= download.description %></p>
+  <% if download.exist? -%>
+    <ul>
+      <li><strong><%= link_to 'Download Now', click_download_path(download.id), :method => :put, :class => "downlink" %></strong></li>
+      <li class="meta"><%= "#{download.file_type}: #{number_to_human_size(download.size)}" %></li>
+    </ul>
+  <% else -%>
+    <p class="other-error">File missing: Please notify webmaster</p>
+  <% end -%>
+<% end -%>

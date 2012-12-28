@@ -1,0 +1,9 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for :contract, @contract, :url => contract_url(@contract), :html => { :method => :put } do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= submit_or_cancel contract_url(@contract) %>
+<% end %>
+

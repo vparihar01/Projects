@@ -1,0 +1,13 @@
+<div class="forcebottommargin">
+<%= link_to(image_tag('splash.gif', :alt => 'Browse our new arrivals!'), new_arrivals_path, :title => 'Browse our new arrivals!') %>
+</div>
+
+<h2 class="divider forcetopmargin forcebottommargin">Recent Headlines</h2>
+<%= render :partial => 'headlines/headline', :collection => Headline.find_latest(3), :spacer_template => 'shared/spacer' %>
+<p class="morebuttons"><%= link_to('More headlines &raquo;'.html_safe, headlines_url, :class => 'more') %></p>
+
+<% unless CONFIG[:show_sidebar] -%>
+  <h2 class="divider forcetopmargin forcebottommargin">Recent Reviews</h2>
+  <%= render :partial => 'editorial_reviews/summary', :collection => EditorialReview.find_latest(2, :written_on), :as => :editorial_review, :spacer_template => 'shared/spacer' %>
+  <p class="morebuttons"><%= link_to('More reviews &raquo;'.html_safe, editorial_reviews_path, :class => 'more') %></p>
+<% end -%>

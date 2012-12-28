@@ -1,0 +1,46 @@
+<%= error_messages_for :teaching_guide %>
+
+<fieldset>
+  <div class="group">
+    <div class="full">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :tag_list, "Tags (comma-separated)" %>
+      <%= f.text_field :tag_list %>
+    </div>
+    <div class="half">
+      <%= f.label :interest_level_min_id, 'Interest Level (Min - Max)' %>
+      <%= f.select :interest_level_min_id, level_options(:include_blank=>true, :as=>:integer), {}, :style => 'width:45%;' %> - 
+      <%= f.select :interest_level_max_id, level_options(:include_blank=>true, :as=>:integer), {}, :style => 'width:45%;' %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :rationale %>
+      <%= f.text_area :rationale, :class => 'short' %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :objective, 'Objectives (return-separated)' %>
+      <%= f.text_area :objective, :class => 'short' %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :body, 'Lesson' %>
+      <%= f.text_area :body, :class => 'tall' %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :document, "Document " + (@teaching_guide.document.file ? "(currently #{@teaching_guide.document.file.identifier})" : "") %>
+      <%= f.file_field :document %>
+      <%= f.hidden_field :document_cache %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :product_ids, 'Products (can select multiple)' %>
+      <%= f.select :product_ids, Product.to_dropdown, {}, { :multiple => true, :style => 'height:200px;' } %>
+    </div>
+  </div>
+</fieldset>

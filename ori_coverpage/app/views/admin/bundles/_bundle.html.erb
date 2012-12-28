@@ -1,0 +1,9 @@
+<%= content_tag_for(:tr, bundle, :class => cycle('odd', 'even')) do -%>
+  <td><%= link_to bundle.name, edit_admin_bundle_path(bundle), :class => 'highlight', :title => 'Edit' %></td>
+  <td class="center"><%= bundle.products.size %></td>
+  <td class="right"><%= bundle.percent ? number_to_percentage(bundle.amount*100, :precision => 2) : number_to_currency(bundle.amount) %></td>
+  <td><%= bundle.code %></td>
+  <td class="icon">
+    <%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_bundle_path(bundle), :method => :delete, :confirm => 'Are you sure you want to delete this page?', :title => 'Delete') %>
+  </td>
+<% end -%>

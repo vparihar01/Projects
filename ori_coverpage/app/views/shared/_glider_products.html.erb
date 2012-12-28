@@ -1,0 +1,31 @@
+<div id="glider<%= i %>">
+  <div class="glider clearfix">
+    <div class="side-nav-prev">
+      <%= link_to("Previous", "#", :onclick => "my_glider#{i}.previous();return false;", :title => "Previous") if count > per %>
+    </div>
+    <div class="scroller">
+      <div class="content">
+        <% products.in_groups_of(per, false).each_with_index do |group, n| -%>
+          <div id="glide<%= i %>-section<%= n %>" class="section">
+            <% group.each_with_index do |product, k| %>
+              <%= render :partial => "shared/#{partial}", :locals => {:product => product, :k => k} %>
+            <% end %>
+          </div>
+        <% end -%>
+      </div>
+    </div>
+    <div class="side-nav-next">
+      <%= link_to("Next", "#", :onclick => "my_glider#{i}.next();return false;", :title => "Next") if count > per %>
+    </div>
+  </div>
+  <% if count > per -%>
+    <div class="controls">
+      <ul>
+      <% (0..((count.to_f/per).ceil - 1)).each do |k| -%>
+        <%= content_tag(:li, link_to(k+1, "#glide#{i}-section#{k}", :title => "Go to Section #{k+1}")) %>
+      <% end -%>
+      </ul>
+    </div>
+  <% end -%>
+</div>
+<%= javascript_tag "var my_glider#{i} = new Glider('glider#{i}', {duration: #{CONFIG[:glider_duration]}});" if count > per %>

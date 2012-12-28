@@ -1,0 +1,11 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :handout %>
+
+<%= f.inputs do %>
+  <%= f.input :document, :as => :file, :label => "Document " + (@handout.document.file ? "(currently #{@handout.document.file.identifier})" : ""), :wrapper_html => { :class => "full" } %>
+  <%= f.input :name, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :teaching_guide_id, :as => :select, :collection => TeachingGuide.to_dropdown, :wrapper_html => { :class => "half" } %>
+  <%= f.input :description, :wrapper_html => { :class => "full short" } %>
+<% end %>

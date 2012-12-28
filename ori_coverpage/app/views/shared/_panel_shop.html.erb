@@ -1,0 +1,27 @@
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'blinder', :media => 'screen' %>
+  <%= javascript_include_tag 'blinder' %>
+<% end -%>
+<ul id="blinder-submenu" class="blinder submenu">
+  <li class="<%= submenu_class('shop', ['index']) %>"><%= link_to "Browse", shop_path %></li>
+  <li class="<%= submenu_class('categories') %>">
+    <%= link_to("Subjects", categories_path, :class => 'blinder-toggle') %>
+    <div class="blinder-content" style="<%= controller_name == 'categories' ? 'display:block;' : 'display:none;' %>">
+      <ul>
+        <%=raw Category.visible.order('name ASC').map {|c| content_tag(:li, link_to(c.name, category_url(c))) } %>
+      </ul>
+    </div>
+  </li>
+  <li class="<%= submenu_class('levels') %>">
+    <%= link_to("Grade Levels", levels_path, :class => 'blinder-toggle') %>
+    <div class="blinder-content" style="<%= controller_name == 'categories' ? 'display:none;' : 'display:block;' %>">
+      <ul>
+        <%= raw Level.visible.map {|x| content_tag(:li, link_to(x.name, level_url(x))) } %>
+      </ul>
+    </div>
+  </li>
+  <li class="<%= submenu_class('shop', ['new_arrivals', 'recent_arrivals']) %>"><%= link_to "New Arrivals", new_arrivals_path %></li>
+  <li class="<%= submenu_class('shop', 'quick') %>"><%= link_to "QuickShop", quick_path %></li>
+  <li class="<%= submenu_class('excerpts', 'index') %>"><%= link_to "Samples", excerpts_path %></li>
+  <li class="<%= submenu_class('shop', ['advanced_search', 'search_results']) %>"><%= link_to "Advanced Search", advanced_search_path %></li>
+</ul>

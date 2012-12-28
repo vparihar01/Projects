@@ -1,0 +1,902 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+require File.expand_path('../../lib/rake_utils',  __FILE__)
+require 'yaml'
+require 'pathname'
+
+include FileUtils
+
+require File.expand_path('../../lib/coverpage/feedback',  __FILE__)
+
+class Theme
+  PUBLIC_FILES = Dir.glob("#{Coverpage::RailsEnvironment.default.root}/public/*.default.html").map{|f| File.basename(f).sub('.default', '')}.freeze
+  # GIT_DIR should contain dirs of VALID_THEMES (relative to Rails.root)
+  GIT_DIR = "src/themes"
+  # Git remote (must include path to, but not including, NAME.git repository)
+  GIT_REMOTE = "gitosis@git.milkfarmproductions.com"
+  # THEMED_DIRS should contain "themes" dir and subdirs of VALID_THEMES (relative to Rails.root)
+  THEMED_DIRS = Dir.glob("**/themes").reject{|f| /^src\//.match(f)}.map{|f| File.dirname(f)}.freeze
+  attr_reader :name
+
+  def initialize(name, options = {})
+    @name = name
+    @options = options
+  end
+  
+  def self.installed
+    # poached from Coverpage::Themes.load_themes
+    dirs = Dir.glob("#{rails_env.root}/public/themes/*").select do |f|
+      File.directory?(f) && (File.exist?("#{f}/stylesheets/public.css") || File.exist?("#{f}/stylesheets/application.css"))
+    end
+    dirs.collect {|dir| File.basename(dir)}.sort
+  end
+  
+  def self.current
+    @@current ||= YAML.load(File.read("#{rails_env.root}/config/config.yml"))[rails_env.env]['theme']
+  end
+  
+  # Retrieve name of currently enabled theme. Check symlinks of static files.
+  def self.check
+    theme = current
+    results = []
+    puts "Current theme: #{current}"
+    print "  Checking theme name '#{current}'... "
+    if installed.include?(current)
+      puts "Valid"
+      results << true
+    else
+      puts "Invalid!"
+      results << false
+    end
+    THEMED_DIRS.each do |dir|
+      results << check_dir(File.join(rails_env.root, dir, "themes", current))
+    end
+    results << check_dir(rails_env.public_path)
+    PUBLIC_FILES.each do |file|
+      print "    Checking symlink '#{file}'... "
+      symlink = File.join(rails_env.public_path, file)
+      target = File.readlink(symlink)
+      orphaned = false
+      begin
+        Pathname.new(symlink).realpath
+      rescue
+        orphaned = true
+      end
+      if orphaned == true
+        puts "Orphaned!"
+        puts "      #{symlink}"
+        results << false
+      elsif /#{File.join(rails_env.public_path, "themes", current)}/.match(target)
+        puts "OK"
+        results << true
+      else
+        puts "Incorrect!"
+        puts "      #{target}"
+        results << false
+      end
+    end
+    if results.include?(false)
+      puts "! Errors found. Try 'enable' command."
+    end
+  end
+  
+  def is_active?
+    name == self.current
+  end
+  
+  def installed?
+    results = []
+    THEMED_DIRS.each do |themed_dir|
+      results << File.directory?(File.join(rails_env.root, themed_dir, "themes", name))
+    end
+    !results.include?(false)
+  end
+  
+  def install
+    puts "Installing theme '#{name}' from remote repository..." if @options[:verbose]
+    uninstall if installed? and @options[:force]
+    unless installed?
+      # Clone remote repository
+      source = "git-#{name}-#{Time.now.strftime("%Y%m%d%H%M%S")}"
+      FileUtils.cd(File.join(rails_env.root, "tmp"), :verbose => true)
+      remote = "#{GIT_REMOTE}:#{name}.git"
+      run_command("git clone #{remote} #{source}")
+    
+      # Move files into place
+      source_dir = File.join(rails_env.root, "tmp", source)
+      install_repository(source_dir)
+      
+      # Install symlinks for static files
+      enable
+
+      # Cleanup
+      puts "Cleaning up..." if @options[:verbose]
+      FileUtils.rm_r(source_dir, :noop => @options[:debug], :verbose => @options[:verbose])
+      # Message
+      puts "To verify installation, try 'check' command" if @options[:verbose]
+    else
+      puts "Theme '#{name}' already installed. Try '--force' option to reinstall."
+    end
+  end
+  
+  # Place files into theme dirs of application using local repository as source. The current theme files are backed up to 'tmp'. Options: debug, verbose, theme.
+  def install_local
+    puts "Installing theme '#{name}' from local repository..." if @options[:verbose]
+    uninstall if installed? and @options[:force]
+    unless installed?
+      # Move files into place (clobbers anything already there)
+      install_repository(File.join(rails_env.root, GIT_DIR, name))
+      # Install symlinks for static files
+      enable
+      # Message
+      puts "To verify installation, try 'check' command" if @options[:verbose]
+    else
+      puts "Theme '#{name}' already installed. Try '--force' option to reinstall."
+    end
+  end
+  
+  def uninstall
+    backup
+    delete
+  end
+  
+  # Copy files of specified theme to 'tmp'. Options: debug, verbose, theme.
+  def backup
+    unless installed?
+      puts "! Warning: Theme '#{name}' is not installed. Skipping backup."
+      return false
+    end
+    bak = "theme-#{name}-#{Time.now.strftime("%Y%m%d%H%M%S")}"
+    puts "Copying theme to '#{bak}'..." if @options[:verbose]
+    FileUtils.cd("#{rails_env.root}/tmp", :verbose => @options[:verbose])
+    THEMED_DIRS.each do |themed_dir|
+      rails_dir = File.join(rails_env.root, themed_dir, "themes", name)
+      target_dir = File.join(rails_env.root, "tmp", bak, themed_dir)
+      FileUtils.mkdir_p(target_dir, :noop => @options[:debug], :verbose => @options[:verbose])
+      FileUtils.cp_r(Dir.glob("#{rails_dir}/*"), target_dir, :noop => @options[:debug], :verbose => @options[:verbose])
+    end
+  end
+
+  # Remove specified theme using 'rm' (ie, NON-RECOVERABLE). Note: specified theme dir is entirely uninstalled from all THEMED_DIRS. Options: debug, verbose, theme.
+  def delete
+    puts "Deleting theme '#{name}'..." if @options[:verbose]
+    THEMED_DIRS.each do |themed_dir|
+      rails_dir = File.join(rails_env.root, themed_dir, "themes", name)
+      FileUtils.rm_r(rails_dir, :noop => @options[:debug], :verbose => @options[:verbose])
+    end
+  end
+  
+  # Restore files from uninstalled directory, placing them in the appropriate themed dirs. Options: source (directory name in Rails root).
+  def restore(source)
+    puts "Restoring theme '#{name}'..." if @options[:verbose]
+    # Move files into place
+    install_repository(File.join(rails_env.root, source))
+  end
+  
+  # Enable specified theme static html files. Theme must be installed previously.
+  def enable
+    unless installed?
+      puts "! Error: Theme is not installed and therefore cannot be enabled. Try 'install' command."
+      exit 1
+    end
+    # Symlink static html files into place
+    symlink_static_files
+  end
+  
+  # Disable current theme static html files. Use default theme instead.
+  def self.disable(options)
+    # Symlink static html files into place
+    puts "Symlinking static html files to default..." if options[:verbose]
+    PUBLIC_FILES.each do |file|
+      default_file = file.sub('.html', '.default.html')
+      source = File.join(rails_env.public_path, default_file)
+      target = File.join(rails_env.public_path, file)
+      FileUtils.rm(target, :noop => options[:debug], :verbose => options[:verbose])
+      FileUtils.ln_s(source, target, :noop => options[:debug], :verbose => options[:verbose])
+    end
+  end
+  
+  # Retrieve name of currently enabled theme. Check symlinks of static files.
+  def check
+    results = []
+    puts "Current theme: #{name}"
+    results << self.class.check_public_dir(File.join(rails_env.root, GIT_DIR, name, "public"))
+    if results.include?(false)
+      puts "! Errors found. Try 'install' command."
+    end
+  end
+  
+  # Run diff between installed theme files and local git repository. Command line parameters: debug, verbose.
+  def diff
+    THEMED_DIRS.each do |dir|
+      target = File.join(rails_env.root, GIT_DIR, name, dir)
+      source = File.join(rails_env.root, dir, "themes", name)
+      if File.directory?(source)
+        cmd = "diff -ru -x .git -x .DS_Store -x .README.txt #{target} #{source}"
+        run_command_without_check(cmd)
+      else
+        puts "! Warning: Directory not found '#{source}'"
+      end
+    end
+  end
+  
+  # Run diff and patch to create and apply patch for specified file. Comparing installed file to local git repository. Applying to git repository. Use 'reverse' option to apply to installed file. Command line parameters: debug, verbose, file, reverse. File path is relative to git repository (eg, file=app/views/pages/home.html.erb)
+  def patch
+    target = "."
+    THEMED_DIRS.each do |themed_dir|
+      if @options[:reverse]
+        source = File.join(rails_env.root, GIT_DIR, name, themed_dir)
+        dir = File.join(rails_env.root, themed_dir, "themes", name)
+      else
+        dir = File.join(rails_env.root, GIT_DIR, name, themed_dir)
+        source = File.join(rails_env.root, themed_dir, "themes", name)
+      end
+      FileUtils.cd(dir, :verbose => @options[:verbose])
+      RakeUtils.test_directory(source)
+      tmp = File.join(rails_env.root, "tmp/patch.diff")
+      run_command_without_check("diff -ur #{target} #{source} > #{tmp}")
+      run_command_without_check("patch -p0 < #{tmp}")
+    end
+  end
+  
+  # Clone the remote repository of specified theme into 'app/themes/src/<theme>/'. Options: debug, verbose, force, theme.
+  def clone
+    remote = "#{GIT_REMOTE}:#{name}.git"
+    git_dir = File.join(rails_env.root, GIT_DIR)
+    theme_git_dir = File.join(git_dir, name)
+
+    # check if the source file exists already
+    if File.exist?(theme_git_dir)
+      if @options[:force]
+        puts "Force clone by removing repository directory..." if @options[:verbose]
+        FileUtils.rm_r(theme_git_dir, :noop => @options[:debug], :verbose => @options[:verbose])
+      else
+        puts "! Error: Repository already exists '#{theme_git_dir}'."
+        puts "  To clobber current repository, try --force."
+        exit 1
+      end
+    end
+
+    FileUtils.cd(git_dir, :verbose => @options[:verbose])
+    run_command("git clone #{remote}")
+  end
+  
+  def rsync
+    # This is a one-direction sync, from current to local repository creating/deleting if requested
+    THEMED_DIRS.each do |themed_dir|
+      source = File.join(rails_env.root, themed_dir, "themes", name)
+      target = File.join(rails_env.root, GIT_DIR, name, themed_dir)
+      rsync_dir(source, target)
+    end
+  end
+  
+  private
+  
+    def rsync_dir(source, target)
+      files = Dir.glob("#{source}/*")
+      unless files.any?
+        puts "No source files found -- Rsync not allowed. To delete all files from target, do it manually."
+        exit 1
+      end
+      flags = []
+      if @options[:debug]
+        flags << "--dry-run"
+        # Turn debug off so that dry-run can perform
+        @options[:debug] = false
+      end
+      flags << "--delete" if @options[:delete]
+      cmd = "rsync -avz #{flags.join(' ')} --exclude '.git' --exclude '.DS_Store' --exclude 'Icon' '#{source}/.' '#{target}/.'"
+      run_command(cmd)
+      # Return debug to initial state
+      @options[:debug] = true if flags.include?("--dry-run")
+    end
+
+    def self.rails_env
+      @@rails_env ||= Coverpage::RailsEnvironment.default
+    end
+    
+    def rails_env
+      @@rails_env ||= Coverpage::RailsEnvironment.default
+    end
+    
+    def self.check_public_dir(dir)
+      check_dir(dir)
+      results = []
+      PUBLIC_FILES.each do |file|
+        results << check_file(File.join(dir, file))
+      end
+      !results.include?(false)
+    end
+
+    def self.check_dir(dir)
+      print "  Checking dir '#{dir}'... "
+      if File.directory?(dir)
+        puts "Exists"
+        true
+      else
+        puts "Not found!"
+        puts "    #{dir}"
+        false
+      end
+    end
+
+    def self.check_file(path)
+      print "    Checking file '#{File.basename(path)}'... "
+      if File.exist?(path)
+        puts "Exists"
+        true
+      else
+        puts "Not found!"
+        puts "      #{path}"
+        false
+      end
+    end
+    
+    def test_source_directory(dir)
+      unless File.directory?(dir) || @options[:debug]
+        theme = File.basename(dir)
+        puts "! Error: Local repository not found for theme '#{theme}'. Try:"
+        puts "  script/theme install --local #{theme}"
+        exit 1
+      end
+    end
+    
+    def run_command(cmd, check = true)
+      puts "#{cmd}" if @options[:verbose]
+      unless @options[:debug]
+        # if the system command fails and we are supposed to check failure
+        if ! system(cmd) && check
+          puts "! Error: Failed to execute system command '#{cmd}'"
+          exit 1
+        end
+      end
+    end
+    
+    def run_command_without_check(cmd)
+      run_command(cmd, false)
+    end
+    
+    def symlink_static_files
+      puts "Symlinking static html files..." if @options[:verbose]
+      PUBLIC_FILES.each do |file|
+        source = File.join(rails_env.public_path, "themes", name, file)
+        target = File.join(rails_env.public_path, file)
+        FileUtils.rm(target, :noop => @options[:debug], :verbose => @options[:verbose]) if File.exist?(target) || File.symlink?(target)
+        FileUtils.ln_s(source, target, :noop => @options[:debug], :verbose => @options[:verbose])
+      end
+    end
+    
+    # NOTE: this will clobber a pre-existing, installed theme of same name
+    def install_repository(dir)
+      puts "Installing repository files..." if @options[:verbose]
+      RakeUtils.test_directory(dir)
+      THEMED_DIRS.each do |themed_dir|
+        rails_dir = File.join(rails_env.root, themed_dir, "themes", name)
+        source_dir = File.join(dir, themed_dir)
+        FileUtils.rm_r(rails_dir, :noop => @options[:debug], :verbose => @options[:verbose]) if File.exist?(rails_dir)
+        FileUtils.mkdir(rails_dir, :noop => @options[:debug], :verbose => @options[:verbose])
+        FileUtils.cp_r(Dir.glob("#{source_dir}/*"), rails_dir, :noop => @options[:debug], :verbose => @options[:verbose])
+      end
+    end
+end
+
+# load default environment and parse arguments
+require 'optparse'
+module Commands
+  
+  class Theme
+    attr_reader :environment, :script_name
+    def initialize
+      @environment = Coverpage::RailsEnvironment.default
+      @rails_root = Coverpage::RailsEnvironment.default.root
+      @script_name = File.basename($0)
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: theme [OPTIONS] command"
+        o.define_head "Coverpage theme manager."
+
+        o.separator ""
+        o.separator "GENERAL OPTIONS"
+
+        o.on("-r", "--root=DIR", String,
+             "Set an explicit rails app directory.",
+             "Default: #{@rails_root}") { |rails_root| @rails_root = rails_root; self.environment = Coverpage::RailsEnvironment.new(@rails_root) }
+
+        o.on("-h", "--help", "Show this help message.") { puts o; exit }
+
+        o.separator ""
+        o.separator "COMMANDS"
+
+        o.separator "  install    Install theme(s) from remote or local repositories."
+        o.separator "  backup     Backup theme as a copy to 'tmp' directory."
+        o.separator "  remove     Uninstall theme, deleting from machine."
+        o.separator "  restore    Restore (ie, install) theme from a specified directory such as a backup."
+        o.separator "  clean      Remove 'git-' and 'theme-' dirs from 'tmp'."
+        o.separator "  info       Print the currently active theme name."
+        o.separator "  check      Check the current theme installation."
+        o.separator "  enable     Enable specified installed theme."
+        o.separator "  disable    Disable theme by removing symlinks, thereby enabling default theme."
+        o.separator "  clone      Clone remote git repository into '#{::Theme::GIT_DIR}' for development purposes."
+        o.separator "  diff       Run diff between local theme files and installed theme files."
+        o.separator "  patch      Run diff/patch between local theme files and installed theme files."
+        o.separator "  rsync      Rsync files from theme directory to local repository."
+
+        o.separator ""
+        o.separator "EXAMPLES"
+        o.separator "  Install a theme:"
+        o.separator "    #{@script_name} install childsworld\n"
+        o.separator "  Backup a theme:"
+        o.separator "    #{@script_name} backup childsworld\n"
+        o.separator "  Remove a theme:"
+        o.separator "    #{@script_name} remove childsworld\n"
+      end
+    end
+
+    def parse!(args=ARGV)
+      general, sub = split_args(args)
+      options.parse!(general)
+
+      command = general.shift
+      if command =~ /^(install|backup|remove|restore|clean|info|check|enable|disable|clone|diff|patch|rsync)$/
+        command = Commands.const_get(command.capitalize).new(self)
+        command.parse!(sub)
+      else
+        puts "Unknown command: #{command}" unless command.nil? || command.empty?
+        puts options
+        exit 1
+      end
+    end
+
+    def split_args(args)
+      left = []
+      left << args.shift while args[0] and args[0] =~ /^-/
+      left << args.shift if args[0]
+      [left, args]
+    end
+
+    def self.parse!(args=ARGV)
+      Theme.new.parse!(args)
+    end
+  end
+
+  class Install
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :force => false }
+      @mode = :remote
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} install THEME [THEME [THEME] ...]"
+        o.define_head "Install one or more themes from local or remote repositories."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-f", "--force",
+                      "Reinstalls a theme if it's already installed.") { |v| @options[:force] = true }
+        o.on(         "-l", "--local",
+                      "Install using local repository instead of remote.") { |v| @mode = :local }
+        o.on(         "-r", "--remote",
+                      "Install using remote repository (default).") { |v| @mode = :remote }
+        o.separator   ""
+        o.separator   "You can specify theme names as given in 'theme info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      unless args.any?
+        puts options
+        exit 1
+      end
+      environment = @base_command.environment
+      method_name = ( @mode == :local ? "install_local" : "install" )
+      args.each do |name|
+        ::Theme.new(name, @options).send(method_name)
+      end
+    end
+  end
+  
+  class Backup
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} backup THEME [THEME [THEME] ...]"
+        o.define_head "Backup one or more themes."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify theme names as given in 'theme info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      unless args.any?
+        current = ::Theme.current
+        puts "Theme not specified -- using current theme '#{current}'"
+        args = [current]
+      end
+      environment = @base_command.environment
+      args.each do |name|
+        ::Theme.new(name, @options).backup
+      end
+    end
+  end
+  
+  class Restore
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} restore SOURCE...]"
+        o.define_head "Restore theme using directory SOURCE (must be in Rails root). Theme name is extracted from SOURCE name or must be explicitly defined using --theme."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-t", "--theme=THEME", String,
+                      "Runs through installation without affecting change.") { |theme| @theme = theme }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      unless args.any?
+        puts "Must define SOURCE"
+        exit 1
+      end
+      source = args.shift
+      # Backup dir name has format theme-#{theme}-YYYYMMDDHHMMSS
+      if @theme.nil? || @theme.empty?
+        puts "Determining theme name from '#{source}'..." if @options[:verbose]
+        if m = /theme-(\w+)-\d+/.match(source)
+          name = m[1]
+        else
+          puts "! Error: Unable to determine theme from source '#{source}'"
+          exit 1
+        end
+      else
+        name = @theme
+      end
+      environment = @base_command.environment
+      ::Theme.new(name).restore(source, @options)
+    end
+  end
+  
+  class Clean
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} clean]"
+        o.define_head "Clean up tmp directory."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      environment = @base_command.environment
+      Dir.glob("#{environment.root}/tmp/{git,theme}-*").each do |dir|
+        FileUtils.rm_r(dir, :noop => @options[:debug], :verbose => @options[:verbose])
+      end
+    end
+  end
+  
+  class Info
+    def initialize(base_command)
+      @base_command = base_command
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} info"
+        o.define_head "Print info about themes setup."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      environment = @base_command.environment
+      name = ::Theme.current
+      puts "Rails root: #{environment.root}"
+      puts "Rails env: #{environment.env}"
+      puts "GIT_DIR: #{::Theme::GIT_DIR}"
+      puts "THEMED_DIRS: #{::Theme::THEMED_DIRS.inspect}"
+      puts "PUBLIC_FILES: #{::Theme::PUBLIC_FILES.inspect}"
+      puts "Installed themes:"
+      ::Theme.installed.each { |theme| puts "  #{theme} #{'(enabled)' if theme == name}" }
+    end
+  end
+  
+  class Check
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+      @mode = :installed
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} check"
+        o.define_head "Check current theme installation."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-l", "--local",
+                      "Check local dev theme files of current theme.") { |v| @mode = :local }
+        o.on(         "-i", "--installed",
+                      "Check active theme files (default).") { |v| @mode = :installed }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      environment = @base_command.environment
+      if @mode == :local
+        ::Theme.new(::Theme.current).check
+      else
+        ::Theme.check
+      end
+    end
+  end
+  
+  class Enable
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} enable THEME"
+        o.define_head "Enable specified theme. Must already be installed."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify theme names as given in 'theme info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      unless args.any?
+        puts options
+        exit 1
+      end
+      name = args.shift
+      environment = @base_command.environment
+      ::Theme.new(name, @options).enable
+    end
+  end
+  
+  class Disable
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} disable"
+        o.define_head "Disable theme by removing symlinks, thereby enabling default theme."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      environment = @base_command.environment
+      ::Theme.disable(@options)
+    end
+  end
+  
+  class Clone
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :force => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} clone THEME"
+        o.define_head "Clone remote git repository into #{::Theme::GIT_DIR} for development purposes. THEME must match remote repository name stored on git.milkfarmproductions.com."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-f", "--force",
+                      "Clobbers previously installed repository.") { |v| @options[:force] = true }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      unless args.any?
+        puts options
+        exit 1
+      end
+      name = args.shift
+      environment = @base_command.environment
+      ::Theme.new(name, @options).clone
+    end
+  end
+  
+  class Diff
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} diff"
+        o.define_head "Run diff on theme files."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      name = ::Theme.current
+      environment = @base_command.environment
+      ::Theme.new(name, @options).diff
+    end
+  end
+  
+  class Patch
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :reverse => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} patch"
+        o.define_head "Run diff/patch on theme files."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppresses the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Runs through installation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-r", "--reverse",
+                      "Perform reverse patch.") { |v| @options[:reverse] = true }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      name = ::Theme.current
+      environment = @base_command.environment
+      ::Theme.new(name, @options).patch
+    end
+  end
+  
+  class Rsync
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true, :force => false, :delete => false }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} rsync"
+        o.define_head "Rsync files from theme directory to local repository."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from installation.") { |v| @options[:verbose] = false }
+        o.on(         "-f", "--force",
+                      "Force pushing even if local directory is empty.") { |v| @options[:force] = true }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.on(         "-x", "--delete",
+                      "Delete extraneous files from remote directory.") { |v| @options[:delete] = true }
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      name = ::Theme.current
+      ::Theme.new(name, @options).rsync
+    end
+  end
+
+  class Remove
+    def initialize(base_command)
+      @base_command = base_command
+      @options = { :debug => false, :verbose => true }
+    end
+
+    def options
+      OptionParser.new do |o|
+        o.set_summary_indent('  ')
+        o.banner =    "Usage: #{@base_command.script_name} remove THEME from THEMED_DIRS"
+        o.define_head "Remove theme from THEMED_DIRS of application -- DESTRUCTIVE."
+        o.separator   ""
+        o.separator   "Options:"
+        o.on(         "-q", "--quiet",
+                      "Suppress the output from operation.") { |v| @options[:verbose] = false }
+        o.on(         "-d", "--debug",
+                      "Run through operation without affecting change.") { |v| @options[:debug] = true }
+        o.separator   ""
+        o.separator   "You can specify THEME names as given in 'info' output."
+      end
+    end
+
+    def parse!(args)
+      options.parse!(args)
+      unless args.any?
+        puts options
+        exit 1
+      end
+      name = args.shift
+      unless ::Theme.installed.include?(name)
+        puts "Unknown theme '#{name}'. Try 'theme info' command."
+        exit 1
+      end
+      environment = @base_command.environment
+      ::Theme.new(name, @options).uninstall
+    end
+  end
+
+end
+
+Commands::Theme.parse!

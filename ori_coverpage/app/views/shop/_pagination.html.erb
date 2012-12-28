@@ -1,0 +1,7 @@
+<div class="pageresults">
+  <% if CONFIG[:show_search_filters] -%>
+    <%= will_paginate(products, :renderer => 'RemoteLinkRenderer', :remote => {:before => "showIndicatorOverDiv('results')", :complete => "hideIndicatorOverDiv('results')"}, :params => @form_values) %>
+  <% else -%>
+    <%= will_paginate(products, :params => @form_values) %>
+  <% end -%>
+</div>

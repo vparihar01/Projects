@@ -1,0 +1,16 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @testimonial} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<blockquote>&quot;<%= @testimonial.comment %>&quot;</blockquote>
+
+<cite>&mdash;<%= @testimonial.name %></cite>
+
+<% if admin? -%>
+<ul class="meta">
+<li>Company: <%= @testimonial.company %></li>
+<li>Location: <%= @testimonial.location %></li>
+<li>Created: <%= @testimonial.created_at %></li>
+<li>Updated: <%= @testimonial.updated_at %></li>
+</ul>
+<% end -%>

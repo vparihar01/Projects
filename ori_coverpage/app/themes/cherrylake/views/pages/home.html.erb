@@ -1,0 +1,19 @@
+<div class="splash clearfix">
+  <%= link_to(image_tag('splash-ebooks.jpg'), hosted_ebooks_trial_path) %>
+  <%= link_to('More information &raquo;'.html_safe, '/faqs/tag/ebooks', :class => 'more') %>
+  <ul class="disc">
+    <li><strong>Multi-user</strong> access, by internet, 24/7</li>
+    <li><strong>No IT staff</strong> required</li>
+    <li class="last"><strong>Mobile</strong> devices supported</li>
+  </ul>
+</div>
+
+<div class="with-sidebar">
+  <h2>Recent Reviews</h2>
+  <%= render :partial => 'editorial_reviews/summary', :collection => EditorialReview.find_latest(2, :written_on), :as => :editorial_review, :spacer_template => 'shared/spacer' %>
+  <p class="morebuttons"><%= link_to('More reviews &raquo;'.html_safe, editorial_reviews_path, :class => 'more') %></p>
+</div>
+
+<div class="sidebar">
+  <%= render :partial => 'shared/sidebar_home' %>
+</div>

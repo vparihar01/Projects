@@ -1,0 +1,23 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+  <%= javascript_tag do -%>
+    document.observe('dom:loaded', function(){
+      new Form.Element.EventObserver('product_id', function(element, value) {
+        new Ajax.Request('<%= format_options_admin_errata_path %>', {asynchronous:true, evalScripts:true, parameters:'product_id='+encodeURIComponent(value)});
+      });
+    });
+  <% end -%>
+<% end %>
+<%= error_messages_for :erratum %>
+
+<%= f.inputs do %>
+  <%= f.input :user_id, :as => :select, :collection => User.all, :wrapper_html => { :class => "full" } %>
+  <%= f.input :name, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :email, :wrapper_html => { :class => "half" } %>
+  <li class="select required half first"><%= label_tag :product_id, 'Product', :id => 'product_id_input' %><%= select_tag :product_id, options_for_select([[]]+Title.to_dropdown, (@product ? @product.id : nil)) %></li>
+  <%= f.input :product_format_id, :as => :select, :collection => (@product ? @product.product_formats.collect { |pf| [pf.format.name, pf.id] } : []), :wrapper_html => { :class => "half" } %>
+  <%= f.input :edition, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :erratum_type, :as => :select, :collection =>  Erratum::VALID_TYPES, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :page_number, :wrapper_html => { :class => "half" } %>
+  <%= f.input :description, :wrapper_html => { :class => "full" }, :input_html => { :class => "short" } %>
+<% end %>

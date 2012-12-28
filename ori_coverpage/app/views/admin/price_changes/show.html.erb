@@ -1,0 +1,34 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @price_change} %>
+
+<h1>PriceChange Number <%= @price_change.id %></h1>
+
+<%= content_tag(:ul) do %>
+  <%= display(link_to(@price_change.product_format.product.name, show_path(@price_change.product_format.product)), 'Product name', :wrap => true) %>
+  <%= display_value_in_list(@price_change, :product_format, 'Format') %>
+  <%= display_value_in_list(@price_change, :edition) %>
+  <%= display_value_in_list(@price_change, :page_number, 'Page') %>
+  <%= display_value_in_list(@price_change, :price_change_type, 'Type') %>
+  <%= display_value_in_list(@price_change, :status) %>
+  <%= display_value_in_list(@price_change, :description) %>
+  <%= display(link_to(@price_change.user.name, admin_user_path(@price_change.user)), 'User account', :wrap => true) if @price_change.user %>
+  <%= display((@price_change.user ? mail_to(@price_change.user.email) : @price_change.email), 'User email', :wrap => true) %>
+  <%= display_value_in_list(@price_change, :created_at, 'Created') %>
+  <%= display_value_in_list(@price_change, :updated_at, 'Updated') %>
+<% end -%>
+
+<h2>Status</h2>
+<p>
+    Set status to:
+    <%=
+      PriceChange::VALID_STATUSES.map do |status|
+        link_to_unless(@price_change.status == status, status,  set_status_admin_price_change_url(:id => @price_change, :status => status), :method => :post)
+      end.join(' | ')
+    %>
+</p>
+<table cellspacing="0" class="list">
+  <tr>
+    <th class="first">Status</th>
+    <th class="last">Time Changed</th>
+  </tr>
+  <%= render :partial => 'account/status_change', :collection => @price_change.status_changes %>
+</table>

@@ -1,0 +1,29 @@
+<%= error_messages_for :editorial_review %>
+
+<fieldset>
+  <div class="group">
+    <div class="full">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
+    <div class="full">
+      <%= f.label :source %>
+      <%= f.text_field :source %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="formrow">
+      <%= f.label :written_on, 'Date' %>
+      <%= f.date_select :written_on %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :body, 'Review' %>
+      <%= f.text_area :body, :class => 'tall' %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="full">
+      <%= f.label :product_ids, 'Products (can select multiple)' %>
+      <%= f.select :product_ids, Product.to_dropdown, {}, { :multiple => true, :style => 'height:200px;' } %>
+    </div>
+  </div>
+</fieldset>

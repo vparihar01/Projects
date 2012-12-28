@@ -1,0 +1,7 @@
+<div id="product-<%= product.id %>">
+  <div class="content">
+  <h3><%= product.name %></h3>
+  <p><%= truncate_to_nearest_word(product.description) %></p>
+  <%= compact_price_listing(product) -%>
+  </div>
+</div>

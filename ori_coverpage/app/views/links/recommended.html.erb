@@ -1,0 +1,17 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"}  %>
+
+<h1>Recommended Sites</h1>
+
+<ul class="page-actions">
+  <li><%= link_to "&laquo; Return to Research Assistant".html_safe, links_path %></li>
+</ul>
+
+<% if @adults.any? -%>
+  <h2>For Teachers and Librarians</h2>
+  <%= render :partial => 'links/link', :collection => @adults, :locals => {:count => nil} %>
+<% end -%>
+
+<% if @kids.any? -%>
+  <h2>For Kids</h2>
+  <%= render :partial => 'links/link', :collection => @kids, :locals => {:count => nil} %>
+<% end -%>

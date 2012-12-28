@@ -1,0 +1,49 @@
+<h1><%= calculate_checkout_page_heading("Shipping Information") %></h1>
+
+<p>Please select the preferred shipping address for this order. If the address is not already in your Address Book, click the New button to create a new entry.</p>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('New Address', checkout_new_address_path(:address_type => 'ship_address'))) %>
+</ul>
+
+<%= form_tag checkout_shipping_path do %>
+  <input type="hidden" name="action" value="process" />
+
+  <fieldset>
+    <legend>Saved Addresses</legend>
+    <div class="group">
+    <% if current_user.addresses.any? %>
+      <%= render :partial => 'address', :collection => current_user.addresses, :locals => {:address_type => 'ship_address'}, :spacer_template => 'shared/spacer' %>
+    <% else %>
+      <div class="formrow">
+        <p>Please <%= link_to 'create a new address', checkout_new_address_path(:address_type => 'ship_address') %> to use with this order.</p>
+      </div>
+    <% end %>
+    </div>
+  </fieldset>
+
+  <p>Please select a shipping method for this order. <!-- <a href="#" onclick="new Ajax.Request('/checkout/calc_shipping?address_id=' + address_id, {asynchronous:true, parameters:'authenticity_token='+encodeURIComponent('<%= form_authenticity_token.to_s %>'), evalScripts:true}); return false;">Recalculate shipping options</a>. --></p>
+  
+  <fieldset>
+    <legend>Shipping Method</legend>
+    <div class="group" id="shipping_options">
+                    <% if !@cart.is_virtual? %>
+      <%= render :partial => 'shipping_option', :collection => session[:shipping_options] %>
+                    <% else  %>
+                        Download from Account/Downloads
+                    <% end %>
+    </div> <!-- end group -->
+  </fieldset>
+  
+  <%- if Customer::INSTITUTIONS.include?(current_user.category) && CONFIG[:free_shipping_for_institutions] == true -%>
+    <p class="nb">Free shipping is offered to schools &amp; libraries only. Your final order will be adjusted if your account has been classified incorrectly upon registering.</p>
+  <%- end -%>
+  
+  <%= submit_or_cancel(cart_path, 'Continue') %>
+<% end %>
+
+<% content_for :head do %>
+  <script type="text/javascript" charset="utf-8">
+    var address_id = <%= session[:ship_address].nil? ? '' : session[:ship_address].id  %>
+  </script>
+<% end %>

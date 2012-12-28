@@ -1,0 +1,34 @@
+<h1><%= calculate_page_heading %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Create a new team', new_sales_team_url)) %>
+</ul>
+
+<%= form_tag sales_teams_path, :method => :get do %>
+  <%= text_field_tag :q, params[:q] %>
+  <input type="submit" value="Search">
+<% end %>
+
+<table class="list" id="<%= controller.controller_name %>">
+  <thead>
+    <tr>
+      <th class="first">Name</th>
+      <th class="last">Head Rep</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @sales_teams.each do |sales_team| %>
+    <%= content_tag_for(:tr, sales_team, :class => cycle('odd', 'even')) do %>
+      <td><%= link_to h(sales_team.name), sales_team_url(sales_team), :class => 'highlight' %></td>
+      <td><%= link_to h(sales_team.head_sales_rep), sales_team_sales_rep_url(sales_team, sales_team.head_sales_rep) if sales_team.head_sales_rep %></td>
+    <% end %>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2">
+        <%= will_paginate @sales_teams %>
+      </td>
+    </tr>
+  </tfoot>
+</table>

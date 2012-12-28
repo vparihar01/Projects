@@ -1,0 +1,26 @@
+---
+English: 
+  value: English
+  onix: eng
+  ingram: ENG
+  bakertaylor: English
+Spanish: 
+  value: Spanish
+  onix: spa
+  ingram: SPA
+  bakertaylor: Spanish
+French: 
+  value: French
+  onix: fre
+  ingram: FRE
+  bakertaylor: French
+German: 
+  value: German
+  onix: ger
+  ingram: GER
+  bakertaylor: German
+Multiple Languages: 
+  value: Multiple Languages
+  onix: mul
+  ingram: MUL
+  bakertaylor: Multiple Languages

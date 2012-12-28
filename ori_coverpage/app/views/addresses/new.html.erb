@@ -1,0 +1,32 @@
+<% if checkout_scope? -%>
+  <h1><%= calculate_address_page_heading %></h1>
+<% else -%>
+  <h1><%= calculate_page_heading %></h1>
+  <ul class="page-actions">
+    <li><%= link_to("Return to list", addresses_path) %></li>
+  </ul>
+<% end -%>
+
+<%= render :partial => 'shared/required' %>
+
+<%= form_for @address do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <div class="pagebuttons">
+    <% if checkout_scope? -%>
+      <% if params[:address_type] == 'bill_address' -%>
+        <div class="secondary"><%= link_to 'Cancel', checkout_billing_path %></div>
+        <% title = " Return to Step 3: billing method " %>
+      <% elsif params[:address_type] == 'ship_address' -%>
+        <div class="secondary"><%= link_to 'Cancel', checkout_shipping_path %></div>
+        <% title = " Return to Step 2: shipping method " %>
+      <% else -%>
+        <% title = " Continue " %>
+      <% end -%>
+      <%= image_submit_tag "buttons/l/continue.gif", :alt => title, :title => title %>
+    <% else -%>
+      <%= submit_or_cancel %>
+    <% end -%>
+  </div>
+<% end -%>
+
+<%= render :partial => 'shared/mailing_restriction' %>

@@ -1,0 +1,41 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => request.path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :name_contains, :label => "Name", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :body_contains, :label => "Lesson", :required => false, :wrapper_html => { :class => "half first" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @teaching_guides.any? -%>
+  <table cellspacing="0" class="list">
+    <tr>
+      <th class="first"><%= sort_link(@search, :name) %></th>
+      <th><%= sort_link(@search, :id) %></th>
+      <th>File</th>
+      <th><%= sort_link(@search, :created_on, 'Created') %></th>
+      <th><%= sort_link(@search, :updated_on, 'Updated') %></th>
+      <th class="icon last">Delete</th>
+    </tr>
+    <% @teaching_guides.each do |teaching_guide| -%>
+      <%= content_tag_for(:tr, teaching_guide, :class => cycle('odd', 'even')) do -%>
+        <td><%= link_to(teaching_guide.name, edit_admin_teaching_guide_path(teaching_guide), :class => 'highlight') %></td>
+        <td><%= link_to(teaching_guide.id, teaching_guide_path(teaching_guide), :class => 'subdue') %></td>
+        <td><%= teaching_guide.document.try(:file).try(:identifier) %></td>
+        <td><%= teaching_guide.created_at.to_s(:custom) %></td>
+        <td><%= teaching_guide.updated_at.to_s(:custom) %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_teaching_guide_path(teaching_guide), :class => 'admin', :method => :delete, :confirm => 'Are you sure you wish to delete this record?') %></td>
+      <% end -%>
+    <% end -%>
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @teaching_guides} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

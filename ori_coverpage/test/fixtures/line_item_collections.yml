@@ -1,0 +1,63 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+cart:
+  id: 1
+  user_id: 1
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  amount: 500
+quote:
+  id: 2
+  user_id: 1
+  type: Quote
+  name: A Quote
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  sales_team_id: 1
+quote_2:
+  id: 3
+  user_id: 2
+  type: Quote
+  name: Quote by user 2
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  sales_team_id: 1
+quote_3:
+  id: 4
+  user_id: 4
+  type: Quote
+  name: Quote by user 4
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  sales_team_id: 2
+sale:
+  id: 5
+  user_id: 1
+  type: Sale
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  completed_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  sales_team_id: 2
+  status: Accepted
+wishlist:
+  id: 6
+  user_id: 1
+  type: Wishlist
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
+paid_sale:
+  id: 7
+  user_id: 6
+  type: Sale
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  completed_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  sales_team_id: 2
+  status: Paid
+mobile_cart:
+  id: 8
+  user_id: 6
+  created_at: <%= 1.day.ago.to_formatted_s(:db) %>
+  amount: 500
+cart_without_card_auth:
+  id: 9
+  user_id: 1
+  created_at: <%= 2.hours.ago.to_formatted_s(:db) %>
+  amount: 1000
+spectrum_cart:
+  id: 10
+  user_id: 8
+  created_at: <%= 1.hour %>
+  amount: 0

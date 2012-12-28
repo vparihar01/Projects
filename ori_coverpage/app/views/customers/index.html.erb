@@ -1,0 +1,36 @@
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Create a new customer', new_customer_url)) if admin? %>
+</ul>
+
+<%= form_tag "" do %>
+  <%= text_field_tag :q, params[:q] %>
+  <input type="submit" value="Search">
+<% end %>
+
+<table class="list" id="<%= controller.controller_name %>">
+  <thead>
+    <tr>
+      <th class="first">Name</th>
+      <th class="last">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @customers.each do |customer| %>
+    <%= content_tag_for(:tr, customer, :class => cycle('odd', 'even')) do %>
+      <td><%= link_to h(customer.name), customer_url(customer) %></td>
+      <td><%= customer.class %></td>
+    <% end %>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2">
+        <%= will_paginate @customers %>
+      </td>
+    </tr>
+  </tfoot>
+</table>

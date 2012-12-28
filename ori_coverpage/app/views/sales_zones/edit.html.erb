@@ -1,0 +1,6 @@
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for @sales_zone do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= submit_or_cancel sales_zone_url(@sales_zone) %>
+<% end %>

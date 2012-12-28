@@ -1,0 +1,33 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @download} %>
+<ul class="actions">
+      <li><%= link_to('Rename', rename_admin_download_path(@download)) %></li>
+</ul> 
+
+<h1><%= calculate_page_heading %></h1>
+
+<h4><%= @download.title %></h4>
+<p><%= @download.description %></p>
+
+<% if @download.exist? -%>
+	<ul>
+		<li><strong><%= link_to 'Download Now', click_download_path(@download), :method => :put %></strong></li>
+		<li>File Size: <%= number_to_human_size(@download.size) %></li>
+		<li>File Format: <%= @download.file_type %></li>
+	</ul>
+<% else -%>
+	<p class="other-error">File missing: Please notify <%= CONFIG[:webmaster_email] %></p>
+<% end -%>
+
+<ul>
+<li class="meta">Created: <%= @download.created_at.to_s(:long_day) %></li>
+<li class="meta">Updated: <%= @download.updated_at.to_s(:long_day) %></li>
+<li class="meta">File Name: <%= @download.filename %></li>
+<li class="meta">Visible: <%= @download.is_visible.to_s %></li>
+<% if @download.exist? -%>
+<li class="meta">File Date: <%= @download.mtime.to_s(:custom_with_time) %></li>
+<li class="meta">Content Type: <%= @download.content_type %></li>
+<% else -%>
+<li class="meta">NB: Does NOT exist</li>
+<% end -%>
+<li class="meta">Tags: <%= @download.tag_list %></li>
+</ul>

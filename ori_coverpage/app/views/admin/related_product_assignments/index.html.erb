@@ -1,0 +1,29 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => admin_related_product_assignments_path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :product_id_equals, :label => "Product", :as => :select, :collection => Product.to_dropdown, :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :relation_equals, :label => "Relation", :as => :select, :collection => app_select_options(:relation), :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @related_product_assignments.any? %>
+  <table class="list" id="assignments">
+    <tr>
+      <th class="first">Product</th>
+      <th>Relation</th>
+      <th>Related Product</th>
+      <th class="last center">Delete</th>
+    </tr>
+    <%= render :partial => 'assignment', :collection => @related_product_assignments %>
+  </table>
+  <%= will_paginate @related_product_assignments %>
+<% else %>
+  <p>No records found.</p>
+<% end %>

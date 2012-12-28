@@ -1,0 +1,12 @@
+<div class="half first">
+  <%= label_tag :distribution_recipient, "Recipient" %>
+  <% if @klass %>
+    <%= select_tag "distribution[recipient]", options_for_select(@klass.to_dropdown, (params[:distribution].blank? ? '' : params[:distribution][:recipient])) %>
+  <% else %>
+    <%= select_tag "distribution[recipient]", options_for_select([['-- Select Asset Type --', '']]), :disabled => true %>
+  <% end %>
+</div>
+<div class="half">
+  <%= label_tag :distribution_override_recipient, "Override" %>
+  <%= check_box_tag 'distribution[override_recipient]', 'true', (!params[:distribution].blank? ? params[:distribution][:override_recipient] == 'true' : false), :onchange => remote_function( :url => admin_override_recipient_change_distribution_path, :with => "'distribution[type]='+document.getElementById('distribution_type').value+'&distribution[override_recipient]='+document.getElementById('distribution_override_recipient').checked" ), :class => 'unsized' %>
+</div>

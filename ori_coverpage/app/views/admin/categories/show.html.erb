@@ -1,0 +1,7 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @category} %>
+
+<h1><%= @category.name %></h1>
+
+<div class="module-category">
+  <%= render :partial => 'admin/shared/product_assignments', :locals => { :assignable => @category, :klass => 'assembly' }  %>
+</div>

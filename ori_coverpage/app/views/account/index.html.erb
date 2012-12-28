@@ -1,0 +1,50 @@
+<% content_for :sidebar do -%>
+  <h2>Recent Orders</h2>
+  <% if @orders.any? -%>
+    <ul>
+      <% @orders.each do |order| -%>
+        <li><%= link_to("##{order.id}", order_account_path(order)) %> &nbsp; <%= order.completed_at.to_s(:us) %> &nbsp; <%= order.status %></li>
+      <% end -%>
+    </ul>
+  <% else -%>
+    <p>No orders found.</p>
+  <% end -%>
+<% end if CONFIG[:show_sidebar] -%>
+
+<h1>Your Account</h1>
+
+<h2>Account Information</h2>
+<ul>
+  <li><%= link_to 'Change your profile.', change_profile_path %></li>
+  <li><%= link_to 'Change your account password.', change_password_path %></li>
+</ul>
+
+<h2>Ordering Information</h2>
+<ul>
+	<li><%= link_to 'Manage your address book.', addresses_path %></li>
+	<li><%= link_to 'Manage your library processing specifications.', specs_path %></li>
+	<li><%= link_to	'View your orders.', orders_account_path %></li>
+	<li><%= link_to 'View your quotes.', quotes_path %></li>
+</ul>
+
+<% if logged_in? && current_user.downloads.any? -%>
+<h2>Product Downloads</h2>
+<ul>
+<li><%= link_to('Downloads', downloads_account_path) %></li>
+</ul>
+<% end -%>
+
+<h2>E-Mail Notifications</h2>
+<ul>
+  <% if CONFIG[:email_sale_status] == true -%>
+    <% if current_user.preferred_email_sale_status == true -%>
+      <li><%= link_to('Disable order status change messages.', toggle_email_sale_status_path, :method => :put) %></li>
+    <% else -%>
+      <li><%= link_to('Enable order status change messages.', toggle_email_sale_status_path, :method => :put) %></li>
+    <% end -%>
+  <% end -%>
+  <% unless CONFIG[:subscribe_url].blank? && CONFIG[:unsubscribe_url].blank? -%>
+    <%= subscribe_link('Subscribe to our newsletter.', :wrap => true) %>
+    <%= unsubscribe_link('Unsubscribe from our newsletter.', :wrap => true) %>
+  <% end -%>
+</ul>

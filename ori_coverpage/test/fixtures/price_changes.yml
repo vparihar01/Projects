@@ -1,0 +1,29 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+a_title_executed:
+  product_format_id: 1
+  price_list: 10
+  price: 8
+  implement_on: <%= (Date.today - 2.week).to_formatted_s :db %>
+  state: processed
+
+a_title:
+  product_format_id: 3
+  price_list: 12
+  price: 9
+  implement_on: <%= (Date.today + 1.day).to_formatted_s :db %>
+  state: new
+
+title_in_assembly:
+  product_format_id: 2
+  price: 10
+  price_list: 12
+  implement_on: <%= (Date.today + 1.day).to_formatted_s :db %>
+  state: new
+
+an_assembly:
+  product_format_id: 4
+  price_list: 10
+  price: 8
+  implement_on: <%= (Date.today + 1.day).to_formatted_s :db %>
+  state: new

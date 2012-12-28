@@ -1,0 +1,56 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag('filter') %>
+<% end -%>
+<h2>Refine Your Search</h2>
+<p>Adjust the filters, then click the "Perform" button to update the search results.</p>
+<%= form_tag search_results_path, :remote => true, :id => 'form_filter' do -%>
+  <div class="filterbuttons"><%= submit_tag("Perform", :disable_with => 'Processing...') %></div>
+  <fieldset>
+    <% unless params[:name_contains].blank? -%>
+      <%= filter_checkboxes("name_contains", "Name") %>
+    <% end -%>
+    <% unless params[:description_contains].blank? -%>
+      <%= filter_checkboxes("description_contains", "Description") %>
+    <% end -%>
+    <% unless params[:product_formats_isbn_in].blank? -%>
+      <%= filter_checkboxes("product_formats_isbn_in", "ISBN") %>
+    <% end -%>
+    <% unless params[:author_contains].blank? -%>
+      <%= filter_checkboxes("author_contains", "Author") %>
+    <% end -%>
+    <% unless params[:bisac_subjects_code_in].blank? -%>
+      <%= filter_checkboxes("bisac_subjects_code_in", "BISAC") %>
+    <% end -%>
+    <% unless params[:guided_level_in].blank? -%>
+      <%= filter_checkboxes("guided_level_in", "Guided Level") %>
+    <% end -%>
+    <% unless params[:available_on].blank? -%>
+      <%= filter_checkboxes("available_on", "Date Available") %>
+    <% end -%>
+    <% unless params[:catalog_page_in].blank? -%>
+      <%= filter_checkboxes("catalog_page_in", "Catalog Page") %>
+    <% end -%>
+    <%= filter_checkboxes("type_in", "Product Type", product_subtype_options) %>
+    <%= filter_slider("copyright", "Copyright Year", Product::FILTER_COPYRIGHT_RANGE) %>
+    <% unless CONFIG[:default_format_only] -%>
+      <%= filter_checkboxes("product_formats_format_id_equals", "Product Format", format_options) %>
+    <% else -%>
+      <%= hidden_field_tag :product_formats_format_id_equals, Format::DEFAULT_ID %>
+    <% end -%>
+    <%= filter_checkboxes("product_formats_status_in", "Product Format Status", status_options, params[:product_formats_status_in]) %>
+    <%= filter_checkboxes("dewey_in", "Dewey Type", dewey_type_options, params[:dewey_in]) %>
+    <%= filter_slider("dewey", "Dewey Range", [0, 999]) %>
+    <%= filter_slider("interest_level", "Interest Level", Level::FILTER_RANGE) %>
+    <%= filter_slider("reading_level", "Reading Level", Level::FILTER_RANGE) %>
+    <% if Product::FILTER_ALSREADLEVEL_RANGE.any? -%>
+      <%= filter_slider("alsreadlevel", "ATOS", Product::FILTER_ALSREADLEVEL_RANGE) %>
+    <% end -%>
+    <% if Product::FILTER_LEXILE_RANGE.any? -%>
+      <%= filter_slider("lexile", "Lexile", Product::FILTER_LEXILE_RANGE) %>
+    <% end -%>
+  </fieldset>
+<% end -%>
+
+<h2>Export Search Results</h2>
+<p>Use the form below to export data for the products displayed in your search results.</p>
+<%= render :partial => 'export_search_results', :locals => {:form_values => @form_values} %>

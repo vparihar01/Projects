@@ -1,0 +1,17 @@
+Use this README file to introduce your application and point to useful places in the API for learning more.
+Run "rake appdoc" to generate API documentation for your models and controllers.
+
+To view required gem:
+$ rake gems
+
+To install required gems:
+$ rake gems:install
+
+Must download and install milkfarm-onix gem: https://dev.milkfarmproductions.com/projects/list_files/cherrylake
+$ sudo gem install milkfarm-onix-0.X.X.gem
+
+To replace some product data (eg, the deweys -- file must contain dewey column and type column):
+$ rake RAILS_ENV=production import:products file=deweys.csv
+
+To export follett metadata (date argument determines which products to export):
+$ rake RAILS_ENV=production utils:export_metadata date=2008-08-01

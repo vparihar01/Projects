@@ -1,0 +1,14 @@
+<%= div_for(spec) do -%>
+  <% if defined?(show_actions) && show_actions -%>
+    <ul class="record-actions">
+      <li><%= link_to(image_tag("buttons/s/delete.gif"), spec_path(spec), :method => :delete, :confirm => 'Are you sure you wish to delete this record?') %></li>
+      <li><%= link_to(image_tag("buttons/s/edit.gif"), edit_spec_path(spec)) %></li>
+    </ul>
+  <% end -%>
+  <ul <%= "class=\"#{style}\"" if defined?(style) %>>
+    <li><span class="meta">Description:</span> <%= spec.name %></li>
+    <li><span class="meta">Contact:</span> <%= spec.contact_name %>, <%= spec.contact_email %></li>
+    <li><span class="meta">Include:</span> <%= spec.inclusions.to_sentence.html_safe %></li>
+    <li><span class="meta">Special Request:</span> <%= spec.customization.blank? ? 'No' : h(spec.customization) %></li>
+  </ul>
+<% end -%>

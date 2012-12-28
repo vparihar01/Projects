@@ -1,0 +1,98 @@
+#!/usr/bin/env ruby
+
+# script/logrotate
+#
+# simple script to run logrotate with a custom configuration file
+# (not system-wide logrotation config)
+#
+# USAGE:
+# script/logrotate p - prints current/default config files
+# script/logrotate c - creates a config file (by default in <rails_root>/config/
+# script/logrotate x - executes logrotate with custom config (generated if not present) and state file
+
+KEEPFILES=30
+LOGROTATE = '/usr/sbin/logrotate'
+LOGROTATE_OPTIONS = "-v"            # verbose
+
+ARGV << '--help' if ARGV.empty?
+
+puts ARGV.class.to_s
+#ARGV.each { |a| puts "------------------------------------------------#{a}" }
+
+aliases = {
+  "p"  => "print_config",
+  "c"  => "create_config",
+  "x"  => "execute"
+}
+
+command = ARGV.shift
+command = aliases[command] || command
+
+BASE_DIR = ARGV.shift || File.expand_path(File.join(File.dirname(__FILE__), '..'))
+
+puts "BASE_DIR -> #{BASE_DIR}"
+
+CONFIG_FILE = File.join(BASE_DIR, 'config', 'logrotate.conf')
+STATE_FILE = File.join(BASE_DIR, 'config', 'logrotate.state')
+LOG_FILES = File.join(BASE_DIR, 'log', '*.log')
+
+puts "CONFIG_FILE: #{CONFIG_FILE}"
+puts "STATE_FILE: #{STATE_FILE}"
+puts "LOG_FILES: #{LOG_FILES}"
+
+
+# define CONFIG file CREATION
+def create_config(config_file = CONFIG_FILE)
+  open(CONFIG_FILE, "w") do |f|
+    f << <<-EOT
+# Rotate Rails application logs
+ #{LOG_FILES} {
+  weekly
+  missingok
+  rotate #{KEEPFILES}
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+}
+EOT
+  end
+end
+# end CONFIG file CREATION
+
+
+
+
+# process incoming command
+case command
+when 'print_config'                       # PRINT CONFIG
+  raise "File does not exist!" unless File.exist?(CONFIG_FILE)
+  #b = File.open(CONFIG_FILE)
+  open(CONFIG_FILE) do |f|
+    while (a = f.gets)
+      puts a
+    end
+  end
+
+
+when 'create_config'                      # CREATE CONFIG
+
+  puts "Config file: #{CONFIG_FILE}"
+  create_config
+
+when 'execute'                            # EXECUTE
+  create_config unless File.exist?(CONFIG_FILE)
+  exec "#{LOGROTATE} #{LOGROTATE_OPTIONS} -s #{STATE_FILE} #{CONFIG_FILE}"
+
+else                                      # HELP
+  puts "Error: Command not recognized" unless %w(-h --help).include?(command)
+  puts <<-EOT
+Usage: logrotate COMMAND [ARGS]
+
+The version commands are:
+ print_config          Print current config (short-cut alias: "p")
+ create_config         Create a new logrotate config (short-cut alias: "c")
+
+  EOT
+end
+

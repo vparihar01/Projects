@@ -1,0 +1,27 @@
+<h1>Returning Customer</h1>
+
+<%= form_tag do %>
+	<fieldset>
+		<div class="group">
+		  <div class="half first">
+        <%= label_tag :email, 'Email address' %>
+        <%= text_field_tag :email, params[:email] %>
+			</div>
+		  <div class="half">
+        <%= label_tag :password, 'Password' %>
+  		  <%= password_field_tag :password %>
+			</div>
+			<div class="clearboth"></div>
+		  <div class="unsized">
+        <%= check_box_tag :remember_me, 1, (params[:remember_me] == "1"), :class => 'unsized' %>
+        <%= label_tag :remember_me, 'Remember me', :class => 'inline' %>
+			</div>
+			<div class="clearboth"></div>
+		</div>  
+	</fieldset> 
+	<%= page_buttons(submit_tag('Sign in'), link_to('Forgot your password?', forgot_password_path)) %>   
+<% end %>   
+
+<h2>New Customer?</h2>
+<p><%= link_to 'Creating an account', signup_path %> allows you to shop faster, track the status of your current orders and review your previous orders.</p>
+                                                                   

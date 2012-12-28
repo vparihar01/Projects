@@ -1,0 +1,7 @@
+<% content_for :sidebar do %>
+<ul class="submenu">
+  <li><%= link_to "New", new_admin_collection_path %></li>
+  <%= content_tag(:li, link_to("View", collection_path(@collection))) if @collection && @collection.id %>
+</ul>
+<% end %>
+<%= render :file => 'layouts/administration' %>

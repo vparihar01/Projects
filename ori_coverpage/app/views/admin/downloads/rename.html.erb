@@ -1,0 +1,21 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= error_messages_for :download %>
+
+<%= form_for(:download, :url => admin_download_path(@download), :html => { :method => :put }) do |f| -%>
+	<fieldset>
+	<div class="group">
+		<div class="formrow">
+			<div class="label">Old File Name</div>
+			<span class="input"><%= @download.filename %></span>
+		</div>
+		<div class="formrow">
+  		<%= f.label :filename, "New File Name" %>
+  		<%= f.text_field :filename %>
+		</div>
+	</div>
+	</fieldset>
+	<%= submit_or_cancel(admin_download_path(@download)) %>
+<% end -%>

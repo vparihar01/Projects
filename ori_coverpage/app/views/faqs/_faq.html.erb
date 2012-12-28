@@ -1,0 +1,7 @@
+<div class="clearfix module-faq" id="<%= dom_id(faq) %>">
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => faq, :controller_path => (defined?(controller_path) ? controller_path : nil)} %>
+  <% end -%>
+  <h3><%= link_to_function faq.question, visual_effect(:toggle_blind, dom_id(faq, 'answer'), :duration => CONFIG[:fade_duration]) %></h3>
+  <div id="<%= dom_id(faq, 'answer') %>" style="display:none;"><%= RedCloth.new(faq.answer).to_html.html_safe %></div>
+</div>

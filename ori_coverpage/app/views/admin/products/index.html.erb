@@ -1,0 +1,42 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => admin_products_path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :name_contains, :label => "Name", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :description_contains, :label => "Description", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :id_equals, :label => "ID", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :product_formats_isbn_equals, :label => "ISBN", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :available_on_equals, :label => "Date Available", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :lccn_equals, :label => "LCCN", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :type_equals, :label => "Type", :as => :select, :collection => Product::SUBTYPES.sort{|a,b| a[1]<=>b[1]}, :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :collection_id_equals, :label => "Series", :as => :select, :collection => Collection.to_dropdown, :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :product_formats_format_id_equals, :label => "Format", :as => :select, :collection => format_options(:show_all => true), :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :product_formats_status_equals, :label => "Status", :as => :select, :collection => status_options, :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<%= render :partial => 'admin/shared/search_sort', :locals => {:options => [{:by => :name}, {:by => :type}, {:by => :collection_id, :as => 'Series'}]} %>
+
+<% if @products.any? %>
+  <table class="list" id="products">
+  <tr>
+    <th class="first"><%= sort_link @search, :name, 'Title' %></th>
+    <th>&nbsp;</th>
+    <th><%= sort_link @search, :id, 'ID' %></th>
+    <th><%= sort_link @search, :product_formats_isbn, 'ISBN' %></th>
+    <th class="number"><%= sort_link @search, :product_formats_price, 'Price' %></th>
+    <th class="number">Version</th>
+    <th class="icon last">Delete</th>
+  </tr>
+  <%= render :partial => 'product', :collection => @products %> 
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @products} %>
+<% else %>
+  <p>No records found.</p>
+<% end -%>

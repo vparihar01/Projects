@@ -1,0 +1,19 @@
+<h2>
+<span>More About Us</span>
+</h2>
+
+<ul>
+<li><%= link_to "Location", public_page_path(:location) %></li>
+<li><%= link_to "Sales Representatives", public_page_path(:reps) %></li>
+<li><%= link_to "Contributors", contributors_path %></li>
+<li><%= link_to "Headlines", headlines_path %></li>
+<li><%= link_to "Reviews", editorial_reviews_path %></li>
+
+</ul>
+
+<%- if controller_is?("TestimonialsController") -%>
+  <%= render "shared/headlines" %>
+<%- else -%>
+  <%= render "shared/testimonials" %>
+<%- end -%>
+

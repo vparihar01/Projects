@@ -1,0 +1,8 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for @format, :url => admin_formats_path do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render :partial => 'admin/shared/new_buttons', :locals => {:f => f} %>
+<% end -%>

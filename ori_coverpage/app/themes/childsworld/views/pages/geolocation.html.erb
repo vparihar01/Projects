@@ -1,0 +1,14 @@
+<h1>Location</h1>
+
+<h2>Headquarters</h2>
+<ul>
+<li><%= CONFIG[:company_name] %></li>
+<li><%= CONFIG[:street] %></li>
+<% if CONFIG[:suite] %><li><%= CONFIG[:suite] %></li><% end %>
+<li><%= CONFIG[:city] %>, <%= CONFIG[:state] %> <%= CONFIG[:zip] %></li>
+<li>Phone: <%= CONFIG[:phone] %></li>
+<li>Fax: <%= CONFIG[:fax] %></li>
+<li>E-mail: <%= CONFIG[:sales_email] %></li>
+</ul>
+
+<p class="map_link"><a href="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=1980+Lookout+Drive,+Mankato,+MN&aq=0&sll=37.0625,-95.677068&sspn=37.683309,79.013672&ie=UTF8&hq=&hnear=1980+Lookout+Dr,+Mankato,+Nicollet,+Minnesota+56003&z=16">Google Map: <%= CONFIG[:company_name] %></a></p>

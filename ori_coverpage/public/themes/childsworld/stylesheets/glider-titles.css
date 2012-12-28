@@ -1,0 +1,75 @@
+/* Thanks to: http://www.teddy-o-ted.com/tutorials/compacting-contents-using-glider-script/ */
+
+.glider-module {margin-bottom:3em;}
+.glider {
+  padding:0;
+  margin:0;
+  border-top: 5px solid #E8E8E2;
+  border-bottom: 5px solid #E8E8E2;
+}
+.glider div.record {
+  float:left;
+  margin:7px 5px 0 5px;
+}
+.glider img.cover {}
+.scroller {
+  float: left;
+  overflow: hidden;
+  width: 590px;
+}
+.scroller .content {
+  width: 10000px;
+}
+.section {
+  float: left;
+  overflow: hidden;
+  padding: 0;
+  width: 590px;
+  background-color:#EEEEE8;
+}
+.controls {
+  border:2px solid #fff;
+}
+.controls ul {
+  list-style: none;
+}
+.controls ul li {
+  float: left;
+}
+.controls ul li a {
+  display: block;
+  padding: 0 7px;
+  text-align: center;
+  border-right: 2px solid #fff;
+  color:#555;
+}
+.controls ul li a.active {
+  background-color: #E8E8E2;
+  font-weight: bold;
+  font-style: italic;
+  color: #000;
+}
+.side-nav-prev, .side-nav-next {
+  float: left;
+  width: 20px;
+  height: 140px;
+}
+.side-nav-prev a, .side-nav-next a {
+  display: block;
+  text-indent: -9999px;
+  width: 20px;
+  height: 140px;
+  color:#838a90;
+}
+.side-nav-prev a {
+  background: url(../images/previous-off.gif) no-repeat center center;
+}
+.side-nav-prev a:hover {
+  background: url(../images/previous.gif) no-repeat center center;
+}
+.side-nav-next a {
+  background: url(../images/next-off.gif) no-repeat center center;
+}
+.side-nav-next a:hover {
+  background: url(../images/next.gif) no-repeat center center;
+}

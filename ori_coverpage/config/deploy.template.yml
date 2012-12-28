@@ -1,0 +1,17 @@
+---
+theme: "youthemehere"
+application: "yourappnamehere"
+repository: "gitosis@git.milkfarmproductions.com:coverpage.git"
+deploy_to: "/var/www/yourdomain"
+rails_env: "production"
+user: "youruserontheserver"
+group: "yourgroupontheserver"
+runner: "youruserontheserver"
+branch: "master"
+scm_username: "yourscmuser"
+scm_password: "yourscmpass"
+keep_releases: 5
+role_app: "yourappserver"
+role_web: "yourwebserver"
+role_db:  "yourdbserver"
+remote_rake: "/usr/local/bin/rake"

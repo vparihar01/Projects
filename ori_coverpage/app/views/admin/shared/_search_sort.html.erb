@@ -1,0 +1,8 @@
+<div class="clearfix">
+  <ul class="sort">
+    <%= content_tag(:li, "Sort by:", :class => 'label') %>
+    <% options.each_with_index do |option, i| -%>
+      <%= content_tag(:li, ( option[:as].present? ? sort_link(@search, option[:by], option[:as]) : sort_link(@search, option[:by]) ), :class => (i == 0 ? "first" : "")) %>
+    <% end -%>
+  </ul>
+</div>

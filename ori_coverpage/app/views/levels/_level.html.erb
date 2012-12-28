@@ -1,0 +1,21 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag 'tooltip' %>
+  <%= stylesheet_link_tag 'tooltip', :media => 'screen' %>
+<% end -%>
+<div id="<%= level.abbreviation %>" class="module">
+  <% if !params[:category_id].blank? && category = Category.find(params[:category_id]) %>
+    <% products = category.products.available.join_formats_with_distinct.active.except(:order).order(:name).grade(level.value) %>
+  <% else -%>
+    <% products = Assembly.available.join_formats_with_distinct.active.except(:order).order(:name).grade(level.value) %>
+  <% end -%>
+  <% if products.size > 0 -%>
+
+    <h2><%= link_to level.name, level_path(level) %></h2>
+    <ul>
+      <% products.each do |product| -%>
+        <li><%= content_tag(:span, link_to(product.name, show_path(product)), :id => dom_id(product, dom_id(level)), :class => "record tipper x") %></li>
+      <% end -%>
+    </ul>
+
+  <% end -%>
+</div>

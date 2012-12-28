@@ -1,0 +1,9 @@
+<%= form_tag collections_path, :method => :get, :class => 'quick-search' do %>
+  <fieldset>
+    <div class="group">
+      <% value = 'series search' -%>
+      <%= text_field_tag :name, (params[:name] || value), :onfocus => "clear_value(this, '#{value}')", :onblur => "reset_value(this, '#{value}')", :class => "text" %>
+      <%= image_submit_tag 'search-dark.gif', :alt => '', :class => 'button' %>
+    </div>
+  </fieldset>
+<% end %>

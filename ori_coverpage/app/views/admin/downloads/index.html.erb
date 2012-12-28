@@ -1,0 +1,31 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => request.path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :title_contains, :label => "Title", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :filename_contains, :label => "File Name", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :description_contains, :label => "Description", :required => false, :wrapper_html => { :class => "full" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @downloads.any? -%>
+  <table>
+    <tr>
+      <th class="first"><%= sort_link(@search, :title ) %></th>
+      <th><%= sort_link(@search, :size ) %></th>
+      <th>Format</th>
+      <th><%= sort_link(@search, :created_at ) %></th>
+      <th colspan="2" class="icon last">Actions</th>
+    </tr>
+  <%= render :partial => 'download', :collection => @downloads %>
+  </table>
+  <%= will_paginate @downloads %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

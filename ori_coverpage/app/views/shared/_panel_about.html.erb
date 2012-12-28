@@ -1,0 +1,8 @@
+<ul class="submenu">
+  <li class="<%= submenu_class_by_path('/about') %>"><%= link_to 'About Us', public_page_path(:about) %></li>
+  <li class="<%= submenu_class('pages', 'geolocation') %>"><%= link_to 'Location', public_page_path(:location) %></li>
+  <li class="<%= submenu_class_by_path('/reps') %>"><%= link_to 'Sales Representatives', public_page_path(:reps) %></li>
+  <li class="<%= submenu_class('contributors') %>"><%= link_to 'Contributors', contributors_path %></li>
+  <li class="<%= submenu_class('headlines') %>"><%= link_to 'Headlines', headlines_path %></li>
+  <li class="<%= submenu_class('testimonials') %>"><%= link_to 'Testimonials', testimonials_path %></li>
+</ul>

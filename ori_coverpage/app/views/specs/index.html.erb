@@ -1,0 +1,13 @@
+<h1>Library Processing</h1>
+
+<%- if Customer::INSTITUTIONS.include?(current_user.category) -%>
+  <ul class="page-actions">
+  <li><%= link_to("New specification", :action => "new") %></li>
+  </ul>
+
+  <% if @specs.any? -%>
+    <%= render :partial => 'spec_summary', :collection => @specs, :as => :spec, :spacer_template => 'shared/spacer', :locals => {:show_actions => true} %>
+  <% end -%>
+<% else -%>
+  <p>Library processing is available to schools and libraries only. If your account is categorized incorrectly, please call <%= CONFIG[:phone] %> or email <%= CONFIG[:support_email] %>.</p>
+<% end -%>

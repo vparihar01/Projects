@@ -1,0 +1,9 @@
+<ul id="cart_links" class="quick">
+  <%- if logged_in? -%>
+    <%- unless @cart.line_items.any? -%>
+      <li>Quickly add items to your cart<br /> using the <%= link_to("QuickShop form", quick_path) %>.</li>
+    <%- end -%>
+  <%- else -%>
+    <li><%= link_to("Login to create quotes<br /> and export data.".html_safe, login_path) %></li>
+  <%- end -%>
+</ul>

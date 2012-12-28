@@ -1,0 +1,30 @@
+<ul class="actions">
+  <li class="last"><%= link_to image_tag('buttons/admin/admin.gif', :alt => 'Admin Jobs'), admin_jobs_path, :class => 'admin' %></li>
+</ul>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for :distribution, :url => admin_execute_distribution_path do |f| %>
+  <fieldset>
+    <div class="group clearfix">
+      <div class="half">
+        <%= label_tag :distribution_type, 'Asset Type' %>
+        <%= select_tag 'distribution[type]', options_for_select(Recipient.subclasses_dropdown(:include_blank => false), (params[:distribution] && params[:distribution][:type] ? params[:distribution][:type] : '')), :onchange => remote_function( :url => admin_asset_select_distribution_path, :with => "'distribution[type]='+document.getElementById('distribution_type').value+'&distribution[override_recipient]='+document.getElementById('distribution_override_recipient').checked" ) %>
+      </div>
+      <div class="clearboth"></div>
+    </div>
+  </fieldset>
+
+  <%= render :partial => 'admin/products/select' %>
+
+  <fieldset>
+    <div id="recipients_partial" class="group clearfix">
+      <%= render :partial => "recipients" %>
+    </div>
+    <div id="asset_select_partial" class="group clearfix">
+      <%= render :partial => @asset_type if @asset_type && params[:distribution][:override_recipient] == 'true' %>
+    </div>
+  </fieldset>
+
+  <%= submit_or_cancel(admin_path, "Distribute") %>
+<% end -%>

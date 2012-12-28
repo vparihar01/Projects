@@ -1,0 +1,8 @@
+<ul class="shortcuts">
+  <%= content_tag(:li, "Welcome! &nbsp; #{link_to("logout", logout_path)}".html_safe) if logged_in? %>
+  <%= content_tag(:li, "Returning Customer? &nbsp; #{link_to("login", login_path)}".html_safe) unless logged_in? %>
+  <%= content_tag(:li, link_to("register", signup_path)) unless logged_in? %>
+  <%= content_tag(:li, link_to('admin', admin_path)) if admin? %>
+  <%= content_tag(:li, link_to("wishlist", wishlists_path)) if logged_in? %>
+  <%= content_tag(:li, link_to("cart", cart_path), :class => 'last') %>
+</ul>

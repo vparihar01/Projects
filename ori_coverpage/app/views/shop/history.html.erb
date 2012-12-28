@@ -1,0 +1,10 @@
+<h1>Recently Viewed</h1>
+
+<% unless @products.nil? -%>
+<ul>
+	<% @products.each do |id| -%>
+		<% product = Product.find(id) -%>
+		<li><%= link_to(product.name, :action => 'show', :id => id) %>
+	<% end -%>
+</ul>
+<% end -%>

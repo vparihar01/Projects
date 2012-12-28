@@ -1,0 +1,25 @@
+<table class="list">
+  <thead>
+    <tr>
+      <th class="first">Name</th>
+      <th>Size</th>
+      <th class="last">Format</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if handouts.any? -%>
+      <% handouts.each do |handout| -%>
+        <%= content_tag_for(:tr, handout, :class => cycle('odd', 'even')) do -%>
+          <td><%= link_to(handout.name, handout_path(handout)) %></td>
+          <% if handout.document_exist? -%>
+            <td><strong><%= link_to(number_to_human_size(handout.document.file.size), download_handout_path(handout), :method => :put, :class => "downlink highlight", :title => 'Download now') %></strong></td>
+            <td><%= handout.document_ext.upcase %></td>
+          <% else -%>
+          <% end -%>
+        <% end -%>
+      <% end -%>
+    <% else -%>
+      <td colspan="3">No handouts found.</td>
+    <% end -%>
+  </tbody>
+</table>

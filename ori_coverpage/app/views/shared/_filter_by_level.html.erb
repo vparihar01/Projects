@@ -1,0 +1,6 @@
+<div class="clearfix">
+<%= form_tag "", :method => :get, :class => 'filter' do %>
+  <%= label_tag :grade, 'Filter by Grade Level', :class => 'inline' %>
+  <%= select_tag :grade, options_for_select([['All', '']]+level_options(:include_blank=>true), params[:grade]), :onchange => "this.form.submit()" %>
+<% end %>
+</div>

@@ -1,0 +1,8 @@
+id,email,type,category,created_at,updated_at,name,city,postal_code,state,country,phone
+<% @users.each do |x| -%>
+<% if x.primary_address -%>
+"<%= ([x.id, x.email, x.type, x.category, x.created_at, x.updated_at, x.name, x.primary_address.city, x.primary_address.postal_code_name, x.primary_address.zone_name, x.primary_address.country_name, x.phone]).join('","').html_safe %>"
+<% else -%>
+"<%= ([x.id, x.email, x.type, x.category, x.created_at, x.updated_at, x.name, '', '', '', '', x.phone]).join('","').html_safe %>"
+<% end -%>
+<% end -%>

@@ -1,0 +1,31 @@
+<h1><%= calculate_page_heading %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Edit', edit_quote_url(@quote))) %>
+  <%= content_tag(:li, link_to('Export', export_quote_url(@quote))) %>
+  <%= content_tag(:li, link_to('Copy', copy_quote_url(@quote), :method => :post)) %>
+  <%= content_tag(:li, link_to('Delete', quote_url(@quote), :method => :delete, :confirm => 'Are you sure you wish to delete this quote along with its line items?')) %>
+  <%= content_tag(:li, link_to('Back', quotes_path)) %>
+</ul>
+
+<ul>
+  <li>
+    <span class="meta">Description</span> &nbsp; 
+    <strong><%= @quote.name %></strong>
+  </li>
+  <% unless current_user.customer? %>
+    <li>
+      <span class="meta">Customer</span> &nbsp; 
+      <strong><%= @quote.customer ? @quote.customer.name : '' %></strong>
+    </li>
+  <% end %>
+</ul>
+
+<%- if @quote.line_items.any? -%>
+  <%= render :partial => 'shared/line_item_collection', :locals => {:line_item_collection => @quote} %>
+  <%= form_tag load_cart_quote_path(@quote), :method => :put, :class => 'place' do -%>
+    <%= render :partial => 'shared/place_form', :locals => {:type => 'quote', :cart => @cart} %>
+  <% end -%>
+<%- else -%>
+  <p>No line items found for this quote.</p>
+<%- end -%>

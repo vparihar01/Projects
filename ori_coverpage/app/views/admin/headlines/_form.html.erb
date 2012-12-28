@@ -1,0 +1,10 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :headline %>
+
+<%= f.inputs do %>
+  <%= f.input :title, :wrapper_html => { :class => "full" } %>
+  <%= f.input :snippet, :wrapper_html => { :class => "full" }, :input_html => { :class => "short" } %>
+  <%= f.input :body, :wrapper_html => { :class => "full" }, :input_html => { :class => "tall" } %>
+<% end %>

@@ -1,0 +1,14 @@
+<% clean_params -%>
+<p id="stats">
+  <% if products.blank? -%>
+    Your search returned no matches.
+  <% else -%>
+    Your search returned <%= pluralize(products.total_entries, 'match') %>. Displaying <%= products.offset+1 %> - <%= products.offset+products.size %>.
+  <% end -%>
+</p>
+
+<%= pagination = render :partial => 'pagination', :locals => {:products => products} %>
+
+<%= yield %>
+
+<%= pagination %>

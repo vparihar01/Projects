@@ -1,0 +1,4 @@
+<div class="record <%= "border" if k != 0 %>">
+  <h4 style="text-transform:uppercase;"><%= product.name %></h4>
+  <%= link_to image_tag(product.image("covers","s")), show_path(product), :title => '' %>
+</div>

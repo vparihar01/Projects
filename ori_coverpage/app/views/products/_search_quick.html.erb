@@ -1,0 +1,10 @@
+<%= form_tag quick_path, :method => :get, :class => 'quick-search' do %>
+  <fieldset>
+    <div class="group">
+      <% value = 'product search' -%>
+      <%= hidden_field_tag(:product_formats_format_id_equals, Format::DEFAULT_ID) if CONFIG[:default_format_only] %>
+      <%= text_field_tag 'q', (params[:q] || value), :onfocus => "clear_value(this, '#{value}')", :onblur => "reset_value(this, '#{value}')", :class => 'text' %>
+      <%= image_submit_tag 'search-dark.gif', :alt => '', :class => 'button' %>
+    </div>
+  </fieldset>
+<% end -%>

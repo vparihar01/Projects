@@ -1,0 +1,19 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1>Frequently Asked Questions</h1>
+
+<div class="group forcebottommargin">
+<span class="inline label">Tags: </span> &nbsp; 
+<%=raw tag_list_to_links(@tags, :show_all => true) %>
+</div>
+
+<% unless CONFIG[:show_sidebar] -%>
+  <%= render :partial => 'search' %>
+<% end -%>
+
+<% if @faqs.any? -%>
+  <%= render :partial => 'faq', :collection => @faqs, :locals => {:show_admin => admin?, :controller_path => "admin/#{controller.controller_name}"} %>
+  <%#= will_paginate @faqs %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

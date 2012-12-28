@@ -1,0 +1,29 @@
+<h1><%= calculate_page_heading %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Create a new zone', new_sales_zone_path)) %>
+</ul>
+
+<table class="list" id="<%= controller.controller_name %>">
+  <thead>
+    <tr>
+      <th class="first">Name</th>
+      <th class="number last">Contracts</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @sales_zones.each do |zone| %>
+    <%= content_tag_for(:tr, zone, :class => cycle('odd', 'even')) do %>
+      <td><%= link_to h(zone.name), sales_zone_url(zone), :class => 'highlight' %></td>
+      <td class="number"><%= zone.contracts.count %></td>
+    <% end %>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2">
+        <%= will_paginate @sales_zones %>
+      </td>
+    </tr>
+  </tfoot>
+</table>

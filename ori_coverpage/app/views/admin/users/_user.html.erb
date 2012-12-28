@@ -1,0 +1,7 @@
+<%= content_tag_for(:tr, user, :class => cycle('odd', 'even')) do %>
+  <td><%= link_to(user.name, admin_user_path(user), :class => 'highlight') %></td>
+  <td><%= user.email %></td>
+  <td><%= user.type %></td>
+  <td><%= user.category %></td>
+  <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_user_path(user), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></td>
+<% end -%>

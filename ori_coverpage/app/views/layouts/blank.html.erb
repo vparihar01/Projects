@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <% calculate_meta_tags -%>
+  <%= display_meta_tags :title => @page_title, :site => CONFIG[:company_name], :separator => '-', :reverse => true, :description => @page_description, :keywords => @page_keywords %>
+  <%= stylesheet_link_tag 'blank' %>
+	<%= yield :head %>
+</head>
+<body>
+  <%= yield %>
+  <%= render :partial => 'shared/analytics' %>
+</body>
+</html>

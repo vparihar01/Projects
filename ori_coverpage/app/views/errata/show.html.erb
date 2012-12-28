@@ -1,0 +1,20 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @erratum, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= content_tag(:ul) do %>
+  <%= display_value_in_list(@product, :name, 'Product name') %>
+  <%= display_value_in_list(@erratum, :product_format, 'Format') %>
+  <%= display_value_in_list(@erratum, :edition) %>
+  <%= display_value_in_list(@erratum, :page_number, 'Page') %>
+  <%= display_value_in_list(@erratum, :erratum_type, 'Type') %>
+  <%= display_value_in_list(@erratum, :status) %>
+  <%= display_value_in_list(@erratum, :description) %>
+<% end -%>
+
+<% if admin? -%>
+  <%= content_tag(:ul, :class => "meta") do %>
+    <%= display_value_in_list(@erratum, :created_at, 'Created') %>
+    <%= display_value_in_list(@erratum, :updated_at, 'Updated') %>
+  <% end -%>
+<% end -%>

@@ -1,0 +1,30 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1>Editorial Reviews</h1>
+
+<p>Use this page to find editorial reviews related to a specific book published by <%= CONFIG[:company_name] %>. Simply enter the ISBN and press "Search".</p>
+<%= form_tag search_editorial_reviews_path do %>
+  <fieldset>
+    <div class="group">
+      <%= label_tag :isbn, 'Enter an ISBN:', :class => "inline" %>
+      <%= text_field_tag :isbn, params[:isbn], :class => "l" %>
+      <%= submit_tag "Search" %>
+    </div>
+  </fieldset>
+<% end %>
+
+<% if !params[:isbn].blank? -%>
+  <% if @product -%>
+    <%= render :partial => 'shop/xproduct', :locals => {:product => @product} %>
+  <% else -%>
+    <p>Unknown ISBN.</p>
+  <% end -%>
+<% end -%>
+<%= render :partial => 'shared/spacer' %>
+
+<% if @editorial_reviews.any? -%>
+  <%= render :partial => 'editorial_reviews/summary', :collection => @editorial_reviews, :as => :editorial_review, :spacer_template => 'shared/spacer', :locals => {:show_admin => admin?, :hide_image => (!@product.nil?)} %>
+  <%= will_paginate @editorial_reviews %>
+<% else -%>
+  <p><strong>No editorial reviews found.</strong></p>
+<% end -%>

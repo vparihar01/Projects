@@ -1,0 +1,174 @@
+<%= render :partial => 'shared/admin_edit_actions', :locals => {:record => @product} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for( @product, :as => :product, :url => admin_product_path(@product), :html => { :method => :put, :multipart => true } ) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_or_cancel(admin_product_path(@product)) %>
+<% end -%>
+
+<h2 id="assemblies">BISAC Subjects</h2>
+<%= form_for( @product.bisac_assignments.new, :as => :bisac_assignment, 
+                :url => admin_bisac_assignments_path, :remote => true,
+                :html => {:id => 'bisac_assignment_form'} ) do |f| -%>
+  <%= hidden_field_tag :context, 'products' %>
+  <table class="list" id="bisac_assignments">
+    <tr>
+      <th class="title first">Literal</th>
+      <th>Code</th>
+      <th class="last center">Action</th>
+    </tr>
+    <tr>
+      <td class="summary" colspan="2">
+        <%= f.hidden_field :product_id, {:value => @product.id} %>
+        <%= f.hidden_field :bisac_subject_id %>
+        <%= text_field_with_auto_complete( 'bisac_subject', :literal, {:class => 'xl'},
+          { :after_update_element => "function (field, element) {
+            var id_literal= field.value.split(':');
+            field.value = id_literal[1];
+            document.getElementById('bisac_assignment_bisac_subject_id').value = id_literal[0];
+            }" } ) %>
+      </td>
+      <td class="summary center"><%= f.submit('Add') %></td>
+    </tr>
+    <% @product.bisac_assignments.each do |assignment| %>
+      <%= render :partial => 'bisac_assignment_row', :locals => {:assignment => assignment, :bisac_subject => assignment.bisac_subject} %>
+    <% end %>
+  </table>
+<% end -%>
+
+<h2 id="formats">Formats</h2>
+<ul class="actions">
+<li class="last"><%= link_to_function image_tag('buttons/admin/new.gif', :alt => 'New'), visual_effect(:toggle_blind, :product_format_form, :duration => CONFIG[:blind_duration]) %></li>
+</ul>
+<table class="list" id="product_formats">
+  <tr>
+    <th class="title first">Format</th>
+    <th class="center">ISBN</th>
+    <th class="right">List</th>
+    <th class="right">Member</th>
+    <th class="center">Status</th>
+    <th class="center">Version</th>
+    <th class="last center" colspan="2">Action</th>
+  </tr>
+  <tr>
+    <td class="summary" colspan="8">
+      <%= form_for( @product.product_formats.new, :as => :product_format,
+                    :url => admin_product_formats_path, :remote => true,
+                    :html => {:id => 'product_format_form', :style => "display:none;"}) do |f| -%>
+        <%= render :partial => 'product_format_form', :locals => {:f => f} %>
+        <div class="formbuttons" style="margin-right:20px;margin-bottom:10px;">
+          <span class=""><%= link_to_function "Cancel", visual_effect(:blind_up, :product_format_form, :duration => CONFIG[:blind_duration]), :class => 'highlight' %></span> &nbsp; or &nbsp;
+          <%= f.submit('Add') %>
+        </div>
+      <% end -%>
+    </td>
+  </tr>
+  <% @product.product_formats.each do |product_format| %>
+    <%= render :partial => 'product_format_row', :locals => {:product_format => product_format} %>
+    <%= render :partial => 'product_format_edit', :locals => {:product_format => product_format} %>
+  <% end %>
+</table>
+
+<% if @product.is_a?(Title) -%>
+  <h2 id="assemblies">Assemblies</h2>
+    <table class="list" id="assembly_assignments">
+      <tr>
+        <th class="title first">Name (Series)</th>
+        <th class="center" colspan="2">Default Prices</th>
+        <th class="last center">Action</th>
+      </tr>
+      <% @product.assembly_assignments.each do |assignment| %>
+        <%= render :partial => 'assembly_assignment_row', :locals => {:assignment => assignment, :product => assignment.assembly} %>
+      <% end %>
+    </table>
+<% end -%>
+
+<% if @product.is_a?(Assembly) -%>
+  <h2 id="titles">Titles</h2>
+  <%= form_for( @product.assembly_assignments.new, :as => :assembly_assignment, 
+                :url => admin_assembly_assignments_path, :remote => true,
+                :html => {:id => 'assembly_assignment_form'} ) do |f| -%>
+    <%= hidden_field_tag :context, 'products' %>
+    <%= f.hidden_field :assembly_id %>
+    <table class="list" id="assembly_assignments">
+      <tr>
+        <th class="title first">Name (Series)</th>
+        <th class="center" colspan="2">Default Prices</th>
+        <th class="last center">Action</th>
+      </tr>
+      <tr>
+        <td class="summary">
+          <%= f.select :product_id, Title.to_dropdown, {:include_blank => true}, {:class => 'l'} %>
+        </td>
+        <td class="summary">&nbsp;</td>
+        <td class="summary">&nbsp;</td>
+        <td class="summary center"><%= f.submit('Add') %></td>
+      </tr>
+      <% @product.assembly_assignments.each do |assignment| %>
+        <%= render :partial => 'assembly_assignment_row', :locals => {:assignment => assignment, :product => assignment.title} %>
+      <% end %>
+    </table>
+  <% end -%>
+<% end -%>
+
+<h2 id="contributors">Contributors</h2>
+
+<%= form_for( @product.contributor_assignments.new, :as => :contributor_assignment,
+              :url => admin_contributor_assignments_path, :remote => true,
+              :html => {:id => 'contributor_assignment_form'}) do |f| -%>
+  <%= hidden_field_tag :context, 'products'  %>
+  <%= f.hidden_field :product_id %>
+  <table class="list" id="contributor_assignments">
+    <tr>
+      <th class="title first">Contributor</th>
+      <th>Role</th>
+      <th class="last center">Action</th>
+    </tr>
+    <tr>
+      <td class="summary">
+        <%= f.select :contributor_id, Contributor.to_dropdown, {:include_blank => true}, {:class => 'l'} %>
+      </td>
+      <td class="summary">
+        <%= f.select :role, app_select_options(:role), {:include_blank => true}, {:class => 'l'} %>
+      </td>
+      <td class="summary center"><%= f.submit('Add') %></td>
+    </tr>
+    <% @product.contributor_assignments.each do |role| %>
+      <%= render :partial => 'contributor_assignment_row', :locals => {:assignment => role} %>
+    <% end %>
+  </table>
+<% end -%>
+
+<h2 id="related_products">Related Products</h2>
+
+<%= form_for( @product.related_product_assignments.new, :as => :related_product_assignment,
+              :url => admin_related_product_assignments_path, :remote => true,
+              :html => {:id => 'related_product_assignment_form'}) do |f| -%>
+  <%= hidden_field_tag :context, 'products'  %>
+  <%= f.hidden_field :product_id %>
+  <table class="list" id="related_product_assignments">
+    <tr>
+      <th class="title first">Related Product</th>
+      <th>Relation</th>
+      <th class="last center">Action</th>
+    </tr>
+    <tr>
+      <td class="summary">
+        <%= f.select :related_product_id, Product.to_dropdown, {:include_blank => true}, {:class => 'l'} %>
+      </td>
+      <td class="summary">
+        <%= f.select :relation, app_select_options(:relation), {:include_blank => true}, {:class => 'l'} %>
+      </td>
+      <td class="summary center"><%= f.submit('Add') %></td>
+    </tr>
+    <% @product.related_product_assignments.each do |role| %>
+      <%= render :partial => 'related_product_assignment_row', :locals => {:assignment => role} %>
+    <% end %>
+  </table>
+<% end -%>
+
+<div>
+    Version: 
+    <%= link_to_if(@product.version > 1, @product.version, versions_path(@product), :title => "View version history") %>
+</div>

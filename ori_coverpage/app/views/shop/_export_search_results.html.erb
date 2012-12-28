@@ -1,0 +1,21 @@
+<%= form_tag search_results_path, :id => 'export' do -%>
+  <% @form_values.each do |field, value| -%>
+    <%- if value.is_a?(Hash) %>
+      <% value.each do |hash_key, hash_value| -%>
+        <%= hidden_field_tag "#{field}[#{hash_key}]", hash_value %>
+      <% end -%>
+    <%- elsif value.is_a?(Array) %>
+      <% value.each do |array_value| -%>
+        <%= hidden_field_tag "#{field}[]", array_value %>
+      <% end -%>
+    <% else -%>
+      <%= hidden_field_tag field, value %>
+    <% end -%>
+  <% end -%>
+  <fieldset>
+    <div class="group clearfix">
+      <%= select_tag :data_template, options_for_select([["-- Select Template --", ""]] + ProductsExporter::TEMPLATES.keys.sort, params[:data_template]) %>
+      <%= submit_tag("Export") %>
+    </div>
+  </fieldset>
+<% end -%>

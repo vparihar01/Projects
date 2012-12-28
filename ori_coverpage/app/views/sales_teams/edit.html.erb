@@ -1,0 +1,6 @@
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for @sales_team, :url => sales_team_path do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render :partial => 'admin/shared/edit_buttons', :locals => {:f => f} %>
+<% end -%>

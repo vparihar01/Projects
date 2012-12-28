@@ -1,0 +1,24 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => admin_headlines_path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :title_contains, :label => "Title", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :body_contains, :label => "Body", :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<%= render :partial => 'admin/shared/search_sort', :locals => {:options => [{:by => :created_at, :as => "Created"}, {:by => :updated, :as => "Updated"}]} %>
+
+<% if @headlines.any? -%>
+  <%= render :partial => 'headlines/headline', :collection => @headlines, :spacer_template => 'shared/spacer', :locals => {:show_admin => true} %>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @headlines} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

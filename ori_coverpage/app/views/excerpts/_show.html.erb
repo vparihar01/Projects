@@ -1,0 +1,19 @@
+<%= link_to_function(image_tag(excerpt.title.image, :class => "photo"), "popupScribd('#{read_excerpt_url(excerpt)}')") %>
+<h4>Title: <%= link_to excerpt.title.name, show_path(excerpt.title) %></h4>
+<p class="forcebottommargin">
+<% unless excerpt.title.collection.nil? -%>
+Series: <%= link_to excerpt.title.collection.name, collection_path(excerpt.title.collection) %><br />
+<% end -%>
+</p>
+<ul>
+  <li><strong><%= link_to_function 'Read Excerpt', "popupScribd('#{read_excerpt_url(excerpt)}')", :class => 'extlink' %></strong></li>
+  <% if admin? -%>
+    <% if excerpt.exist? -%>
+      <li><%= link_to 'Download', click_excerpt_path(excerpt), :method => :put %></li>
+      <li>File Size: <%= number_to_human_size(excerpt.size) %></li>
+      <li>File Format: PDF</li>
+    <% else -%>
+      <p class="other-error">File missing: Please notify <%= CONFIG[:webmaster_email] %></p>
+    <% end -%>
+  <% end -%>
+</ul>

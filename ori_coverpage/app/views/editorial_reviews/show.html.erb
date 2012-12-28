@@ -1,0 +1,29 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @editorial_review, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<div class="module clearfix">
+<h4><%= @editorial_review.to_s %></h4>
+<p class="byline"><em>Reviewed on <%= @editorial_review.written_on.to_s(:long) %></em></p>
+<div class="forcetopmargin">
+  <%= link_to image_tag(@product.image("covers", "m"), :class => "photo clearfix", :style => "margin-right:20px;"), show_path(@product) if @product -%>
+  <%= RedCloth.new(@editorial_review.body).to_html.html_safe %>
+</div>
+<p><cite>&mdash;<%= @editorial_review.author %><cite></p>
+</div>
+
+<% if admin? -%>
+<ul class="meta">
+<li>Created: <%= @editorial_review.created_at.to_s(:long_day) %></li>
+<li>Updated: <%= @editorial_review.updated_at.to_s(:long_day) %></li>
+</ul>
+<% end -%>
+
+<h2 id="products" class="clearboth">Products Reviewed</h2>
+<% if @editorial_review.products.available.any? -%>
+  <%= render :partial => 'shop/products', :locals => { :products => @editorial_review.products.order('name').all, :assembly => nil } %>
+<% else -%>
+  <p>No products found.</p>
+<% end -%>
+
+<p class="morebuttons"><%= link_to('&laquo; Reviews'.html_safe, editorial_reviews_path, :class => 'more') %></p>

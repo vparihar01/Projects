@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+don_new_jersey:
+  id: 1
+  sales_team_id: 1
+  sales_zone_id: 1
+  rate: 0.25
+  category: All
+  start_on: 2007-01-01
+bob_north_alabama:
+  id: 2
+  sales_team_id: 2
+  sales_zone_id: 2
+  rate: 0.25
+  category: All
+  start_on: 2007-01-02
+don_texas:
+  id: 3
+  sales_team_id: 1
+  sales_zone_id: 4
+  rate: 0.5
+  category: All
+  start_on: 2010-10-20

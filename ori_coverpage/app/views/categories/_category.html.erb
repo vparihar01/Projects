@@ -1,0 +1,21 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag 'tooltip' %>
+  <%= stylesheet_link_tag 'tooltip', :media => 'screen' %>
+<% end -%>
+<%= div_for category, :class => 'module' do -%>
+  <% products = category.products.available.join_formats_with_distinct.active.except(:order).order(:name).grade(params[:grade]) %>
+  <% if products.size > 0 -%>
+  
+    <% if defined?(show_admin) && show_admin -%>
+      <%= render :partial => 'shared/admin_list_actions', :locals => {:record => category, :controller_path => "admin/#{controller.controller_name}"} %>
+    <% end -%>
+
+    <h2><%= link_to category.name, category_path(category) %></h2>
+    <ul>
+      <% products.each do |product| -%>
+        <li><%= content_tag(:span, link_to(product.name, show_path(product)), :id => dom_id(product, dom_id(category)), :class => "record tipper x") %></li>
+      <% end -%>
+    </ul>
+    
+  <% end -%>
+<% end -%>

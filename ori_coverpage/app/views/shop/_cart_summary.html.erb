@@ -1,0 +1,5 @@
+<ul id="cart_summary" class="summary">
+  <li>Item count: <%= @cart.item_count %></li>
+  <li>Title count: <%= @cart.title_count %></li>
+  <li>Subtotal: <u><%= link_to(number_to_currency(@cart.amount), cart_path, :title => 'View Cart') %></u></li>
+</ul>

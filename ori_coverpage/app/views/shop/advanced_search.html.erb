@@ -1,0 +1,112 @@
+<h1>Advanced Search</h1>
+
+<%= form_tag search_results_path do -%>
+  <fieldset>
+  <div class="group">
+
+    <div class="half first">
+      <label for="name_contains">Title </label>
+      <%= text_field_tag 'name_contains', params[:name_contains] %>
+    </div>
+    <div class="half">
+      <label for="description_contains">Description </label>
+      <%= text_field_tag 'description_contains', params[:description_contains] %>
+    </div>
+    <div class="clearboth"></div>
+    
+    <div class="half first">
+      <label for="product_formats_isbn_in">ISBN (13-digit) </label>
+      <%= text_field_tag 'product_formats_isbn_in', params[:product_formats_isbn_in] %>
+    </div>
+    <div class="half">
+      <label for="author_contains">Author </label>
+      <%= text_field_tag 'author_contains', params[:author_contains] %>
+    </div>
+    <div class="clearboth"></div>
+    
+    <div class="half first">
+      <label>BISAC Code</label>
+      <%= text_field_tag 'bisac_subjects_code_in', params[:bisac_subjects_code_in] %>
+    </div>
+    <div class="half">
+      <label>Guided Level</label>
+      <%= text_field_tag 'guided_level_in', params[:guided_level_in] %>
+    </div>
+    <div class="clearboth"></div>
+    
+    <div class="half first">
+      <label>Date Available (YYYY-MM-DD)</label>
+      <%= text_field_tag 'available_on', params[:available_on] %>
+    </div>
+    <div class="half">
+      <label>Current Catalog Page Number</label>
+      <%= text_field_tag 'catalog_page_in', params[:catalog_page_in] %>
+    </div>
+    <div class="clearboth"></div>
+
+    <div class="half first">
+      <label>Product Type</label>
+      <%= select_tag :type_in, options_for_select(product_subtype_options(:include_blank => true), params[:type_in]) %>
+    </div>
+    <div class="half">
+      <label>Copyright Year (From - To) </label>
+      <%= select_tag :copyright_from, options_for_select(copyright_options(:include_blank => true), params[:copyright_from].to_i), :class => 'half' %> - 
+      <%= select_tag :copyright_to, options_for_select(copyright_options(:include_blank => true), params[:copyright_to].to_i), :class => 'half' %>
+    </div>
+    <div class="clearboth"></div>
+
+    <div class="half first">
+      <label>Product Format</label>
+      <%= select_tag :product_formats_format_id_equals, options_for_select(format_options(:include_blank => !CONFIG[:default_format_only]), params[:product_formats_format_id_equals]) %>
+    </div>
+    <div class="half">
+      <label>Product Format Status</label>
+      <%= select_tag :product_formats_status_in, options_for_select(status_options(:include_blank => true), params[:product_formats_status_in] || ProductFormat::ACTIVE_STATUS_CODE) %>
+    </div>
+    <div class="clearboth"></div>
+
+    <div class="half first">
+      <label for="dewey_type">Dewey Type</label>
+      <%= select_tag :dewey_in, options_for_select(dewey_type_options(:include_blank => true), params[:dewey_in]) %>
+    </div>
+    <div class="half">
+      <label for="dewey">Dewey Range (From - To)</label>
+      <%= select_tag :dewey_from, options_for_select(dewey_range_options(:include_blank => true), params[:dewey_from]), :class => 'half' %> - 
+      <%= select_tag :dewey_to, options_for_select(dewey_range_options(:include_blank => true), params[:dewey_to]), :class => 'half' %>
+    </div>
+    <div class="clearboth"></div>
+
+    <div class="half first">
+      <label>Interest Level (From - To)</label>
+      <%= select_tag :interest_level_from, options_for_select(level_options(:include_blank => true, :adjust_by => -2), params[:interest_level_from]), :class => 'half' %> - 
+      <%= select_tag :interest_level_to, options_for_select(level_options(:include_blank => true, :adjust_by => -2), params[:interest_level_to]), :class => 'half' %>
+    </div>
+    <div class="half">
+      <label>Reading Level (From - To) </label>
+      <%= select_tag :reading_level_from, options_for_select(reading_level_options(:include_blank => true, :adjust_by => -2), params[:reading_level_from]), :class => 'half' %> - 
+      <%= select_tag :reading_level_to, options_for_select(reading_level_options(:include_blank => true, :adjust_by => -2), params[:reading_level_to]), :class => 'half' %>
+    </div>
+    <div class="clearboth"></div>
+
+    <% if Product::FILTER_ALSREADLEVEL_RANGE.any? -%>
+      <div class="half first">
+        <label>ATOS Level (From - To)</label>
+        <%= select_tag :alsreadlevel_from, options_for_select(alsreadlevel_options(:include_blank => true), params[:alsreadlevel_from]), :class => 'half' %> - 
+        <%= select_tag :alsreadlevel_to, options_for_select(alsreadlevel_options(:include_blank => true), params[:alsreadlevel_to]), :class => 'half' %>
+      </div>
+    <% end -%>
+    <% if Product::FILTER_LEXILE_RANGE.any? -%>
+      <div class="half">
+        <label>Lexile (From - To)</label>
+        <%= select_tag :lexile_from, options_for_select(lexile_options(:include_blank => true), params[:lexile_from]), :class => 'half' %> - 
+        <%= select_tag :lexile_to, options_for_select(lexile_options(:include_blank => true), params[:lexile_to]), :class => 'half' %>
+      </div>
+    <% end -%>
+    <div class="clearboth"></div>
+    
+  </div>
+  </fieldset>
+  <div class="pagebuttons">
+  <%= submit_tag "Submit" %>
+  </div>
+<% end -%>

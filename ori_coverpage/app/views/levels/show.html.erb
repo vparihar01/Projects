@@ -1,0 +1,16 @@
+<%= render :partial => 'shared/view', :locals => {:layout => session[:layout]} %>
+
+<h1><%= @level.name %></h1>
+
+<%= render :partial => 'shared/filter_by_category' %>
+
+<% if @products.any? %>
+  <% if session[:layout].nil? || session[:layout] == 'x' -%>
+    <%= render :partial => 'shop/xproduct', :collection => @products, :as => :product, :spacer_template => 'shared/spacer' %>
+  <% else -%>
+    <%= render :partial => 'shop/products', :locals => { :products => @products, :assembly => nil } %>
+  <% end -%>
+  <%= will_paginate @products %>
+<% else %>
+  No records found.
+<% end %>

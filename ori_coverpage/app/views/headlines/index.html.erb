@@ -1,0 +1,7 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= render :partial => 'headlines/headline', :collection => @headlines, :spacer_template => 'shared/spacer', :locals => {:show_admin => admin?, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<%= will_paginate @headlines %>

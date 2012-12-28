@@ -1,0 +1,83 @@
+quentin:
+  id: 1
+  name: quentin
+  email: quentin@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  #crypted_password: "ce2/iFrNtQ8=\n" # quentin, use only if you're using 2-way encryption
+  created_at: <%= 5.days.ago.to_s :db %>
+  # activated_at: <%= 5.days.ago.to_s :db %> # only if you're activating new signups
+  type: SalesRep
+  sales_team_id: 1
+  category: Individual
+aaron:
+  id: 2
+  name: aaron
+  email: aaron@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  # activation_code: aaronscode # only if you're activating new signups
+  created_at: <%= 1.days.ago.to_s :db %>
+  type: SalesRep
+  sales_team_id: 1
+  category: Individual
+admin:
+  id: 3
+  name: admin
+  email: admin@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  type: Admin
+  category: Individual
+bob:
+  id: 4
+  name: bob
+  email: bob@example.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  # activation_code: aaronscode # only if you're activating new signups
+  created_at: <%= 1.days.ago.to_s :db %>
+  type: SalesRep
+  sales_team_id: 2
+  category: Individual
+dallas_schools:
+  id: 5
+  name: Dallas Public Schools
+  phone: 972-555-1212
+  email: schools@dallas.tx.us
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  type: Customer
+  category: School
+mobile_schools:
+  id: 6
+  name: Mobile Public Schools
+  phone: 251-555-1212
+  email: schools@mobile.al.us
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  type: Customer
+  category: School
+another_customer:
+  id: 7
+  name: Another Customer (Library)
+  phone: 972-121-1212
+  email: customer@another.us
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 10.hours.ago.to_s :db %>
+  type: Customer
+  category: Library
+individual_customer:
+  id: 8
+  name: Individual Customer
+  phone: 972-123-1234
+  email: individual@another.us
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 2.hours.ago.to_s :db %>
+  type: Customer
+  category: Individual

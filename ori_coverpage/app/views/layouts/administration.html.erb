@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <% calculate_admin_meta_tags -%>
+    <%= display_meta_tags :title => @page_title, :site => "Admininstration", :separator => '-', :reverse => true, :description => @page_description, :keywords => @page_keywords, :nofollow => true, :noindex => true %>
+    <%= stylesheet_link_tag 'admin', :media => 'screen' %>
+    <%= stylesheet_link_tag 'print', :media => 'print' %>
+    <!--[if lt IE 7]>
+    <%= stylesheet_link_tag 'ie6', :media => 'screen' %>
+    <![endif]-->
+    <!--[if IE 7]>
+    <%= stylesheet_link_tag 'ie7', :media => 'screen' %>
+    <![endif]-->
+    <%= javascript_include_tag :defaults, 'drop_menu', 'effects', 'scriptaculous', 'controls' %>
+    <!--[if lt IE 8]>
+      <%= javascript_include_tag 'niftycube' %>
+      <script type="text/javascript">
+      window.onload=function(){
+        Nifty("p.nb,div.nb,#sidebar","medium");
+        Nifty("h2.divider,div.notice,div.error","small");
+        Nifty("th.first","small tl");
+        Nifty("th.last","small tr");
+        Nifty("ul.select-free","medium bl br");
+      }
+      </script>
+    <![endif]-->
+    <%= csrf_meta_tag %>
+    <%= yield :head %>
+  </head>
+  <body>
+    <div class="fluff">
+      <div class="wrapper">
+        
+        <ul class="shortcuts clearfix">
+          <%= content_tag(:li, link_to("LOGOUT", logout_path)) if logged_in? %>
+          <%= content_tag(:li, link_to("LOGIN", login_path)) unless logged_in? %>
+          <%= content_tag(:li, link_to('PUBLIC SITE', public_url)) if admin? %>
+          <%= content_tag(:li, link_to('SEARCH', advanced_search_path)) %>
+          <%= content_tag(:li, link_to("WISHLIST", wishlists_path)) if logged_in? %>
+          <%= content_tag(:li, link_to("CART", cart_path), :class => 'last') %>
+        </ul>
+        
+        <%= link_to '', admin_path, :class => 'logo' %>
+        
+        <div class="menu">
+          <div class="menu-tr">
+          <div class="menu-bl">
+          <div class="menu-br clearfix">
+            <ul class="nav menu-tl">
+              <%= drop_tab('home', :has_submenu => false) do -%>
+                <div>
+                  <%= link_to "Home", admin_path, {:class => ''} %>
+                </div>
+              <% end -%>
+              <%= drop_tab('catalog') do -%>
+                <div>
+                  <%= link_to "Catalog", admin_path, {:class => 'toggler', :alt => ''} %>
+                </div>
+                <ul class="select-free" style="display:none;">
+                  <li><%= link_to "Products", admin_products_path %></li>
+                  <li><%= link_to "Subjects", admin_categories_path %></li>
+                  <li><%= link_to "Series", admin_collections_path %></li>
+                  <li><%= link_to "Editorial Reviews", admin_editorial_reviews_path %></li>
+                  <li><%= link_to "Contributors", admin_contributors_path %></li>
+                  <li><%= link_to "Links", admin_links_path %></li>
+                  <li><%= link_to "Excerpts", admin_excerpts_path %></li>
+                  <li><%= link_to "Formats", admin_formats_path %></li>
+                  <!--[if lte IE 6.5]><li><iframe frameborder=0></iframe></li><![endif]-->
+                </ul>
+              <% end -%>
+              <%= drop_tab('sales') do -%>
+                <div>
+                  <%= link_to "Sales", admin_path, {:class => 'toggler', :alt => ''} %>
+                </div>
+                <ul class="select-free" style="display:none;">
+                  <li><%= link_to "Sales", admin_sales_path %></li>
+                  <li><%= link_to "Users", admin_users_path %></li>
+                  <li><%= link_to "Specifications", admin_specs_path %></li>
+                  <li><%= link_to "Coupons", admin_coupons_path %></li>
+                  <li><%= link_to "Bundles", admin_bundles_path %></li>
+                  <!--[if lte IE 6.5]><li><iframe frameborder=0></iframe></li><![endif]-->
+                </ul>
+              <% end -%>
+              <%= drop_tab('content') do -%>
+                <div>
+                  <%= link_to "Content", admin_path, {:class => 'toggler', :alt => ''} %>
+                </div>
+                <ul class="select-free" style="display:none;">
+                  <li><%= link_to "Catalog Requests", admin_catalog_requests_path %></li>
+                  <li><%= link_to "Errata", admin_errata_path %></li>
+                  <li><%= link_to "Faqs", admin_faqs_path %></li>
+                  <li><%= link_to "Headlines", admin_headlines_path %></li>
+                  <li><%= link_to "Pages", admin_pages_path %></li>
+                  <li><%= link_to "Testimonials", admin_testimonials_path %></li>
+                  <li><%= link_to "Downloads", admin_downloads_path %></li>
+                  <li><%= link_to "Teaching Guides", admin_teaching_guides_path %></li>
+                  <li><%= link_to "Handouts", admin_handouts_path %></li>
+                  <!--[if lte IE 6.5]><li><iframe frameborder=0></iframe></li><![endif]-->
+                </ul>
+              <% end -%>
+              <%= drop_tab('management') do -%>
+                 <div>
+                   <%= link_to "Management", admin_path, {:class => 'toggler', :alt => ''} %>
+                 </div>
+                 <ul class="select-free" style="display:none;">
+                   <li><%= link_to "Background Jobs", admin_jobs_path %></li>
+                   <li><%= link_to "Recipients", admin_recipients_path %></li>
+                   <li><%= link_to "Distribution", admin_distribution_path %></li>
+                   <li><%= link_to "Price Changes", admin_price_changes_path %></li>
+                   <!--[if lte IE 6.5]><li><iframe frameborder=0></iframe></li><![endif]-->
+                 </ul>
+               <% end -%>
+            </ul>
+            <%= form_tag admin_products_path, :class => 'quick-search', :id => 'search', :method => 'get' do -%>
+              <fieldset>
+                <% value = 'admin product search' -%>
+                <%= text_field_tag 'q', (params[:q] || value), :onfocus => "clear_value(this, '#{value}')", :onblur => "reset_value(this, '#{value}')", :class => 'text' %>
+                <%= image_submit_tag 'search.gif', :alt => '', :class => 'button' %>
+              </fieldset>
+            <% end -%>
+          </div>
+          </div>
+          </div>
+        </div>
+        
+        <div class="main">
+ 
+          <div id="content">
+          <%=raw [:notice, :error].collect {|type| content_tag('div', flash[type], :class => "flash-#{type}") if flash[type] } %>
+          <%= yield %>
+          </div>
+
+        </div>
+        <!-- end main -->
+
+        <% if (sidebar = yield :sidebar) -%>
+        <div id="sidebar">
+          <%= sidebar %>
+        </div>
+        <!-- end sidebar -->
+        <% end -%>
+
+        <div id="footer">
+          <p>&copy; <%= Date.today.year %> Cover Page [a milkfarm production]. All rights reserved.</p>
+        </div>
+        <!-- end footer -->
+
+      </div>
+      <!-- end wrapper -->
+
+    </div>
+    <!-- end fluff -->
+  </body>
+</html>

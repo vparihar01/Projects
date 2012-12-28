@@ -1,0 +1,34 @@
+<%= f.hidden_field :product_id %>
+<fieldset style="margin-bottom:0;">
+  <div class="full">
+    <%= f.label :format_id %>
+    <%= f.select :format_id, Format.to_dropdown, {:include_blank => true} %>
+  </div>
+  <div class="half first">
+    <%= f.label :dimensions %>
+    <%= f.text_field :dimensions %>
+  </div>
+  <div class="half">
+    <%= f.label :weight %>
+    <%= f.text_field :weight %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :status %>
+    <%= f.select :status, status_options, {:include_blank => true, :show_all => true} %>
+  </div>
+  <div class="half">
+    <%= f.label :isbn, "ISBN" %>
+    <%= f.text_field :isbn %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="half first">
+    <%= f.label :price_list, "List Price" %>
+    <%= f.text_field :price_list, :disabled => (CONFIG[:calculate_list_price] || (f.object.product.is_a?(Assembly) && CONFIG[:calculate_assembly_price])) %>
+  </div>
+  <div class="half">
+    <%= f.label :price, "Member Price" %>
+    <%= f.text_field :price, :disabled => ((f.object.format_id == Format::PDF_ID && CONFIG[:calculate_ebook_price]) || (f.object.product.is_a?(Assembly) && CONFIG[:calculate_assembly_price])) %>
+  </div>
+  <div class="clearboth"></div>
+</fieldset>

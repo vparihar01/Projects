@@ -1,0 +1,3 @@
+<%= form_tag show_path, :class => 'set', :method => :get do -%>
+  <%= select_tag :id, options_for_select([['View a Set:',''], ['','']] + to_dropdown(Assembly.available.active.order('name ASC')), params[:id].to_i), :onchange => "if (this.form.id.value != '') { this.form.submit(); }", :style => "width:150px;" %>
+<% end -%>

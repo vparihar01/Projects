@@ -1,0 +1,10 @@
+<h2><span>Testimonials</span></h2>
+<% Testimonial.find_random(1).each do |t| -%>
+<% unless t.nil? -%>
+<div class="module">
+<% unless t.comment.nil? -%><blockquote>&quot;<%= t.comment.html_safe %>&quot;</blockquote><% end -%>
+<cite>&mdash;<%= t.name.html_safe %></cite>
+</div>
+<% end -%>
+<% end -%>
+<p class="morebuttons"><%= link_to('More testimonials &raquo;'.html_safe, testimonials_url, :class => 'more').html_safe %></p>

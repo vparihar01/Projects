@@ -1,0 +1,60 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  product_id: 1
+  format_id: 1
+  price_list: 100
+  price: 80
+  isbn: 9781609731939
+  status: ACT
+  dimensions: "7.5 x 9.5"
+
+two:
+  id: 2
+  product_id: 2
+  format_id: 1
+  price_list: 200
+  price: 160
+  isbn: 9781609737207
+  status: ACT
+  dimensions: "7.5 x 9.5"
+
+three:
+  id: 3
+  product_id: 3
+  format_id: 1
+  price_list: 200
+  price: 160
+  isbn: 9781609731946
+  status: ACT
+  dimensions: "7.5 x 9.5"
+
+four:
+  id: 4
+  product_id: 4
+  format_id: 1
+  price_list: 400
+  price: 320
+  isbn: 9781609737214
+  status: ACT
+  dimensions: "7.5 x 9.5"
+
+future_title_paper:
+  id: 5
+  product_id: 6
+  format_id: 1
+  price_list: 500
+  price: 400
+  isbn: 9781609731953
+  status: INA
+  dimensions: "7.5 x 9.5"
+
+old_book_pdf:
+  id: 6
+  product_id: 1
+  format_id: 2
+  price_list: 100
+  price: 80
+  isbn: 9781609737221
+  status: ACT

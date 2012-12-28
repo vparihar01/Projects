@@ -1,0 +1,14 @@
+<% set_tab(__FILE__) %>
+<% content_for :panel do %>
+  <ul class="submenu">
+    <li class="<%= submenu_class_by_path('/contact') %>"><%= link_to 'Contact Us', public_page_path(:contact) %></li>
+    <li class="<%= submenu_class_by_path('/shipping') %>"><%= link_to 'Shipping Rates', public_page_path(:shipping) %></li>
+    <li class="<%= submenu_class_by_path('/returns') %>"><%= link_to 'Returns Policy', public_page_path(:returns) %></li>
+    <li class="<%= submenu_class_by_path('/privacy') %>"><%= link_to 'Privacy Policy', public_page_path(:privacy) %></li>
+  </ul>
+  <div class="seal">
+    <%= render :partial => 'shared/geotrust_seal' %>
+    <%= render :partial => 'shared/authorizenet_seal' %>
+  </div>
+<% end %>
+<%= render :file => 'layouts/application' %>

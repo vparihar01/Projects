@@ -1,0 +1,8 @@
+<% div_for user, :class => 'module' do -%>
+<%= render :partial => 'shared/admin_list_actions', :locals => {:record => user} %>
+<h4><%= link_to user.name, admin_admin_user_path(user) %></h4>
+<ul>
+  <%= display_value_in_list(user, :email) %>
+  <%= display_value_in_list(user, :phone) %>
+</ul>
+<% end -%>

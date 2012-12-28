@@ -1,0 +1,33 @@
+<%= error_messages_for :sales_rep %>
+
+<fieldset>
+  <div class="group">
+    <div class="half first">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="half">
+      <%= f.label :category, 'Customer Type' %>
+      <%= select_tag 'sales_rep[category]', nil, {:disabled => true} %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div class="half">
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+    </div>
+    <div class="clearboth"></div>
+    <div class="half first">
+      <%= f.label :password %>
+      <%= f.text_field :password %>
+    </div>
+    <div class="half">
+      <%= f.label :password_confirmation %>
+      <%= f.text_field :password_confirmation %>
+    </div>
+    <div class="clearboth"></div>
+  </div>
+</fieldset>

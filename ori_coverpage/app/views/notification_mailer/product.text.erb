@@ -1,0 +1,11 @@
+<%= @message %>
+
+<%= divider %>
+
+To view the product "<%= @product.name %>", click on the link below or copy and paste the link into your web browser:
+<%= show_url(@product) %>
+
+<%= CONFIG[:app_name] %> (<%= CONFIG[:app_url] %>) has sent you this e-mail at the request of <%= @user.name %> (<%= @user.email%>).
+
+<%= divider %>
+IMPORTANT: For your protection and to prevent malicious use, all emails sent via this web site are logged and the contents recorded and available to the store owner. If you feel that you have received this email in error, please send an email to <%= CONFIG[:webmaster_email] %>

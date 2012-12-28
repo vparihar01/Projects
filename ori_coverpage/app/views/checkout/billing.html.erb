@@ -1,0 +1,90 @@
+<h1><%= calculate_checkout_page_heading("Payment Information") %></h1>
+
+<%= form_tag checkout_billing_path do %>
+  
+<% if params[:payment_method] == 'Credit Card' && @authorization.errors.any? %>
+  <div id="errorExplanation">
+    <h2>Errors were encountered while processing your payment information</h2>
+    <ul>
+      <%= raw @authorization.errors.full_messages.map {|m| content_tag(:li, m)} %>
+    </ul>
+  </div>
+<% end %>
+
+<p>Please select the preferred billing address for this order. If the address is not already in your Address Book, click the New button to create a new entry.</p>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('New Address', checkout_new_address_path(:address_type => 'bill_address'))) %>
+</ul>
+
+<fieldset>
+  <legend>Saved Addresses</legend>
+  <div class="group">
+    <% if current_user.addresses.any? %>
+      <%= render :partial => 'address', :collection => current_user.addresses, :locals => {:address_type => 'bill_address'}, :spacer_template => 'shared/spacer' %>
+    <% else %>
+      <div class="formrow">
+        <p>Please <%= link_to 'create a new address', checkout_new_address_path(:address_type => 'bill_address') %> to use with this order.</p>
+      </div>
+    <% end %>
+  </div>
+</fieldset>
+
+<p>Please select a payment method for this order.</p>
+
+<fieldset>
+  <legend>Payment Method</legend>
+  <div class="group">
+    <div class="formrow">
+      <%= radio_button_tag 'payment_method', 'Check/Money Order', (@cart.payment_method == 'Check/Money Order' || !@cart.payment_method), :id => 'payment_method_check', :onclick => "if ($('credit_card_details').visible() == true) { $('credit_card_details').blindUp({duration:0.2}); }" %>
+      <%= label_tag 'payment_method_check', 'Check/Money Order', :class => 'inline' %>
+    </div>
+    <div class="formrow">
+      <%= radio_button_tag 'payment_method', 'Purchase Order', (@cart.payment_method == 'Purchase Order'), :id => 'payment_method_po', :onclick => "if ($('credit_card_details').visible() == true) { $('credit_card_details').blindUp({duration:0.2}); }" %>
+      <%= label_tag 'payment_method_po', 'Purchase Order', :class => 'inline' %>
+    </div>
+    <div class="formrow">
+      <%= radio_button_tag :payment_method, 'Credit Card', (@cart.payment_method == 'Credit Card'), :id => 'payment_method_credit_card', :onclick => "if ($('credit_card_details').visible() == false) { $('credit_card_details').blindDown({duration:0.2}); }" %>
+      <%= label_tag 'payment_method_credit_card', 'Credit Card', :class => 'inline' %>
+      <div class="sub-option" id="credit_card_details" style="display:<%= @cart.payment_method == 'Credit Card' ? 'visible' : 'none' %>;">
+        <%= fields_for :authorization do |f| -%>
+          <div class="formrow">
+            <%= f.label :first_name, 'Card Holder (First name, Last Name)' %>
+            <%= f.text_field :first_name, :class => 'm inline' %> 
+            <%= f.text_field :last_name, :class => 'm inline' %>
+          </div>
+          <div class="formrow">
+            <%= f.label :card_type, 'Credit Card Type' %>
+            <%= f.select :card_type, CardAuthorization::CreditCardTypes, {}, :class => 'l' %>
+          </div>
+          <div class="formrow">
+            <%= f.label :number, 'Credit Card Number' %>
+            <%= f.text_field :number, :class => 'l' %>
+          </div>
+          <div class="formrow">
+            <%= f.label :month, 'Expiration Date (Month, Year)' %>
+            <%= f.select :month, (1 .. 12), {}, {:class => 's'} %>
+            <%= f.select :year, (Time.now.year .. 10.years.from_now.year), {}, {:class => 'm'} %>
+          </div>
+          <div class="formrow">
+            <%= f.label :verification_value, "Security Code &nbsp; #{link_to('Help?', public_page_path(:security_code), {:style => 'font-weight:normal;'})}".html_safe %>
+            <%= f.text_field :verification_value, :class => 's' %>
+          </div>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend>Purchase Order # / Order Comments</legend>
+  <div class="group">
+    <div class="full">
+      <%= text_area_tag(:comments, strip_tags(@cart.comments), :class => 'short') %>
+    </div>
+    <div class="clearboth"></div>
+  </div>
+</fieldset>
+
+<%= submit_or_cancel(cart_path, 'Continue') %>
+<% end %>

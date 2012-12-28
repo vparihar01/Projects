@@ -1,0 +1,9 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @contributor_assignment} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<ul>
+<li><span class="meta">Contributor:</span> <%= link_to @contributor_assignment.contributor.name, contributor_path(@contributor_assignment.contributor) %></li>
+<li><span class="meta">Role:</span> <%= @contributor_assignment.role %></li>
+<li><span class="meta">Product:</span> <%= link_to @contributor_assignment.product.name, show_path(@contributor_assignment.product) %></li>
+</ul>

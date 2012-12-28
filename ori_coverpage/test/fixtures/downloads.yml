@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  title: first fake
+  description: one fake download
+  filename: one_fake.txt
+  size: 1
+  is_visible: true
+two:
+  id: 2
+  title: second fake
+  description: another fake download
+  filename: another_fake.txt
+  size: 2
+  is_visible: true
+invisible:
+  id: 3
+  title: invisible file
+  description: should not show up for regular users
+  size: 42
+  filename: invisible_fake.txt
+  is_visible: false

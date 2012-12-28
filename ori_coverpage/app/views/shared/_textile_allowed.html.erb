@@ -1,0 +1,13 @@
+<% 
+  if defined?(fields)
+    unless fields.is_a?(Array)
+      fields = Array(fields)
+    end
+  else
+    fields = %w(body)
+  end
+-%>
+<% content_for :head do -%>
+  <%= javascript_include_tag 'external' %>
+<% end -%>
+<p><em><%= link_to 'Textile', 'http://redcloth.org/hobix.com/textile', :rel => 'external', :class => 'extlink' %> allowed in <%= fields.map{|f| f.titlecase}.to_sentence %></em></p>

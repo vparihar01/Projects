@@ -1,0 +1,17 @@
+<h1>Unsubscribe</h1>
+
+<p>You will be removed from our newsletter mailing list by submitting your email in the form below.</p>
+
+<%= render :partial => 'shared/required' %>
+
+<%= form_tag CONFIG[:unsubscribe_url] do %>
+  <fieldset>
+    <div class="group">
+      <div class="full">
+        <%= label_tag CONFIG[:email_input_id], 'Email address *' %>
+        <%= text_field_tag CONFIG[:email_input_id], (logged_in? ? current_user.email : nil) %>
+      </div>
+    </div>
+    <div class="pagebuttons"><%= submit_tag 'Unsubscribe' %></div>
+  </fieldset>
+<% end %>

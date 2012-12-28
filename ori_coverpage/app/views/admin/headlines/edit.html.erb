@@ -1,0 +1,10 @@
+<%= render :partial => 'shared/admin_edit_actions', :locals => {:record => @headline} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for @headline, :url => admin_headline_path(@headline) do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render :partial => 'admin/shared/edit_buttons', :locals => {:f => f} %>
+<% end -%>
+
+<%= render :partial => 'shared/textile_allowed' %>

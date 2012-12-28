@@ -1,0 +1,14 @@
+<% content_for :sidebar do -%>
+<ul class="submenu">
+  <li><%= link_to "New", new_admin_product_path %></li>
+  <li><%= link_to "Import", import_admin_products_path %></li>
+  <li><%= link_to "Export", export_admin_products_path %></li>
+  <% if @product && @product.id -%>
+    <%= content_tag(:li, link_to("Errata", admin_product_errata_path(@product))) %>
+    <%= content_tag(:li, link_to("View", show_path(@product))) %>
+    <%= content_tag(:li, link_to("History", versions_path(@product), :title => "Current version: #{@product.version}")) if @product.version > 1 %>
+    <%= content_tag(:li, loc_link(@product)) %>
+  <% end -%>
+</ul>
+<% end -%>
+<%= render :file => 'layouts/administration' %>

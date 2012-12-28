@@ -1,0 +1,18 @@
+<h3><%= toggle_filter_link_to("Filter by #{name}", field) -%></h3>
+<div id="<%= field %>_filter" class="filter">
+  <%= description %>
+  <%= "$" if /^price/.match(field) %>
+  <span id="<%= "min_#{field}_value" %>"><%= number_with_delimiter(min, :delimiter => delimiter) %></span>
+  -
+  <%= "$" if /^price/.match(field) %>
+  <span id="<%= "max_#{field}_value" %>"><%= number_with_delimiter(max, :delimiter => delimiter) %></span>
+
+  <br />
+  <div class="slider" id="<%= "#{field}_slider" %>">
+    <div class="handle" id="<%= "min_#{field}" %>"></div>
+    <div class="next handle" id="<%= "max_#{field}" %>"></div>
+    <%= hidden_field_tag("#{field}_from", min, :disabled => disabled, :class => "#{field}_field") %>
+    <%= hidden_field_tag("#{field}_to", max, :disabled => disabled, :class => "#{field}_field") %>
+    <%= javascript_tag "new Control.Slider(['min_#{field}', 'max_#{field}'],'#{field}_slider',{axis:'horizontal', range:$R(#{range}), restricted:true, sliderValue:[#{min}, #{max}], onSlide:function(v){$('min_#{field}_value').innerHTML=numberWithDelimiter(parseInt(v[0]), '#{delimiter}'); $('max_#{field}_value').innerHTML=numberWithDelimiter(parseInt(v[1]), '#{delimiter}')}, onChange:function(v) {$('form_filter').#{field}_from.value = parseInt(v[0]); $('form_filter').#{field}_to.value = parseInt(v[1])}}); #{"$('#{field}_filter').hide()" if disabled}" %>
+  </div>
+</div>

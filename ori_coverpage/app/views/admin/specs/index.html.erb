@@ -1,0 +1,44 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => admin_specs_path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :name_contains, :label => "Name", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :contact_name_contains, :label => "Contact Name", :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :id_equals, :label => "ID", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :contact_email_contains, :label => "Contact Email", :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<%= render :partial => 'admin/shared/search_sort', :locals => {:options => [{:by => :created_at, :as => "Created"}, {:by => :updated, :as => "Updated"}]} %>
+
+<% if @specs.any? -%>
+  <table cellspacing="0" class="list">
+    <tr>
+      <th class="first"><%= sort_link(@search, :name) %></th>
+      <th><%= sort_link(@search, :id, 'ID') %></th>
+      <th><%= sort_link(@search, :contact_name) %></th>
+      <th><%= sort_link(@search, :contact_email) %></th>
+      <th colspan="2" class="icon last">Actions</th>
+    </tr>
+    <% @specs.each do |spec| %>
+      <%= content_tag_for(:tr, spec, :class => cycle('odd', 'even') ) do -%>
+        <td><%= link_to spec.name, admin_spec_path(spec), :class => "highlight" %></td>
+        <td><%= link_to spec.id, spec_path(spec) %></td>
+        <td><%= spec.contact_name %></td>
+        <td><%= spec.contact_email %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/edit.gif', :alt => 'Edit'), edit_admin_spec_path(spec), :class => 'admin') %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_spec_path(spec), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></td>
+      <% end %>
+    <% end -%>
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @specs} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

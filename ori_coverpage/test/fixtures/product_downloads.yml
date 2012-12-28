@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id: 1
+  content_type: application/pdf
+  filename: test.pdf
+  size:     11521
+  #parent_id:
+  title_id: 1
+  created_at: <%= 1.days.ago.to_s :db %>
+
+anotherone:
+  id: 2
+  content_type: application/pdf
+  filename: anothertest.pdf
+  size: 68621
+  title_id: 7
+  created_at: <%= 1.days.ago.to_s :db %>

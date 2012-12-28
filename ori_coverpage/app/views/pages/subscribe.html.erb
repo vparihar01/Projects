@@ -1,0 +1,17 @@
+<h1>Subscribe</h1>
+
+<p>Fill out the form below to subscribe to the Cherry Lake Publishing newsletter. Your email address will not be used for any other purposes unless you have deemed otherwise. For further details, please refer to our <a href="/privacy">privacy policy</a>.</p>
+
+<%= render :partial => 'shared/required' %>
+
+<%= form_tag CONFIG[:subscribe_url] do %>
+  <fieldset>
+    <div class="group">
+      <div class="full">
+        <%= label_tag CONFIG[:email_input_id], 'Email address *' %>
+        <%= text_field_tag CONFIG[:email_input_id], (logged_in? ? current_user.email : nil) %>
+      </div>
+    </div>
+    <div class="pagebuttons"><%= submit_tag 'Subscribe' %></div>
+  </fieldset>
+<% end %>

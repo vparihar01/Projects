@@ -1,0 +1,13 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+<%= error_messages_for :user %>
+
+<%= f.inputs do %>
+  <%= f.input :name, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :email, :wrapper_html => { :class => "half" } %>
+  <%= f.input :type, :label => 'User Type', :as => :select, :collection => ['HeadSalesRep', 'SalesRep', 'Customer', 'Admin'], :wrapper_html => { :class => "half first" }, :input_html => {:disabled => true} %>
+  <%= f.input :category, :label => 'Category', :as => :select, :collection => Customer::CATEGORIES, :include_blank => false, :wrapper_html => { :class => "half" } %>
+  <%= f.input :password, :wrapper_html => { :class => "half first" } %>
+  <%= f.input :password_confirmation, :wrapper_html => { :class => "half" } %>
+<% end %>

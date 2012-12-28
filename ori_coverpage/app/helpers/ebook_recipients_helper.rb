@@ -1,0 +1,2 @@
+module EbookRecipientsHelper
+end

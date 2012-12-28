@@ -1,0 +1,72 @@
+# ONIX-2.1.3/codelists/onix-codelist-64.htm
+---
+PC: 
+  value: Publication cancelled
+  onix: 1
+  ingram: AB
+  bakertaylor: PC
+NYP: 
+  value: Not yet published
+  onix: 2
+  ingram: NP
+  bakertaylor: NYP
+PP: 
+  value: Postponed
+  onix: 3
+  ingram: NP
+  bakertaylor: NYP
+ACT: 
+  value: Active
+  onix: 4
+  ingram: IP
+  bakertaylor: ACT
+NLO: 
+  value: No longer our product
+  onix: 5
+  ingram: NL
+  bakertaylor: NLO
+OS: 
+  value: Out of stock
+  onix: 6
+  ingram: TP
+  bakertaylor: OS
+OSI: 
+  value: Out of stock indefinitely
+  onix: 6
+  ingram: OI
+  bakertaylor: OSI
+OP: 
+  value: Out of print
+  onix: 7
+  ingram: OP
+  bakertaylor: OP
+INA: 
+  value: Inactive
+  onix: 8
+  ingram: OP
+  bakertaylor: OP
+UN: 
+  value: Unknown
+  onix: 9
+  ingram: 
+  bakertaylor: 
+REM: 
+  value: Remaindered
+  onix: 10
+  ingram: OP
+  bakertaylor: OP
+WD: 
+  value: Withdrawn from sale
+  onix: 11
+  ingram: OP
+  bakertaylor: OP
+RE: 
+  value: Recalled
+  onix: 12
+  ingram: OP
+  bakertaylor: OP
+RPL: 
+  value: Replaced
+  onix: 8
+  ingram: OP
+  bakertaylor: OP

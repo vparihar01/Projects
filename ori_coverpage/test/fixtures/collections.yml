@@ -1,0 +1,22 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+<% @period_start = (@now = Time.now).month >= 8 ? Date.new(@now.year, 8, 1) : Date.new(@now.year, 1, 1) %>
+one:
+  id: 1
+  name: one
+  description: first collection
+  #released_on:
+two:
+  id: 2
+  name: two
+  description: second collection
+  released_on: <%= (@period_start.to_time + 1.day).to_formatted_s :db %>
+three:
+  id: 3
+  name: two
+  description: third collection
+  released_on: <%= (@period_start.to_time - 1.year).to_formatted_s :db %>
+future_collection:
+  id: 4
+  name: future collection
+  description: collection with id of four to be released in the future
+  released_on: <%= (@period_start.to_time + 1.year).to_formatted_s :db %>

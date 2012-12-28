@@ -1,0 +1,13 @@
+<h1>Sales Rep for <%= @sales_team.name %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Edit sales rep', edit_sales_team_sales_rep_path(@sales_team, @sales_rep))) if admin? %>
+</ul>
+
+<ul>
+  <li><span class="meta">Sales Team</span> &nbsp; <strong><%= link_to h(@sales_rep.sales_team), sales_team_path(@sales_rep.sales_team) %></strong></li>
+  <li><span class="meta">Name</span> &nbsp; <strong><%= @sales_rep.name %></strong></li>
+  <li><span class="meta">Type</span> &nbsp; <strong><%= @sales_rep[:type].underscore.titleize %></strong></li>
+  <li><span class="meta">Email</span> &nbsp; <strong><%= mail_to @sales_rep.email %></strong></li>
+  <li><span class="meta">Phone</span> &nbsp; <strong><%= @sales_rep.phone %></strong></li>
+</ul>

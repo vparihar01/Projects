@@ -1,0 +1,39 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1>Research Assistant</h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to("Recommended sites", recommended_links_path)) %>
+  <%= content_tag(:li, link_to("Popular links", popular_links_path)) %>
+</ul>
+
+<% unless CONFIG[:show_sidebar] -%>
+  <p class="nb">Use this page to find sites related to a specific book published by <%= CONFIG[:company_name] %>. Simply enter the Product Name or ISBN and press "Search".</p>
+  <%= render :partial => 'links/search' %>
+<% else -%>
+  <p class="nb">Use the search form in the sidebar to find sites related to a specific book.</p>
+<% end -%>
+
+<% if defined?(@product) # Not the case for 'index', 'recommended' and 'popular' requests -%>
+  <% if @product -%>
+    <%= render :partial => 'shop/product_nested', :locals => {:product => @product, :association => 'links'} %>
+  <% elsif @products && @products.any? -%>
+    <p><strong>Multiple products found. Select the appropriate one.</strong></p>
+    <% @products.each do |product| -%>
+      <div class="module topseparator clearboth forcebottommargin">
+        <%= link_to image_tag(product.image, :class => "photo"), product_links_path(product) %>
+        <h2 class="nobottommargin"><%= link_to product.name, product_links_path(product) %></h2>
+        <% unless product.collection.nil? -%>
+          <p class="meta"> From the Series: <%= product.collection.name %> </p>
+        <% end -%>
+      </div>
+    <% end -%>
+  <% else -%>
+    <p><strong>No products found.</strong></p>
+  <% end -%>
+<% end -%>
+
+<% if @links.any? -%>
+  <%= render :partial => 'links/link', :collection => @links, :spacer_template => 'shared/spacer', :locals => {:show_admin => admin?} %>
+  <%= will_paginate @links %>
+<% end -%>

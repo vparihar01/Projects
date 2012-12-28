@@ -1,0 +1,7 @@
+<%= div_for testimonial, :class => 'module' do -%>
+  <%= render :partial => 'shared/admin_list_actions', :locals => {:record => testimonial, :controller_path => "admin/#{controller.controller_name}"} %>
+  <blockquote>
+  &quot;<%= testimonial.comment.html_safe %>&quot;
+  </blockquote>
+  <cite>&mdash;<%= testimonial.name %></cite>
+<% end -%>

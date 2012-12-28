@@ -1,0 +1,15 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @customer} %>
+
+<h1><%= @customer.name %></h1>
+
+<ul class="page-actions">
+  <%= content_tag(:li, link_to('Edit customer', edit_customer_url(@customer))) %>
+  <%= content_tag(:li, link_to('Purchased products', products_customer_url(@customer))) %>
+</ul>
+
+<ul>
+  <li><span class="meta">name</span> &nbsp; <strong><%= @customer.name %></strong></li>
+  <li><span class="meta">email</span> &nbsp; <strong><%= mail_to @customer.email %></strong></li>
+  <li><span class="meta">phone</span> &nbsp; <strong><%= @customer.phone %></strong></li>
+  <li><span class="meta">category</span> &nbsp; <strong><%= @customer.category %></strong></li>
+</ul>

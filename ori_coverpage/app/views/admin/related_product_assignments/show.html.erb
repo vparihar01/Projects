@@ -1,0 +1,9 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @related_product_assignment} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<ul>
+  <li><span class="meta">Product:</span> <%= link_to @related_product_assignment.product.name, show_path(@related_product_assignment.product) %></li>
+  <li><span class="meta">Relation:</span> <%= @related_product_assignment.relation %></li>
+  <li><span class="meta">Related Product:</span> <%= link_to @related_product_assignment.related_product.name, show_path(@related_product_assignment.related_product) %></li>
+</ul>

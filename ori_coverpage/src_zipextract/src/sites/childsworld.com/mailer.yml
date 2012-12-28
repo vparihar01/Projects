@@ -1,0 +1,19 @@
+development:
+  :tls: false
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :domain: childsworld.com
+  :user_name: app@childsworld.com
+  :password: 
+  :enable_starttls_auto: true
+
+production:
+  :tls: false
+  :address: smtp.gmail.com
+  :port: 587
+  :authentication: plain
+  :domain: childsworld.com
+  :user_name: app@childsworld.com
+  :password: 
+  :enable_starttls_auto: true

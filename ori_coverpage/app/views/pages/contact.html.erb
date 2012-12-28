@@ -1,0 +1,54 @@
+<h1>Contact Us</h1>
+
+<p>Fill out the form below to contact us by email. The information you provide will only be used to deliver reply to your correspondence unless you specify otherwise. For further details, please refer to our <%= link_to('privacy policy', public_page_path(:privacy)) %>.</p>
+
+<%= render :partial => 'shared/required' %>
+
+<%= error_messages_for :form %>
+
+<%= form_for :form, :url => public_page_path(:contact), :method => :post do |f| -%>
+  <fieldset>
+    <div class="group clearfix">
+      <div class="half first">
+        <%= f.label :name, 'Name *' %>
+        <%= f.text_field :name %>
+      </div>
+      <div class="half">
+        <%= f.label :email, 'Email *' %>
+        <%= f.text_field :email %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="full">
+        <%= f.label :comments, 'Comments *' %>
+        <%= f.text_area :comments, :class => 'short' %>
+      </div>
+    </div>
+    <div class="group clearfix">
+      <%= show_mini_captcha  %>
+    </div>
+    <% unless CONFIG[:subscribe_url].blank? -%>
+    <div class="group clearfix">
+      <div class="unsized">
+        <%= f.check_box :subscribe, :class => 'unsized' %>
+        <%= f.label :subscribe, 'Add my email address to the corporate mailing list.', :class => 'inline' %>
+      </div>
+    </div>
+    <% end -%>
+  </fieldset>
+  <%= page_buttons(submit_tag('Submit')) %>
+<% end -%>
+
+<h4>Mailing Address</h4>
+<p>To contact us by any other method, please use the following information:</p>
+
+<ul>
+  <li><%= CONFIG[:company_name] %></li>
+  <li><%= CONFIG[:street] %></li>
+  <%= content_tag(:li, CONFIG[:suite]) if CONFIG[:suite] %>
+  <li><%= CONFIG[:city] %>, <%= CONFIG[:state] %> <%= CONFIG[:zip] %></li>
+  <li>Phone: <%= CONFIG[:phone] %></li>
+  <li>Fax: <%= CONFIG[:fax] %></li>
+</ul>
+
+<h4>Manuscripts</h4>
+<p>Regretfully, <%= CONFIG[:company_name] %> does not accept unsolicited manuscripts.  As our publications are curriculum-based, we employ the use of a select panel of authors who are familiar with our needs and requests. To help you in your search, we suggest acquiring a copy of <a href="http://www.slj.com">School Library Journal magazine</a>. This monthly publication includes dozens of advertisements from publishers across the country.  By flipping through the Journal, you can get an understanding as to what types of literature each company publishes, as well as obtain addresses and websites. Best of luck to you!</p>

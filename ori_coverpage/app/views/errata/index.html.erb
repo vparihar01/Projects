@@ -1,0 +1,43 @@
+<%= render :partial => 'shared/admin_index_actions', :locals => {:controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1>Errata for <%= @product.name %></h1>
+
+<%= link_to image_tag(@product.image('covers', 's'), :class => "photo"), show_path(@product) %>
+<p>We try to keep our books accurate, but sometimes mistakes creep in. This page lists the errors submitted by our astute readers. If you've found a new error, please <%= link_to('submit it', new_product_erratum_path(@product)) %>.</p>
+
+<table>
+  <tr>
+    <th class="first">Format</th>
+    <th class="center">Ed</th>
+    <th class="center">Page</th>
+    <th>Type</th>
+    <th>Description</th>
+    <% if admin? -%>
+    <th>Status</th>
+    <th class="last right">Actions</th>
+    <% else -%>
+    <th class="last">Status</th>
+    <% end -%>
+  </tr>
+
+<% if @errata.any? -%>
+  <% @errata.each do |erratum| %>
+    <tr>
+      <td><%= erratum.product_format %></td>
+      <td class="center"><%= erratum.edition %></td>
+      <td class="center"><%= erratum.page_number %></td>
+      <td><%= erratum.erratum_type %></td>
+      <td><%= erratum.description %></td>
+      <td><%= erratum.status %></td>
+      <% if admin? -%>
+      <td class="right"><%= render :partial => 'shared/admin_list_actions', :locals => {:record => erratum, :controller_path => "admin/#{controller.controller_name}"} %></td>
+      <% end -%>
+    </tr>
+  <% end -%>
+<% else -%>
+  <tr>
+    <td colspan="6">No errata have yet to be submitted.</td>
+  </tr>
+<% end -%>
+
+</table>

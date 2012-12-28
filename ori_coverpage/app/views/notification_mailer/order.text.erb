@@ -1,0 +1,63 @@
+Thank you for shopping with <%= CONFIG[:company_name] %>. We have received your order and it is currently being processed. Please see below for details:
+
+Order Number: <%= @sale.id %>
+Date Ordered: <%= @sale.completed_at.to_s(:custom_with_time) %>
+Customer Category: <%= @sale.user.category if @sale.user %>
+
+Products
+<%= divider %>
+<% @sale.line_items.each do |item| -%>
+<%= item.quantity %> x <%= item.product_name %> (<%= item.product_format.isbn %>) = <%= number_to_currency(item.total_amount) %>
+<% end -%>
+Subtotal: <%= number_to_currency(@sale.amount) %>
+Tax<%= " (#{@sale.ship_address.postal_code.zone.code} #{number_to_percentage(@sale.ship_address.postal_code.tax_rate * 100, :precision => 3)})" if @sale.tax > 0 %>: <%= number_to_currency(@sale.tax) %>
+<% if @sale.spec -%>
+Library Processing<%= ' (' + pluralize(@sale.title_count, 'book') + ')' %>: <%= number_to_currency(@sale.processing_amount) %>
+Accelerated Reader Quizzes<%= ' (' + pluralize(@sale.alsquiz_count, 'title') + (@sale.alsquiz_count < CONFIG[:alsquiz_min_limit] ? " - minimum #{CONFIG[:alsquiz_min_limit]} titles not reached" : '') + ')' %>: <%= number_to_currency(@sale.alsquiz_amount) %>
+<% end -%>
+Shipping (<%= UPS::Client::Services[@sale.shipping_method] %>): <%= number_to_currency(@sale.shipping_amount) %>
+Total: <%= number_to_currency(@sale.total_amount) %>
+
+<%= "Coupon Code: #{@sale.discount_code}" unless @sale.discount_code.blank? %>
+
+Library Processing
+<%= divider %>
+<% if spec = @sale.spec -%>
+ID: <%= spec.id %>
+Description: <%= spec.name %>
+Contact: <%= spec.contact_email %>
+Include: <%= spec.inclusions.to_sentence %>
+Special Request: <%= spec.customization.blank? ? 'No' : spec.customization %>
+<% else -%>
+Do NOT process
+<% end -%>
+
+Shipping Address
+<%= divider %>
+<%= @sale.ship_address.to_s %>
+
+Shipping Method
+<%= divider %>
+<%= UPS::Client::Services[@sale.shipping_method] %>
+
+Billing Address
+<%= divider %>
+<%= @sale.bill_address.to_s %>
+
+Payment Method
+<%= divider %>
+<%= @sale.payment_method %>
+
+Purchase Order # / Order Comments
+<%= divider %>
+<%= @sale.comments %>
+
+
+Again, thank you for your order.
+
+<%= CONFIG[:company_name] %>
+<%= CONFIG[:order_street] %>
+<% ', ' + CONFIG[:order_suite] if CONFIG[:order_suite] -%>
+<%= CONFIG[:order_city] %>, <%= CONFIG[:order_state] %> <%= CONFIG[:order_zip] %>
+Phone: <%= CONFIG[:phone] %>
+Fax: <%= CONFIG[:fax] %>

@@ -1,0 +1,17 @@
+--- 
+role_web: 205.186.157.248
+group: childsworld
+repository: gitosis@git.milkfarmproductions.com:coverpage.git
+role_app: 205.186.157.248
+theme: childsworld
+remote_rake: /usr/local/bin/rake
+branch: master
+scm_username: git
+application: childsworld
+runner: childsworld
+keep_releases: 5
+scm_password: 
+role_db: 205.186.157.248
+rails_env: production
+user: childsworld
+deploy_to: /var/www/childsworld.com

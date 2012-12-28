@@ -1,0 +1,9 @@
+<div class="formrow">
+  <ul class="record-actions">
+    <!-- TODO: Refs #467, removed delete button -->
+    <li><%= link_to(image_tag("buttons/s/edit.gif"), checkout_edit_spec_path(spec)) %></li>
+  </ul>
+  <%= radio_button_tag :specification, spec.id, (spec == session[:spec]), :id => dom_id(spec) %>
+  <%= label_tag dom_id(spec), "Use Specification #{spec_counter + 1}", :class => 'inline' %>
+  <%= render :partial => '/specs/spec_summary', :locals => {:spec => spec, :style => 'sub-option'} %>
+</div>

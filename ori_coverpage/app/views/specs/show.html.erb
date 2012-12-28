@@ -1,0 +1,12 @@
+<h1>Specification</h1>
+
+<ul class="page-actions">
+	<li><%= link_to "Return to list", specs_path %></li>
+	<li><%= link_to "Edit", edit_spec_path(@spec) %></li>
+</ul> 
+
+<% for column in Spec.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%= @spec.send(column.name) %>
+</p>
+<% end %>

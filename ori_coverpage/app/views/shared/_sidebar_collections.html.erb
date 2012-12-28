@@ -1,0 +1,14 @@
+<%= render :partial => 'collections/search' %>
+<h2>Cart Summary</h2>
+<%= render :partial => 'shop/cart_summary' %>
+<%= render :partial => 'shop/cart_links' %>
+<% if defined?(@assemblies) && @assemblies.any? -%>
+  <h2>Related Sets</h2>
+  <ul>
+    <% @assemblies.each do |assembly| -%>
+      <li><%= link_to(assembly.title, show_path(assembly)) %></li>
+    <% end -%>
+  </ul>
+<% else -%>
+  &nbsp;
+<% end -%>

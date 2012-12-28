@@ -1,0 +1,6 @@
+<%= content_tag_for(:tr, item, :class => cycle('odd', 'even')) do -%>
+  <td><%= link_to(product_name_with_count(item.product), show_path(item.product)) %></td>
+  <td class="center"><%= link_to('Add to cart', add_one_path(:id => item.product_format_id), :method => :post, :class => 'highlight', :title => 'Add to cart') %></td>
+  <td><%= product_format_tag_with_price(item) %></td>
+  <td class="qty"><%= product_quantity_tag(item, item.quantity) %></td>
+<% end -%>

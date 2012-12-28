@@ -1,0 +1,22 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @faq, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<% if @faq.tags.any? -%>
+<div class="group forcebottommargin">
+  <span class="inline label">Tags: </span> &nbsp; 
+  <%=raw tag_list_to_links(@faq.tags) %>
+</div>
+<% end -%>
+
+<div class="clearfix module-faq" id="<%= dom_id(@faq) %>">
+  <h2 id="<%= dom_id(@faq, 'question') %>"><%= @faq.question %></h2>
+  <p id="<%= dom_id(@faq, 'answer') %>"><%= RedCloth.new(@faq.answer).to_html.html_safe %></p>
+</div>
+
+<% if admin? -%>
+  <ul class="meta">
+    <li>Created: <%= @faq.created_at %></li>
+    <li>Updated: <%= @faq.updated_at %></li>
+  </ul>
+<% end -%>

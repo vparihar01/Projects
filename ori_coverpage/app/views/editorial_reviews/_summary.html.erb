@@ -1,0 +1,11 @@
+<div class="module">
+  <% if defined?(show_admin) && show_admin -%>
+    <%= render :partial => 'shared/admin_list_actions', :locals => {:record => editorial_review, :controller_path => "admin/#{controller.controller_name}"} %>
+  <% end -%>
+  <% if (!defined?(hide_image) || !hide_image) && product = editorial_review.products.first -%>
+    <%= link_to image_tag(product.image, :class => "photo clearfix"), show_path(product) -%>
+  <% end -%>
+  <h3><%= editorial_review.to_s %></h3>
+  <%=raw RedCloth.new(truncate_to_nearest_word(editorial_review.body, 300) + " " + link_to('Read &raquo;'.html_safe, editorial_review_path(editorial_review))).to_html %>
+  <p class="byline"><em>Reviewed on <%= editorial_review.written_on.to_s(:long) %></em></p>
+</div>

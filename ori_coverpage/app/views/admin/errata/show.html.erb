@@ -1,0 +1,34 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @erratum} %>
+
+<h1>Erratum Number <%= @erratum.id %></h1>
+
+<%= content_tag(:ul) do %>
+  <%= display(link_to(@erratum.product_format.product.name, show_path(@erratum.product_format.product)), 'Product name', :wrap => true) %>
+  <%= display_value_in_list(@erratum, :product_format, 'Format') %>
+  <%= display_value_in_list(@erratum, :edition) %>
+  <%= display_value_in_list(@erratum, :page_number, 'Page') %>
+  <%= display_value_in_list(@erratum, :erratum_type, 'Type') %>
+  <%= display_value_in_list(@erratum, :status) %>
+  <%= display_value_in_list(@erratum, :description) %>
+  <%= display(link_to(@erratum.user.name, admin_user_path(@erratum.user)), 'User account', :wrap => true) if @erratum.user %>
+  <%= display((@erratum.user ? mail_to(@erratum.user.email) : @erratum.email), 'User email', :wrap => true) %>
+  <%= display_value_in_list(@erratum, :created_at, 'Created') %>
+  <%= display_value_in_list(@erratum, :updated_at, 'Updated') %>
+<% end -%>
+
+<h2>Status</h2>
+<p>
+    Set status to:
+    <%=
+      Erratum::VALID_STATUSES.map do |status|
+        link_to_unless(@erratum.status == status, status,  set_status_admin_erratum_url(:id => @erratum, :status => status), :method => :post)
+      end.join(' | ').html_safe
+    %>
+</p>
+<table cellspacing="0" class="list">
+  <tr>
+    <th class="first">Status</th>
+    <th class="last">Time Changed</th>
+  </tr>
+  <%= render :partial => 'account/status_change', :collection => @erratum.status_changes %>
+</table>

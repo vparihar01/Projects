@@ -1,0 +1,24 @@
+<div class="module">
+  <div class="buy-s">
+    <% if CONFIG[:default_format_only] -%>
+      <%= hidden_field_tag("items[#{item.id}][id]", item.product.default_format.id) %>
+    <% else -%>
+      <% item.product.product_formats.where(:format_id => CONFIG[:show_format_ids]).each do |f| -%>
+        <%= product_format_radio_button(f, (item.product_format_id == f.id), item.id, false) %>
+      <% end -%>
+    <% end -%>
+    <div class="buy-row">
+      <%= text_field_tag("items[#{item.id}][quantity]", item.quantity, :size => 2) %>
+      <%= label_tag("items_#{item.id}_quantity", "Qty Desired") %>
+    </div>
+    <div class="buttons">
+      <%= image_submit_tag "buttons/s/save.gif", :alt => ' Save Changes ', :title => ' Save Changes ', :id => 'save', :name => 'save', :style => 'float:left;margin-right:5px;' %>
+      <%= link_to(image_tag('buttons/s/add-cart.gif'), add_one_path(:id => item.product_format_id), :method => :post, :class => 'highlight', :title => 'Add to cart') %>
+    </div>
+  </div>
+  <%= link_to image_tag(item.product.image, :class => "photo"), show_path(item.product) %>
+  <h2><%= link_to(item.product.name, show_path(item.product)) %></h2>
+  <%= compact_price_listing(item.product) -%>
+  <%= byline(item.product) -%>
+  <p><%= truncate_to_nearest_word(item.product.description) %> <%= link_to("More &raquo;".html_safe, show_path(item.product)) %></p>
+</div>

@@ -1,0 +1,7 @@
+<% per = glider_per(assembly) -%>
+<% if titles.size > 0 -%>
+  <div id="<%= assembly.id %>" class="glider-module clearfix">
+    <h2><%= link_to "#{assembly.name}", show_path(assembly) %> <span class="meta"><%= "(#{pluralize(titles.size, 'new title')})" %></span></h2>
+    <%= render :partial => 'shared/glider_products', :locals => {:count => titles.size, :per => per, :products => titles, :i => i, :partial => 'glider_titles'} %>
+  </div>
+<% end -%>

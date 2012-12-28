@@ -1,0 +1,8 @@
+<% if product.respond_to?(:assemblies) -%>
+  <h2 class="divider">Related Info</h2>
+  <ul>
+    <li><%= link_to("Links", product_links_path(product)) %></li>
+    <li><%= link_to("Errata", product_errata_path(product)) %></li>
+    <%= content_tag(:li, link_to('Email a Friend', email_path(@product))) if logged_in? %>
+  </ul>
+<% end -%>

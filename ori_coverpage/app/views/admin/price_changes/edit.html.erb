@@ -1,0 +1,8 @@
+<%= render :partial => 'shared/admin_edit_actions', :locals => {:record => @price_change} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for @price_change, :url => admin_price_change_path(@price_change) do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= render :partial => 'admin/shared/edit_buttons', :locals => {:f => f} %>
+<% end -%>

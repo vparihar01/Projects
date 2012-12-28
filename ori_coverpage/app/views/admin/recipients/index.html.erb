@@ -1,0 +1,43 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'formtastic', 'formtastic_changes' %>
+<% end %>
+
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= semantic_form_for :search, :url => request.path, :html => { :method => :get } do |f| %>
+  <%= f.inputs do -%>
+    <%= f.input :name_contains, :label => "Name", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :type_equals, :label => "Type", :as => :select, :collection => Recipient::SUBCLASSES, :required => false, :wrapper_html => { :class => "half" } %>
+    <%= f.input :emails_contains, :label => "Emails", :required => false, :wrapper_html => { :class => "half first" } %>
+    <%= f.input :ftp_contains, :label => "FTP", :required => false, :wrapper_html => { :class => "half" } %>
+  <% end -%>
+  <%= render :partial => 'admin/shared/search_buttons', :locals => {:f => f} %>
+<% end %>
+
+<% if @recipients.any? -%>
+  <table cellspacing="0" class="list">
+    <tr>
+      <th class="first"><%= sort_link(@search, :name) %></th>
+      <th>&nbsp;</th>
+      <th><%= sort_link(@search, :type) %></th>
+      <th><%= sort_link(@search, :emails) %></th>
+      <th class="icon last">Delete</th>
+    </tr>
+
+    <% @recipients.each do |recipient| %>
+      <%= content_tag_for(:tr, recipient, :class => cycle('odd', 'even')) do -%>
+        <td><%= link_to(recipient.name, edit_admin_recipient_path(recipient), :class => 'highlight') %></td>
+        <td><%= distribution_link(image_tag('extlink.gif'), recipient, :title => 'Distribution') %></td>
+        <td><%= recipient.type %></td>
+        <td><%= recipient.email_array.map{|e| e}.join(", ") %></td>
+        <td class="icon"><%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_recipient_path(recipient), :method => :delete, :confirm => 'Are you sure you wish to delete this record?', :class => 'admin') %></td>
+      <% end %>
+    <% end %>
+  </table>
+  <%= render :partial => 'admin/shared/paging', :locals => {:records => @recipients} %>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>
+

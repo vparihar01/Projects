@@ -1,0 +1,30 @@
+<h1>Tell A Friend</h1>
+
+<p>Fill out the form below to send a link to the product "<%= link_to @product.name, show_path(@product) %>" to the specified email address. For further details, please refer to our <%= link_to('privacy policy', public_page_path(:privacy)) %>.</p>
+
+<%= render :partial => 'shared/required' %>
+
+<%= error_messages_for :form %>
+
+<%= form_for :form, :url => email_path(@product), :method => :post do |f| %>
+  <fieldset>
+    <div class="group">
+      <div class="half first">
+        <%= f.label :email, 'To (email address) *' %>
+        <%= f.text_field :email %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="full">
+        <%= f.label :message, 'Message' %>
+        <%= f.text_area :message, :class => 'short', :value => "Hi, I found the product '#{@product.name}' at #{CONFIG[:app_name]} and thought you might find it of interest." %>
+      </div>
+      <div class="clearboth"></div>
+      <div class="unsized">
+        <%= f.check_box :cc, :class => 'unsized' %>
+        <%= f.label :cc, 'Send me a copy of this email', :class => 'inline' %>
+      </div>
+      <div class="clearboth"></div>
+    </div>
+  </fieldset>
+  <%= submit_or_cancel(url_for(:action => 'show', :id => @product.id), 'Send Email') %>
+<% end %>

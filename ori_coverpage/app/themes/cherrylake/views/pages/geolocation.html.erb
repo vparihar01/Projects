@@ -1,0 +1,14 @@
+<h1>Location</h1>
+
+<h2>Headquarters</h2>
+<ul>
+<li><%= CONFIG[:company_name] %></li>
+<li><%= CONFIG[:street] %></li>
+<% if CONFIG[:suite] %><li><%= CONFIG[:suite] %></li><% end %>
+<li><%= CONFIG[:city] %>, <%= CONFIG[:state] %> <%= CONFIG[:zip] %></li>
+<li>Phone: <%= CONFIG[:phone] %></li>
+<li>Fax: <%= CONFIG[:fax] %></li>
+<li>E-mail: <%= CONFIG[:sales_email] %></li>
+</ul>
+
+<p class="map_link"><a href="http://maps.google.com/maps?f=q&hl=en&geocode=&q=209+North+Main+Street,+Ann+Arbor,+MI&sll=37.0625,-95.677068&sspn=42.766543,70.664062&ie=UTF8&z=16&iwloc=addr&om=1">Google Map: <%= CONFIG[:company_name] %></a></p>

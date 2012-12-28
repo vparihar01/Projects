@@ -1,0 +1,34 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag('counter') %>
+<% end -%>
+<%= error_messages_for :download %>
+
+<fieldset>
+<div class="group">
+  <div class="full">
+    <%= f.label :uploaded_data, "File #{"(currently #{@download.filename})" if @download.filename}" %>
+    <%= f.file_field :uploaded_data %>
+  </div>
+  <div class="half first">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="half">
+    <%= f.label :is_visible, "Visible?" %>
+    <%= f.select :is_visible, [["Yes",true],["No",false]] %>
+  </div>
+  <div class="clearboth"></div>
+  <div class="full" style="padding-bottom:0;">
+    <%= f.label :description %>
+    <%= f.text_area :description, :class => 'short' %>
+  </div>
+  <div class="full clearfix" style="padding-top:0;">
+    <%= label_tag :download_description_count, "Characters remaining:", :class => 'label-count' %>
+    <%= text_field_tag :download_description_count, 255, :class => 'text-count', :disabled => true %>
+  </div>
+  <div class="full">
+    <%= f.label :tag_list, "Tags (comma separated)" %>
+    <%= f.text_field :tag_list %>
+  </div>
+</div>
+</fieldset>

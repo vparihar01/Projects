@@ -1,0 +1,10 @@
+<div class="info">
+  <h2><%= product.name %></h2>
+  <p>
+    <%= truncate_to_nearest_word(product.description, 200) %> &nbsp; 
+    <%= link_to "More &raquo;".html_safe, show_path(product) %>
+  </p>
+</div>
+<div style="text-align:center;">
+<%= image_tag("gliders/#{product.isbn}.jpg", :alt => 'Cover image', :class => 'cover') %>
+</div>

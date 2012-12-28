@@ -1,0 +1,48 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1>Purchased Products</h1>
+
+<p><span class="label inline">Customer</span> &nbsp; <%= @customer.name %></p>
+
+<%= form_tag products_customer_path(@customer) do %>
+  <fieldset>
+    <div class="group">
+      <div class="half first">
+        <%= label_tag :reading_level_id, 'Reading Level' %>
+        <%= select_tag :reading_level_id, options_for_select(level_options(:include_blank => true), params[:reading_level_id].to_i), :onchange => "this.form.submit()" %>
+      </div>
+      <div class="half">
+        <%= label_tag :category_id, 'Category' %>
+        <% category_options = [""] + Category.order('name ASC').map {|x| [x.name, x.id]} %>
+        <%= select_tag :category_id, options_for_select(category_options, params[:category_id].to_i), :onchange => "this.form.submit()" %>
+      </div>
+      <div class="clearboth"></div>
+    </div>
+  </fieldset>
+<% end %>
+
+<table class="list" id="purchases">
+  <thead>
+    <tr>
+      <th class="first">Product</th>
+      <th>Status</th>
+      <th class="last qty">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @purchases.sort.each do |purchase| %>
+      <tr class="totals">
+        <td><%= purchase[0] %></td>
+        <td></td>
+        <td class="number"><%= number_with_delimiter(purchase[1].collect {|p| p.quantity_sold.to_i }.sum) %></td>
+      </tr>
+      <% purchase[1].each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.list_status %></td>
+          <td class="qty"><%= number_with_delimiter product.quantity_sold if product.quantity_sold.to_i > 0 %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

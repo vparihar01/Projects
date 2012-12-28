@@ -1,0 +1,24 @@
+<div class="half first">
+  <%= label_tag :distribution_image_types, "Image Type" %>
+  <%= select_tag 'distribution[image_types]', options_for_select(ImageRecipient::IMAGE_TYPES, (!params[:distribution].blank? ? params[:distribution][:image_types] : "")) %>
+</div>
+<div class="half">
+  <%= label_tag :distribution_image_formats, "Image Format" %>
+  <%= select_tag 'distribution[image_formats]', options_for_select(ImageRecipient::IMAGE_FORMATS, (!params[:distribution].blank? ? params[:distribution][:image_formats] : "")) %>
+</div>
+<div class="clearboth"></div>
+<div class="half first">
+  <%= label_tag :distribution_image_suffix, "File Suffix" %>
+  <%= text_field_tag 'distribution[image_suffix]', (!params[:distribution].blank? ? params[:distribution][:image_suffix] : "") %>
+</div>
+<div class="half">
+  <%= label_tag :distribution_image_format_id, "Product Format" %>
+  <%= select_tag 'distribution[image_format_id]', options_for_select(format_options(:singles_only => true), (!params[:distribution].blank? ? params[:distribution][:image_format_id] : "")) %>
+</div>
+<div class="clearboth"></div>
+<div class="half">
+  <%= label_tag :distribution_image_compress, "Compress Files?" %>
+  <%= hidden_field_tag 'distribution[image_compress]', false %>
+  <%= check_box_tag 'distribution[image_compress]', true, (!params[:distribution].blank? ? params[:distribution][:image_compress] == 'true' : false), :class => 'unsized' %>
+</div>
+<div class="clearboth"></div>

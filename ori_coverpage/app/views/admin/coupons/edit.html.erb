@@ -1,0 +1,8 @@
+<%= render :partial => 'shared/admin_edit_actions', :locals => {:record => @coupon} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for @coupon, :url => admin_coupon_url(@coupon) do |f| %>
+  <%= render :partial => "form", :locals => {:f => f} %>
+  <%= submit_or_cancel(admin_coupons_path) %>
+<% end %>

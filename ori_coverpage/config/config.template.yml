@@ -1,0 +1,268 @@
+---
+defaults: &defaults
+  theme: coverpage
+  menu_type: drop_tab  # Either drop_tab or sticky_tab
+  show_panel: false
+  show_sidebar: true
+  # Map controller to layout (app/views/layouts filename less extension)
+  controller_layouts:
+    account_controller: account
+    addresses_controller: account
+    catalog_requests_controller: help
+    categories_controller: shop
+    checkout_controller: checkout
+    collections_controller: shop
+    contracts_controller: sales
+    contributors_controller: about
+    customers_controller: sales
+    downloads_controller: help
+    editorial_reviews_controller: shop
+    errata_controller: shop
+    excerpts_controller: shop
+    faqs_controller: help
+    handouts_controller: help
+    headlines_controller: about
+    levels_controller: shop
+    links_controller: help
+    pages_controller: application
+    products_controller: shop
+    quotes_controller: account
+    sales_reps_controller: sales
+    sales_teams_controller: sales
+    sales_zones_controller: sales
+    shop_controller: shop
+    specs_controller: account
+    teaching_guides_controller: help
+    testimonials_controller: about
+    wishlists_controller: account
+  # Map complex page (see pages controller) to layout
+  page_layouts:
+    home: home
+    geolocation: about
+    contact: help
+    hosted_ebooks_trial: help
+    subscribe: help
+    unsubscribe: help
+    reps: about
+  # Map layout to menu tab (specifying which tab will be active)
+  layout_tabs:
+    about: about
+    account: account
+    admin: 
+    checkout: shop
+    collections: shop
+    grades: shop
+    help: help
+    home: home
+    quick: shop
+    resources: help
+    sales: 
+    search: shop
+    shop: shop
+    subjects: shop
+  glider_frequency: 10
+  glider_duration: 0.7
+  fade_duration: 0.2
+  blind_duration: 0.2
+  cart_startcolor: # can leave blank, defaults to yellow
+  cart_endcolor: # can leave blank, defaults to white
+  fallback_pdf_price: 9.95
+  fallback_trade_price: 8.95
+  #
+  company_name: CoverPage Online Bookstore
+  tax_id: 99-9999999
+  app_name: CoverPage.Ws
+  app_url: http://coverpage.ws/
+  phone: '1-234-567-8900'
+  fax: '1-234-567-8901'
+  street: 123 North South Street
+  suite: Suite 123
+  city: EastWest Village
+  state: CA
+  zip: 12345-6789
+  order_street: 123 Longway Drive
+  order_suite: Suite 123
+  order_city: North Pole
+  order_state: AL
+  order_zip: 12345
+  canada_company: Canadian Company
+  canada_street: Canadian Street
+  canada_suite: Canadian Suite
+  canada_city: Toronto
+  canada_state: Ontario
+  canada_zip: L9Y 3Z7
+  canada_phone: 
+  canada_fax: 
+  canada_email: info@company.ca
+  canada_web: 'http://www.company.ca'
+  webmaster_email: dev@milkfarmproductions.com
+  webmaster_ftp: ftp://mf-share:milkfarm@milkfarmproductions.com
+  webmaster_sftp: sftp://USER:PASSWORD@childsworld.strongspace.com
+  exception_email: redmine@milkfarmproductions.com
+  sales_email: sales@milkfarmproductions.com
+  support_email: customerservice@milkfarmproductions.com
+  hosted_ebooks_trial_email: freetrial@milkfarmproductions.com
+  hosted_ebooks_url: 'http://my.bigtimbermedia.com/display/?isbn='
+  onix_contact: Tim Peterson
+  onix_email: tim@milkfarmproductions.com
+  image_email: tim@milkfarmproductions.com
+  image_archive_dir: /home/share/images
+  ftp_dir: /home/share
+  export_basename: coverpage
+  extended_per_page: 20
+  compact_per_page: 100
+  # Authorize.net
+  authorizenet_id: 
+  # Google analytics
+  google_analytics_tracker: 
+  # Campaign monitor
+  subscribe_url: 
+  unsubscribe_url: 
+  email_input_id: 
+  # Enable x-sendfile option of send_file
+  use_xsendfile: true
+  # Website image parameters
+  website_images_dir: public/images
+  website_samples_dir: tmp/samples
+  website_image_size_geometries:
+    s: '85x100'
+    m: '170x200'
+    l: '340x400'
+  website_image_scale_s: 0.1
+  website_image_scale_m: 0.15
+  website_image_scale_l: 0.35
+  composite_image_rotation: 0
+  glider_image_rotation: 0
+  # show/hide library processing specifications disclaimer on returns & refunds
+  # true shows, false hides, not defined hides (see app/views/specs/_disclaimer.html.erb)
+  show_processing_disclaimer: true
+  # Library processing
+  free_library_processing: false # true or false (undefined = false)
+  reading_label_cost: 0
+  catalog_card_cost: 0
+  data_disk_cost: 0
+  data_disk_per_book_cost: 0
+  barcode_label_cost: 0
+  # Shipping options
+  free_shipping_for_institutions: false # true or false (undefined = false)
+  shipping_costs_method: percentage1   # use 'percentage1' for a cherrylake-like calculation, 'percentage2' for a childsworld-like calculation
+  shipping_cost_factor: 0.075            # put calculation factor
+  shipping_min_cost: 0                   # min amount for shipping in dollars (0 for no limit)
+  shipping_max_cost: 0                   # max amount for shipping in dollars (0 for no limit)
+  shipping_description_ups: ''            # any description to be displayed for the 'UPS Ground' shipping, eg. '10% of the total of Paper copies or $5.00, whichever is greater'
+  default_format_only: false              # Show only default product format
+  # Ebook importing parameters
+  ebook_import_overwrite: false
+  ebook_import_source_dir: tmp/ebooks/in
+  ebook_import_archive_dir: tmp/ebooks/out
+  ebook_import_bad_dir: tmp/ebooks/bad
+  ebook_import_unknown_dir: tmp/ebooks/unknown
+  pdf_archive_dir: /Users/Shared/Projects/cherrylakepublishing/ebooks
+  # Advanced Reader Pricing
+  alsquiz_unit_price: 0
+  alsquiz_min_limit: 0
+  # shell programs used by lib/pdf.rb
+  pdftk: /usr/local/bin/pdftk
+  exiftool: /usr/local/bin/exiftool
+  convert: /usr/local/bin/convert
+  identify: /usr/local/bin/identify
+  gs: /usr/local/bin/gs
+  awk: /usr/local/bin/gawk
+  sed: /usr/local/bin/sed
+  # PdfTool options (watermarking samples, downloads, etc.)
+  pdftool_temp_dir: tmp/pdftool
+  # PdfTool: Product Download options
+  # pdftool_download_watermark_file: protected/watermark_download.pdf
+  pdftool_download_text: This copy has been exclusively prepared for %s.
+  pdftool_download_text_properties:
+    font: Helvetica
+    font_size: 10
+    text_angle: 0
+    justification: center
+    alignment: bottom
+    font_color: '#666666'
+    vmargin: 10
+    hmargin: 0
+  pdftool_download_password: asecretphrase
+  pdftool_download_permissions: # see pdftk --help for more info
+    - ScreenReaders
+  # PdfTool: Sample options
+  # pdftool_sample_watermark_file: protected/watermark_sample.pdf
+  # pdftool_sample_text: PRODUCT SAMPLE
+  pdftool_sample_text_properties:
+    font: Helvetica
+    font_size: 40
+    text_angle: 45
+    justification: center
+    alignment: center
+    font_color: '#666666'
+    vmargin: 0
+    hmargin: 0
+  pdftool_sample_front_pages: 19  # should be odd number
+  pdftool_sample_back_pages: 10  # should be odd number
+  # Use price calculations: set to true or false
+  calculate_assembly_price: true
+  calculate_list_price: false
+  calculate_ebook_price: true
+  ebook_price_decimal: 0.7 # used if calculate_ebook_price set to true
+  ebook_fallback_price: 9.95 # used if calculate_ebook_price set to true and default price is null
+  member_price_decimal: 0.7 # used to calculate list price from member price
+  # mailer
+  host: localhost
+  parser_archive_dir: tmp/import/archive
+  errata_login_required: false
+  email_sale_status: true
+  # ftp site for images, etc
+  ftp_site: ftp://ftp.milkfarmproductions.com
+  ftp_user: share
+  ftp_password: share
+  redmine:
+    project: coverpage
+    tracker: Bug
+    priority: High
+    status: New
+    category: Support
+    api_key: abcdef123456789
+  default_bisac: JNF000000
+  show_error_pages: true
+  calculate_title_and_subtitle: false
+  show_buttons_in_list: true
+  max_extended_rows: 6
+  contention_import_dir: /home/cherrylake/contention/incoming
+  csplus_discount_code: 
+  show_facebook_like: false
+  facebook_id: # comma-separated
+  meta_keywords: ["school books", "education", "nonfiction"]
+  meta_description: Publishing quality educational books for children.
+  show_search_filters: false
+  show_format_ids: [1, 2, 3, 4]  # Array of format ids to show on public site
+  price_change_notice: 120  # Days of advance notice
+development: &development
+  <<: *defaults
+  webmaster_email: tim@milkfarmproductions.com
+  exception_email: tim@milkfarmproductions.com
+  sales_email: tim@milkfarmproductions.com
+  support_email: tim@milkfarmproductions.com
+  hosted_ebooks_trial_email: tim@milkfarmproductions.com
+  onix_contact: John Doe
+  onix_email: tim@milkfarmproductions.com
+  image_email: tim@milkfarmproductions.com
+  image_archive_dir: /Users/tim/Sites/shared/coverpage/images
+  ftp_dir: /Users/tim/Sites/shared/coverpage
+  authorizenet_id: 
+  google_analytics_tracker: 
+  subscribe_url: 
+  unsubscribe_url: 
+  email_input_id: 
+  use_xsendfile: false
+  pdftk: /usr/local/bin/pdftk
+  convert: /usr/local/bin/convert
+  identify: /usr/local/bin/identify
+  gs: /usr/local/bin/gs
+  awk: /usr/local/bin/gawk
+  sed: /usr/bin/sed
+  host: cherrylake.local
+test:
+  <<: *development
+production:
+  <<: *defaults

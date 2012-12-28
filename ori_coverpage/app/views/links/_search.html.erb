@@ -1,0 +1,9 @@
+<%= form_tag search_links_path, :method => :get, :class => 'quick-search' do %>
+  <fieldset>
+    <div class="group">
+      <% value = 'product search' -%>
+      <%= text_field_tag 'q', (params[:q] || value), :onfocus => "clear_value(this, '#{value}')", :onblur => "reset_value(this, '#{value}')", :class => 'text' %>
+      <%= image_submit_tag 'search-dark.gif', :alt => '', :class => 'button' %>
+    </div>
+  </fieldset>
+<% end -%>

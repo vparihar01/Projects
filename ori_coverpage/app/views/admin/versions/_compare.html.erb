@@ -1,0 +1,30 @@
+<% 
+before_label ||= "Version #{version.is_a?(VestalVersions::Version) ? version.number : 1}"
+after_label ||= "Current"
+-%>
+<table class="print">
+  <thead>
+    <tr>
+      <th class="" style="width:200px;">Field</th>
+      <th class="" style="width:200px;"><%= before_label %></th>
+      <th class="" style="width:200px;"><%= after_label %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if changes.any? -%>
+      <% changes.each do |change| -%>
+        <tr>
+          <td><code><%= change[0] %></code></td>
+          <td><%= change[1][0] %></td>
+          <td><%= change[1][1] %></td>
+        </tr>
+      <% end -%>
+    <% else -%>
+      <tr>
+        <td colspan="3">No differences found.</td>
+      </tr>
+    <% end -%>
+  </tbody>
+  <tfoot>
+  </tfoot>
+</table>

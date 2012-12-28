@@ -1,0 +1,53 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @user} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<ul class="page-actions">
+  <li><%= link_to "Reset password", reset_path(:email => @user.email) %></li>
+</ul>
+
+<ul>
+  <li><span class="meta">Name</span> &nbsp; <strong><%= @user.name %></strong></li>
+  <li><span class="meta">Email</span> &nbsp; <strong><%= mail_to @user.email %></strong></li>
+  <li><span class="meta">Phone</span> &nbsp; <strong><%= @user.phone %></strong></li>
+  <li><span class="meta">Type</span> &nbsp; <strong><%= @user.type %></strong></li>
+  <li><span class="meta">Category</span> &nbsp; <strong><%= @user.category %></strong></li>
+  <% unless @user.sales_team_id.blank? -%>
+    <li><span class="meta">Sales Team</span> &nbsp; <strong><%= link_to(@user.sales_team.name, sales_team_path(@user.sales_team)) %></strong></li>
+  <% end -%>
+  <li><span class="meta">Created</span> &nbsp; <strong><%= @user.created_at.to_s(:custom_with_time) %></strong></li>
+  <li><span class="meta">Updated</span> &nbsp; <strong><%= @user.updated_at.to_s(:custom_with_time) %></strong></li>
+</ul>
+
+<h2>Sales</h2>
+<%- if @user.orders.any? -%>
+  <ul class="disc">
+    <%- @user.orders.each do |sale| -%>
+      <li>Order number: <%= link_to "#{sale.id}", admin_sale_path(sale) %>, Date: <%= sale.completed_at.to_s(:custom) %>, Total: <%= number_to_currency(sale.total_amount) %></li>
+    <%- end -%>
+  </ul>
+<%- else -%>
+  <p>No records found.</p>
+<%- end -%>
+
+<h2>Specifications</h2>
+<%- if @user.specs.any? -%>
+  <ul class="disc">
+    <%- @user.specs.each do |spec| -%>
+      <li><%= link_to spec.name, admin_spec_path(spec) %></li>
+    <%- end -%>
+  </ul>
+<%- else -%>
+  <p>No records found.</p>
+<%- end -%>
+
+<h2>Addresses</h2>
+<%- if @user.addresses.any? -%>
+    <%- @user.addresses.each do |address| -%>
+      <ul class="disc">
+        <%= raw address.to_html %>
+      </ul>
+    <%- end -%>
+<%- else -%>
+  <p>No records found.</p>
+<%- end -%>

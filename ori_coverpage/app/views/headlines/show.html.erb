@@ -1,0 +1,11 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @headline, :controller_path => "admin/#{controller.controller_name}"} %>
+
+<h1><%= @headline.title %></h1>
+
+<p class="byline"><em>Posted on <%= @headline.created_at.to_s(:long) %></em></p>
+
+<div class="textile forcetopmargin">
+  <%= RedCloth.new(@headline.body.blank? ? @headline.snippet : @headline.body).to_html.html_safe %>
+</div>
+
+<p class="morebuttons"><%= link_to('&laquo; Headlines'.html_safe, headlines_path, :class => 'more') %></p>

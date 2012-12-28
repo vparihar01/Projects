@@ -1,0 +1,54 @@
+<%= render :partial => 'shared/admin_index_actions' %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<% if @formats.any? -%>
+  <table id="formats" class="list">
+    <thead>
+      <th class="first">Name</th>
+      <th>Form</th>
+      <th>Detail</th>
+      <th>Default?</th>
+      <th>PDF?</th>
+      <th>Valid?</th>
+      <th class="icon last">Delete</th>
+    </thead>
+    <tbody>
+    <%- @formats.each do |format| -%>
+      <tr>
+      <td><%= link_to format.name, edit_admin_format_path(format), :class => 'highlight', :title => 'Edit' %></td>
+      <td><%= format.form %></td>
+      <td><%= format.detail %></td>
+      <td>
+        <% if format.is_default -%>
+          <%= image_tag("buttons/admin/on.gif", :alt => 'Currently Default') %>
+        <% else -%>
+          <%= link_to(image_tag("buttons/admin/off.gif", :alt => 'Set as Default'), toggle_default_admin_format_path(format), :method => :put) %>
+        <% end -%>
+      </td>
+      <td>
+        <% if format.is_pdf -%>
+          <%= image_tag("buttons/admin/on.gif", :alt => 'Currently PDF') %>
+        <% else -%>
+          <%= link_to(image_tag("buttons/admin/off.gif", :alt => 'Set as PDF'), toggle_pdf_admin_format_path(format), :method => :put) %>
+        <% end -%>
+      </td>
+      <td>
+        <% if format.requires_valid_isbn -%>
+          <%= link_to(image_tag("buttons/admin/on.gif", :alt => 'Set as does NOT require valid ISBN'), toggle_valid_admin_format_path(format), :method => :put) %>
+        <% else -%>
+          <%= link_to(image_tag("buttons/admin/off.gif", :alt => 'Set as requires valid ISBN'), toggle_valid_admin_format_path(format), :method => :put) %>
+        <% end -%>
+      </td>
+      <td class="icon">
+        <%= link_to(image_tag('buttons/admin/trash.gif', :alt => 'Delete'), admin_format_path(format), :method => :delete, :confirm => 'Are you sure you want to delete this format?', :title => 'Delete') %>
+      </td>
+      </tr>
+    <%- end -%>
+    <tbody>
+    <tfoot>
+    </tfoot>
+  </table>
+<% else -%>
+  <p>No records found.</p>
+<% end -%>

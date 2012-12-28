@@ -1,0 +1,3 @@
+# this directory should host public theme overrides (images, stylesheets, javascripts)
+
+# ./<theme>/<...public overrides...>

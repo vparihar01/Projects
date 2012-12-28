@@ -1,0 +1,15 @@
+al:
+  id: 1
+  name: Alabama
+  code: AL
+  country_id: 1
+tx:
+  id: 2
+  name: Texas
+  code: TX
+  country_id: 1
+ca:
+  id: 3
+  name: California
+  code: CA
+  country_id: 1

@@ -1,0 +1,14 @@
+<% if product.default_format -%>
+<%= content_tag_for(:tr, product, :class => cycle('odd', 'even')) do -%>
+  <% if defined?(quick) && quick == true && product.is_a?(Assembly) -%>
+    <td><%= link_to(image_tag('quick.gif', :alt => 'Show titles within this Set'), quick_path(product), :title => 'Show titles within this Set') %></td>
+  <% elsif defined?(quick) && quick == true -%>
+    <td>&nbsp;</td>
+  <% end -%>
+  <td><%= link_to(product_name_with_count(product), show_path(product), :class => 'block') %></td>
+  <td><%= image_tag("asterix/new.gif") if product.new? %><%= image_tag("asterix/recent.gif") if product.recent? %></td>
+  <td><%= CONFIG[:default_format_only] ? product.default_format.isbn : product.copyright -%></td>
+  <td><%= product_format_tag_with_price(product) %></td>
+  <td class="qty"><%= product_quantity_tag(product) %></td>
+<% end -%>
+<% end -%>

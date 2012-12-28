@@ -1,0 +1,13 @@
+<%= render :partial => 'shared/admin_show_actions', :locals => {:record => @headline} %>
+
+<h1><%= @headline.title %></h1>
+
+<div class="module-headline">
+  <p class="meta"><%= @headline.created_at.to_s(:long_day) %></p>
+  <div class="forcetopmargin"><%= RedCloth.new(@headline.body).to_html.html_safe %></p>
+</div>
+
+<ul class="meta">
+  <li>Created: <%= @headline.created_at.to_s(:long_day) %></li>
+  <li>Updated: <%= @headline.updated_at.to_s(:long_day) %></li>
+</ul>

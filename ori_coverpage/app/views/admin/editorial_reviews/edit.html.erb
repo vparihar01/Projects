@@ -1,0 +1,10 @@
+<%= render :partial => 'shared/admin_edit_actions', :locals => {:record => @editorial_review} %>
+
+<h1><%= calculate_page_heading %></h1>
+
+<%= form_for @editorial_review, :url => admin_editorial_review_path(@editorial_review) do |f| %>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= submit_or_cancel(admin_editorial_review_path(@editorial_review)) %>
+<% end %>
+
+<%= render :partial => 'shared/textile_allowed' %>

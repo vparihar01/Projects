@@ -1,0 +1,20 @@
+<h1><%= calculate_page_heading %></h1>
+
+<table cellspacing="0" class="list">
+  <tr>
+    <th class="first">Order Number</th>
+    <th>User</th>
+    <th>Date Submitted</th>
+    <th>Status</th>
+    <th class="number last">Total</th>
+  </tr>
+  <% @sales.each do |sale| %>
+    <%= content_tag_for(:tr, sale, :class => cycle('odd', 'even') + (sale.status.nil? ? '' : ' ' + sale.status.downcase)) do -%>
+      <td><%= link_to sale.id, admin_sale_path(sale), :class => 'highlight' %></td>
+      <td><%= link_to sale.user.name, admin_user_path(sale.user) rescue nil %></td>
+      <td><%= sale.completed_at.to_s(:us) rescue nil %></td>
+      <td><%= sale.status %></td>
+      <td class="number"><%= number_to_currency(sale.total_amount) %></td>
+    <% end %>
+  <% end %>
+</table>

@@ -1,0 +1,14 @@
+<%= render :partial => 'shared/admin_new_actions' %>
+
+<h1>Free Catalog Request</h1>
+
+<p>Fill out the form below to receive our free printed catalog. The information you provide will only be used to deliver you our catalog unless you specify otherwise. For further details, please refer to our <%= link_to('privacy policy', public_page_path(:privacy)) %>.</p>
+
+<%= render :partial => 'shared/required' %>
+
+<%= form_for @catalog_request, :url => catalog_requests_path do |f| -%>
+  <%= render :partial => 'form', :locals => {:f => f} %>
+  <%= page_buttons(submit_tag('Submit')) %>
+<% end -%>
+
+<%= render :partial => 'shared/mailing_restriction' %>

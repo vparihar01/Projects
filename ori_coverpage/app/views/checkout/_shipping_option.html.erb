@@ -1,0 +1,10 @@
+<div class="formrow">
+  <input type="radio" name="shipping" value="<%= shipping_option.service_code %>" <%= 'checked="checked"' if shipping_option.service_code == @cart.shipping_method %> />
+  <label for="address" class="inline">
+    <%= shipping_option.label %>: 
+    <%= shipping_option.cost == 0 ? 'Free!' : number_to_currency(shipping_option.cost) %>
+  </label>
+  <%- unless shipping_option.cost == 0 || shipping_option.description.blank? -%>
+    <em>(<%= shipping_option.description -%>)</em>
+  <%- end -%>
+</div>

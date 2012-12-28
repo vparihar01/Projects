@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  written_on: 2010-05-11 12:01
+  source: milkfarmproductions
+  body: a short review -- good
+two:
+  id: 2
+  written_on: 2010-05-11 12:09
+  body: a short review -- bad
+  source: milkfarmproductions

@@ -1,0 +1,4 @@
+id,name,isbn,price_list,price,collection_id,collection_name,description,available_on,type,copyright,pages,dewey,interest_level_min,interest_level_max
+<% @products.each do |x| -%>
+"<%= ([x.id, x.name, (x.default_format ? x.default_format.isbn13str : nil), x.default_price_list, x.default_price, x.collection_id, (x.respond_to?(:collection) && !x.collection.nil? ? x.collection.name : ""), x.description, x.available_on, x.type, x.copyright, x.pages, x.dewey, x.interest_level_min.try(:abbreviation), x.interest_level_max.try(:abbreviation)]).join('","').html_safe %>"
+<% end -%>

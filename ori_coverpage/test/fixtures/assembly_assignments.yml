@@ -1,0 +1,9 @@
+recent:
+  id: 1
+  assembly_id: 4
+  product_id: 2
+  
+new:
+  id: 2
+  assembly_id: 4
+  product_id: 3

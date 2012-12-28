@@ -1,0 +1,14 @@
+<%= @message %>
+
+<%= server_info(@server) -%>
+
+<% if @is_csv -%>
+Note: This is a CSV file (comma-separated values). It can be 
+opened in Microsoft Excel using the 'Text Import Wizard'.
+<% end -%>
+
+<%= divider %>
+
+You are receiving this message because you have subscribed to the 
+<%= CONFIG[:app_name] %> wholesaler distribution list. If you 
+prefer not to receive these updates please reply to this message.

@@ -1,0 +1,47 @@
+<table class="print" id="line_items">
+  <thead>
+    <tr>
+      <th class="left">Title</th>
+      <th class="left"><%= format_column_heading(:always_display_price => false) -%></th>
+      <th class="right">Price</th>
+      <th class="center">Qty</th>
+      <th class="right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= render :partial => 'shared/line_item', :collection => line_item_collection.line_items %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td class="subtotal-label" colspan="4">Subtotal:</td>
+      <td class="subtotal right"><%= number_to_currency(line_item_collection.amount) %></td>
+    </tr>
+    <% if line_item_collection.discounted? -%>
+    <tr>
+      <td class="subtotal-label" colspan="4">Discount:</td>
+      <td class="subtotal right"><%= number_to_currency(-line_item_collection.discount_amount) %></td>
+    </tr>
+    <% end -%>
+    <tr>
+      <td class="subtotal-label" colspan="4">Library Processing<%= ' (' + pluralize(line_item_collection.title_count, 'book') + ')' %>:</td>
+      <td class="subtotal right"><%= number_to_currency(line_item_collection.processing_amount) %></td>
+    </tr>
+    <tr>
+      <td class="subtotal-label" colspan="4">Accelerated Reader&reg; Quizzes<%= ' (' + pluralize(line_item_collection.alsquiz_count, 'title') + (line_item_collection.alsquiz_count < CONFIG[:alsquiz_min_limit] ? " - <b><font color=red>minimum #{CONFIG[:alsquiz_min_limit]} titles not reached.</font></b>" : '') + ')' %>:</td>
+      <td class="subtotal right"><%= number_to_currency(line_item_collection.alsquiz_amount) %></td>
+    </tr>
+    <tr>
+      <td class="subtotal-label" colspan="4">Tax<%= " (#{ship_address.postal_code.zone.code} #{number_to_percentage(ship_address.postal_code.tax_rate * 100, :precision => 3)})" if line_item_collection.tax > 0 %>:</td>
+      <td class="subtotal right"><%= number_to_currency(line_item_collection.tax) %></td>
+    </tr>
+    <tr>
+      <td class="subtotal-label" colspan="4">Shipping (<%= UPS::Client::Services[line_item_collection.shipping_method] %>):</td>
+      <td class="subtotal right"><%= number_to_currency(line_item_collection.shipping_amount) %></td>
+    </tr>
+    <tr>
+      <td class="total-label" colspan="4">Total:</td>
+      <td class="total right"><%= number_to_currency(line_item_collection.total_amount) %></td>
+    </tr>
+  </tfoot>
+</table>
+<%= content_tag(:p, content_tag(:span, "Coupon Code: #{line_item_collection.discount_code}", :class => ''), :style => 'margin:0;') unless line_item_collection.discount_code.blank? %>

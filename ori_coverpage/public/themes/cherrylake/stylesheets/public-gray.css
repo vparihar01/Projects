@@ -1,0 +1,12 @@
+.wrapper {
+  background:#fff url(../images/layouts/public/wrapper-bg-gray.gif) repeat-y top left;
+}
+.main {
+  background:url(../images/layouts/public/logo-edge.gif) no-repeat top left;
+}
+#content {
+  background:url(../images/layouts/public/main-bg.gif) no-repeat top right;
+}
+#bottombar {
+  background:url(../images/layouts/public/footer-gray.gif) no-repeat top left;
+}

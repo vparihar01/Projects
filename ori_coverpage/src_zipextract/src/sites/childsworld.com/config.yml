@@ -1,0 +1,269 @@
+---
+defaults: &defaults
+  theme: childsworld
+  menu_type: sticky_tab  # Either drop_tab or sticky_tab
+  show_panel: false
+  show_sidebar: true
+  # Map controller to layout (app/views/layouts filename less extension)
+  controller_layouts:
+    account_controller: account
+    addresses_controller: account
+    catalog_requests_controller: help
+    categories_controller: subjects
+    checkout_controller: checkout
+    collections_controller: home
+    contracts_controller: sales
+    contributors_controller: about
+    customers_controller: admin
+    downloads_controller: resources
+    editorial_reviews_controller: about
+    errata_controller: home
+    excerpts_controller: home
+    faqs_controller: help
+    handouts_controller: resources
+    headlines_controller: about
+    levels_controller: grades
+    links_controller: resources
+    pages_controller: application
+    products_controller: shop
+    quotes_controller: account
+    sales_reps_controller: sales
+    sales_teams_controller: sales
+    sales_zones_controller: sales
+    shop_controller: shop
+    specs_controller: account
+    teaching_guides_controller: resources
+    testimonials_controller: home
+    wishlists_controller: account
+  # Map complex page (see pages controller) to layout
+  page_layouts:
+    home: home
+    geolocation: about
+    contact: help
+    hosted_ebooks_trial: help
+    subscribe: home
+    unsubscribe: home
+    reps: about
+  # Map layout to menu tab (specifying which tab will be active)
+  layout_tabs:
+    about: home
+    account: 
+    admin: 
+    checkout: 
+    collections: home
+    grades: grades
+    help: 
+    home: home
+    quick: home
+    resources: resources
+    sales: 
+    search: home
+    shop: home
+    subjects: subjects
+  glider_frequency: 10
+  glider_duration: 0.7
+  fade_duration: 0.2
+  blind_duration: 0.2
+  cart_startcolor: # can leave blank, defaults to yellow
+  cart_endcolor: # can leave blank, defaults to white
+  fallback_pdf_price: 9.95
+  fallback_trade_price: 8.95
+  #
+  company_name: "The Child's World"
+  tax_id: 41-1932662
+  app_name: ChildsWorld.com
+  app_url: http://childsworld.com/
+  phone: 800-599-7323
+  fax: 888-320-2329
+  street: 1980 Lookout Drive
+  suite: 
+  city: North Mankato
+  state: MN
+  zip: 56003-1705
+  order_street: 1980 Lookout Drive
+  order_suite: 
+  order_city: North Mankato
+  order_state: MN
+  order_zip: 56003-1705
+  canada_company: Edu Reference Publishers Direct Inc.
+  canada_street: 109 Woodbine Downs Blvd. Unit #3
+  canada_suite: 
+  canada_city: Toronto
+  canada_state: Ontario
+  canada_zip: M9W 6Y1
+  canada_phone: '416-674-8622'
+  canada_fax: '416-674-6215'
+  canada_email: info@edureference.com
+  canada_web: 'http://www.edureference.com'
+  webmaster_email: dev@childsworld.com
+  webmaster_ftp: ftp://mf-share:milkfarm@milkfarmproductions.com
+  webmaster_sftp: sftp://tv:tv@mini.local
+  exception_email: redmine@milkfarmproductions.com
+  sales_email: sales@childsworld.com
+  support_email: support@childsworld.com
+  hosted_ebooks_trial_email: 
+  hosted_ebooks_url: 
+  onix_contact: Tim Peterson
+  onix_email: tim.peterson@childsworld.com
+  image_email: tim.peterson@childsworld.com
+  image_archive_dir: /home/share/images
+  ftp_dir: /home/share
+  export_basename: childsworld
+  extended_per_page: 20
+  compact_per_page: 100
+  # Authorize.net
+  authorizenet_id: 8bf924e2-72b0-4e26-8e7a-cfe92c3abce3
+  # Google analytics
+  google_analytics_tracker: UA-5885669-1
+  # Campaign monitor
+  subscribe_url: http://milkfarmproductions.createsend.com/t/r/s/pjibj/
+  unsubscribe_url: http://milkfarmproductions.createsend.com/t/r/u/pjibj/
+  email_input_id: cm-pjibj-pjibj
+  # Enable x-sendfile option of send_file
+  use_xsendfile: true
+  # Website image parameters
+  website_images_dir: public/images
+  website_samples_dir: tmp/samples
+  website_image_size_geometries:
+    s: '85x100'
+    m: '170x200'
+    l: '340x400'
+  website_image_scale_s: 0.1
+  website_image_scale_m: 0.15
+  website_image_scale_l: 0.35
+  composite_image_rotation: 0
+  glider_image_rotation: 0
+  # show/hide library processing specifications disclaimer on returns & refunds
+  # true shows, false hides, not defined hides (see app/views/specs/_disclaimer.html.erb)
+  show_processing_disclaimer: true
+  # Library processing
+  free_library_processing: true # true or false (undefined = false)
+  reading_label_cost: 0
+  catalog_card_cost: 0
+  data_disk_cost: 0
+  data_disk_per_book_cost: 0
+  barcode_label_cost: 0
+  # Shipping options
+  free_shipping_for_institutions: true # true or false (undefined = false)
+  shipping_costs_method: percentage2   # use 'percentage1' for a cherrylake-like calculation, 'percentage2' for a childsworld-like calculation
+  shipping_cost_factor: 0.1            # put calculation factor
+  shipping_min_cost: 10                   # min amount for shipping in dollars (0 for no limit)
+  shipping_max_cost: 0                   # max amount for shipping in dollars (0 for no limit)
+  shipping_description_ups: '10% of net sale, $10 mininum' # description to be displayed for the 'UPS Ground' shipping
+  default_format_only: true              # Show only default product format
+  # Ebook importing parameters
+  ebook_import_overwrite: false
+  ebook_import_source_dir: tmp/ebooks/in
+  ebook_import_archive_dir: tmp/ebooks/out
+  ebook_import_bad_dir: tmp/ebooks/bad
+  ebook_import_unknown_dir: tmp/ebooks/unknown
+  pdf_archive_dir: /Users/Shared/Projects/childsworld/ebooks
+  # Advanced Reader Pricing
+  alsquiz_unit_price: 2.99
+  alsquiz_min_limit: 0
+  # shell programs used by lib/pdf.rb
+  pdftk: /usr/bin/pdftk
+  exiftool: /usr/local/bin/exiftool
+  convert: /usr/bin/convert
+  identify: /usr/bin/identify
+  gs: /usr/bin/gs
+  awk: /usr/bin/gawk
+  sed: /bin/sed
+  # PdfTool options (watermarking samples, downloads, etc.)
+  pdftool_temp_dir: tmp/pdftool
+  # PdfTool: Product Download options
+  # pdftool_download_watermark_file: protected/watermark_download.pdf
+  pdftool_download_text: This copy has been exclusively prepared for %s.
+  pdftool_download_text_properties:
+    font: Helvetica
+    font_size: 10
+    text_angle: 0
+    justification: center
+    alignment: bottom
+    font_color: '#666666'
+    vmargin: 10
+    hmargin: 0
+  pdftool_download_password: asecretphrase
+  pdftool_download_permissions: # see pdftk --help for more info
+    - ScreenReaders
+  # PdfTool: Sample options
+  # pdftool_sample_watermark_file: protected/watermark_sample.pdf
+  # pdftool_sample_text: PRODUCT SAMPLE
+  pdftool_sample_text_properties: 
+  # pdftool_sample_text_properties:
+  #   font: Helvetica
+  #   font_size: 40
+  #   text_angle: 45
+  #   justification: center
+  #   alignment: center
+  #   font_color: '#666666'
+  #   vmargin: 0
+  #   hmargin: 0
+  pdftool_sample_front_pages: 19  # should be odd number
+  pdftool_sample_back_pages: 10  # should be odd number
+  # Use price calculations: set to true or false
+  calculate_assembly_price: false
+  calculate_list_price: false
+  calculate_ebook_price: true
+  ebook_price_decimal: 1.0 # used if calculate_ebook_price set to true
+  ebook_fallback_price: 9.95 # used if calculate_ebook_price set to true and default price is null
+  member_price_decimal: 0.7 # used to calculate list price from member price
+  # mailer
+  host: childsworld.com
+  parser_archive_dir: tmp/import/archive
+  errata_login_required: false
+  email_sale_status: true
+  # ftp site for images, etc
+  ftp_site: ftp://ftp.childsworld.com
+  ftp_user: share
+  ftp_password: share
+  redmine:
+    project: coverpage
+    tracker: Bug
+    priority: High
+    status: New
+    category: Support
+    api_key: oZXHwxYvRko1sIy3tuBG
+  default_bisac: JNF000000
+  show_error_pages: true
+  calculate_title_and_subtitle: false
+  show_buttons_in_list: true
+  max_extended_rows: 4
+  contention_import_dir: /home/childsworld/contention/incoming
+  csplus_discount_code: 
+  show_facebook_like: false
+  facebook_id: 100003451971223  # comma-separated
+  meta_keywords: ["school books", "education", "nonfiction"]
+  meta_description: The Child's World is an independent, family-owned company that has been publishing books for schools and libraries since 1968. We strive to create educational books that children will enjoy reading.
+  show_search_filters: true
+  show_format_ids: [1, 2]  # Array of format ids to show on public site
+  price_change_notice: 120  # Days of advance notice
+development: &development
+  <<: *defaults
+  webmaster_email: tim@milkfarmproductions.com
+  exception_email: tim@milkfarmproductions.com
+  sales_email: tim@milkfarmproductions.com
+  support_email: tim@milkfarmproductions.com
+  hosted_ebooks_trial_email: tim@milkfarmproductions.com
+  onix_contact: John Doe
+  onix_email: tim@milkfarmproductions.com
+  image_email: tim@milkfarmproductions.com
+  image_archive_dir: /Volumes/Groups/childsworld/share/images
+  ftp_dir: /Users/tim/Sites/shared/coverpage
+  authorizenet_id: 
+  google_analytics_tracker: 
+  subscribe_url: 
+  unsubscribe_url: 
+  email_input_id: 
+  use_xsendfile: false
+  pdftk: /usr/local/bin/pdftk
+  convert: /usr/local/bin/convert
+  identify: /usr/local/bin/identify
+  gs: /usr/local/bin/gs
+  awk: /usr/local/bin/gawk
+  sed: /usr/local/bin/sed
+  host: coverpage.local
+test:
+  <<: *development
+production:
+  <<: *defaults
