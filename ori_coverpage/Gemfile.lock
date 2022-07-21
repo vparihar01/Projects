@@ -105,7 +105,6 @@ GEM
     churn (0.0.15)
       arrayfields (= 4.7.4)
       chronic (>= 0.2.3)
-      chronic (>= 0.2.3)
       fattr (= 2.2.0)
       hirb (= 0.5.0)
       hirb
@@ -266,7 +265,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.31)
+    tzinfo (0.3.61)
     wait_a_minute (0.0.5)
       rails (>= 3.0.1)
     whenever (0.6.8)
